@@ -1,0 +1,13 @@
+- if @invoice.estimate_confirmations.present?
+  - list 'Estimate Confirmations' do
+    - for ec in @invoice.estimate_confirmations.reverse
+      %li{"data-theme" => ec.yes_or_no? ? nil : "e"  }
+        - if ec.yes_or_no?
+          %h3= ec.desired_appointment_date.blank?  ? '[empty appointment date]' : ec.desired_appointment_date
+          %p= ec.details.blank? ? '[empty details]' : ec.details
+        - else
+          %h3= ec.care_to_share.blank? ? "-empty-" : ec.care_to_share
+        %p.ui-li-aside
+          %b= ec.yes_or_no? ? 'Confirmed' : 'Canceled'
+          %br
+          = ec.created_at.to_s(:short)

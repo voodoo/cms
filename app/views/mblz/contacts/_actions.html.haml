@@ -1,0 +1,30 @@
+- list do
+  %li    
+    = link_to "https://maps.google.com?q=#{url_encode(@contact.address)}", target: '_blank' do
+      %i.fa.awesome-icon.fa-2x.fa-map-marker
+      %h3        
+        Map
+      %p 
+        View on Google maps
+  %li
+    = link_to export_mblz_contact_path(@contact), data: {ajax: false} do
+      %i.fa.awesome-icon.fa-2x.fa-cloud-download
+      %h3 Export to email
+      %p 
+        Send VCard to owner
+        = current_site.email
+      /= btn_edit edit_mblz_contact_path(@contact)
+
+  %li(data-icon='arrow-u')
+    = link_to touch_mblz_contact_path(@contact) do
+      %i.fa.awesome-icon.fa-2x.fa-hand-o-up
+      %h3 
+        Touch
+        %span.hint move to top of Now page
+      %p 
+        %b Last updated
+        = @contact.updated_at.to_s(:long)
+      %p.ui-li-aside
+        = @contact.created_at.to_s(:long)
+        %br
+        %b Created

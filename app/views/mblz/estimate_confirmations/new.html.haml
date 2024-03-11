@@ -1,0 +1,47 @@
+/- @estimate_confirmation = EstimateConfirmation.new(desired_appointment_date: Date.today)#.to_s.split('-').reverse.join('/'))
+.row
+  .col-sm-12
+    .panel.panel-success
+      .panel-heading
+        .panel-title Confirmation
+      .panel-body#confirmation-container
+        #btnsYesOrNo
+          %h4.page-header(style='margin-top:0')
+            Would you like to confirm this estimate?
+          .col-sm-offset-1
+            = link_to "Yes, please", "#", class: 'btn btn-success btn-yes-no'
+            &nbsp;
+            %b= link_to "No, thank you", "#", class: 'btn-yes-no'
+        = form_for :estimate_confirmation, :html => {class: 'form-horizontal', id: 'frm-confirmation'} do |f|
+          #divYes(style='display:none')
+            %h4.page-header(style='margin-top:0')
+              Confirm this estimate and schedule an appointment?  
+            .form-group
+              %label.col-sm-2.control-label Date
+              .col-sm-10
+                = f.date_field :desired_appointment_date, :placeholder => "Desired Appointment Date", class: 'form-control', required: '1', value: Date.today
+                .help-block.with-errors
+            .form-group
+              %label.col-sm-2.control-label Details
+              .col-sm-10
+                = f.text_area :details, :placeholder => "Details you'd like to share eg, dogs, fence, gated community", class: 'form-control', maxlength: 160
+            .col-sm-offset-2
+              = f.submit "Yes, please confirm and put me on the schedule", :name => 'btnYes', class: 'btn btn-success'
+              &nbsp;
+              = link_to "Cancel", "#", class: 'btn-cancel'
+        = form_for :estimate_confirmation, :html => {class: 'form-horizontal', id: 'frm-confirmation-cancel'} do |f|
+          #divNo(style='display:none')
+            %h4.page-header(style='margin-top:0')
+              You can NOT confirm at this time?        
+            .form-group
+              %label.col-sm-3.control-label
+                Care to share why?
+              .col-sm-9
+                = f.text_field :care_to_share, class: 'form-control', placeholder: 'You can not confirm at this time'
+            .col-sm-offset-3
+              = f.submit "No, I can't confirm", :name => 'btnNo', class: 'btn btn-info'
+              &nbsp;
+              = link_to "Cancel", '#', class: 'btn-cancel'
+          = f.hidden_field :yes_or_no
+          = f.hidden_field :token, :value => @invoice.token
+= javascript_include_tag "invoice/confirmation"

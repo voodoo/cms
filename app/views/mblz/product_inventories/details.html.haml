@@ -1,0 +1,31 @@
+- @title = "Inventory details"
+- number_of_products, retail, cost, not_costed, negative_inventory, inactive = ProductInventory.product_details(current_site)
+
+- list "Show me the money" do
+  %li 
+    = link_to mblz_products_path do
+      %h3 Number of products
+      %p 
+        Valued at 
+        %b= number_to_currency(retail)
+        with a cost of
+        %b= number_to_currency cost
+        which is a markup of approximately
+        %b= (retail/cost).round(2)
+
+      .ui-li-count=number_of_products
+
+- if not_costed.present?
+  - list "Product without Price or Cost <div class='ui-li-count'>#{not_costed.count}</div>".html_safe do
+    - not_costed.each do |product|
+      %li= link_to product.name, mblz_product_path(product)
+
+- if negative_inventory.present?
+  - list "Product with Negative Inventory <div class='ui-li-count'>#{negative_inventory.count}</div>".html_safe do
+    - negative_inventory.each do |product|
+      %li= link_to product.name, new_mblz_product_inventory_path(name: product.name)
+
+- if inactive.present?
+  - list "Products that are Inactive <div class='ui-li-count'>#{inactive.count}</div>".html_safe do
+    - inactive.each do |product|
+      %li= link_to product.name, new_mblz_product_inventory_path(name: product.name)

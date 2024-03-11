@@ -1,0 +1,30 @@
+- fixed = iphone? ? nil : 'fixed'
+%div(data-role='header' data-position=fixed) 
+  %h1= @title || controller_name.titleize
+  - if current_user 
+    - if controller_name == 'now' && action_name == 'index'
+      %a(href="#panelMain" rel='external' data-icon="bars" title='More...' data-iconpos='notext') 
+      - content_for :panel do
+        = render 'mblz/shared/panel' 
+    - elsif controller_name =~ /^product/
+      %a(href="#panelMain" rel='external' data-icon="bars" title='More...' data-iconpos='notext') 
+      - content_for :panel do
+        %div(data-role='panel' id='panelMain' data-display="push")
+          = link_to "Return to MBLZ Now", mblz_root_path, data: {role: :button, icon: 'back', theme: 'b', mini: true}
+          = render 'mblz/shared/products_panel'     
+    - else
+      - path = mblz_root_path
+      - if request.fullpath =~ /\/cms/
+        - if controller_name == 'pages' && !current_page?(cms_pages_path)
+          - path = cms_pages_path
+        - elsif !current_page?(cms_root_path)
+          - path = cms_root_path
+      - elsif request.fullpath =~ /\/admin/ && !current_page?(admin_root_path)
+        - path = admin_root_path
+      - elsif request.fullpath =~ /\/product/ && !current_page?(mblz_products_path)
+        - path = mblz_products_path        
+      %a(href=path rel='external' data-icon="home" data-iconpos="notext")
+    
+
+  = yield(:title_btn)
+  = yield(:navbar) 

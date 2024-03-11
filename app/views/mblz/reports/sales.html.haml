@@ -1,0 +1,9 @@
+- list 'Recent Sales' do
+  - ["Today", "Yesterday", "7 Days", "30 Days", "Year"].each_with_index do |title, i|
+    %li
+      %h3
+        = title
+      %p 
+        %b= number_to_currency to_total(@recents[i])
+        == (Unpaid #{number_to_currency(to_total(to_unpaid(@recents[i])))})
+      %span.ui-li-count= @recents[i].count

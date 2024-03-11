@@ -1,0 +1,6 @@
+%div(data-role='navbar')
+  %ul
+    - InvoiceStatus::NAMES.each_with_index do |status,i|
+      - next if ['Paid', 'Cancel'].include? status
+      - selected =  get_current_invoice_status_for(i)
+      %li= link_to status, mblz_invoices_path(:s => i), :class => selected

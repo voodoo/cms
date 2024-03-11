@@ -1,0 +1,10 @@
+.estimateConfirmationResponse
+  - if @ec.yes_or_no? 
+    .fa.fa-smile-o.fa-3x.pull-right(style='color:teal' title="Confirmed")
+    %h5 Thank you for confirming your estimate 
+    %p Someone will contact you shortly to confirm your appointment date, time, and details
+  - else 
+    .fa.fa-frown-o.fa-3x.pull-right(style='color:firebrick')
+    %h5 Sorry to hear you won't be able to confirm your estimate today
+
+    %p Thank you for letting us know - we look forward to serving you in the future

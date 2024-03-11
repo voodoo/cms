@@ -1,0 +1,20 @@
+xml.instruct!
+
+xml.rss "version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
+ xml.channel do
+
+   xml.title       "I see you"
+   xml.link        url_for :only_path => false, :controller => 'rss'
+   xml.description "Tristan Residence Surveilance"
+
+   @pages.each do |page|
+     xml.item do
+       xml.title page.title
+       xml.description do
+         xml.cdata! "Hello this is my imae. <p/><img src='http://192.168.1.69:3000/images/eyeball.jpg'/>"
+       end
+       #xml.enclosure :url => "http://192.168.1.69:3000/images/icon/home.jpg", :type =>  "image/jpg"
+     end
+   end
+ end
+end

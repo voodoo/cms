@@ -1,0 +1,9 @@
+%div(data-role='controlgroup' data-type='horizontal' data-mini='true')
+  = link_to "Filter by:", "#", 'data-role': 'button', class: 'ui-disabled'
+  - if params[:t]
+    = link_to "All", "?", 'data-role': 'button'
+  - %w[Contact Invoice ProductInvoice Comment IncomingCall User].each do |t|
+    = link_to "?t=#{t}&user_id=#{params[:user_id]}", 'data-role': 'button', title: t, 'data-theme': params[:t] == t ? 'a' : nil do
+      %i.fa{class: trackable_icon(t)}
+  - if @user
+    = link_to @user.login, "#", 'data-role': 'button', class: 'ui-disabled'

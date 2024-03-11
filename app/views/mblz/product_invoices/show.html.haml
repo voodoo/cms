@@ -1,0 +1,64 @@
+- content_for :title_btn, link_to("Edit", edit_mblz_product_invoice_path(@product_invoice), data: {icon: :edit, :title => 'Edit Invoice', iconpos: :notext})
+
+- list nil do
+  %li(data-theme='a')= link_to "Print", print_mblz_product_invoice_path(@product_invoice)
+
+- if @product_invoice.contact
+  - list "Contact" do
+    %li= link_to @product_invoice.contact.full_name, mblz_contact_path(@product_invoice.contact)
+
+- list "Product Invoice ##{@product_invoice.id}" do
+  - for item in @product_invoice.product_invoice_items
+    %li
+      %h3= item.product.name rescue "ERROR on product id ##{item.product_id}"
+      %span(class="ui-li-count" title="Quantity")= item.qty
+      %p(class='ui-li-aside')
+        %span(title="Price")= number_to_currency item.price
+        %br
+        %b(title="Subtotal")= number_to_currency(item.price * item.qty)
+
+- list ['Totals',@product_invoice.updated_at.to_s(:long)] do
+  %li
+    %h3= number_to_currency @product_invoice.sub
+    %p.ui-li-aside Subtotal
+  
+  - if @product_invoice.discount != 0.0
+    %li
+      %h3= number_to_currency @product_invoice.discounted
+      %p.ui-li-aside 
+        Discount
+        - if @product_invoice.discount < 1
+          == #{(@product_invoice.discount*100).to_i}%
+
+  %li
+    %h3= number_to_currency @product_invoice.tax
+    %p.ui-li-aside 
+      -if @product_invoice.taxable
+        Tax
+      - else
+        No Tax
+  %li
+    %h3= number_to_currency @product_invoice.total
+    %p.ui-li-aside TOTAL        
+
+- list "Paid by" do
+  %li{"data-theme": @product_invoice.paid.zero? ? 'e' : nil}
+    %h3= @product_invoice.paid_status
+
+- list "Commissions" do
+  %li
+    %h3= number_to_currency(@product_invoice.sales_commission * @product_invoice.sub)
+    %p Sales
+    %p.ui-li-aside=@product_invoice.sales_commission
+  %li
+    %h3= number_to_currency(@product_invoice.mblz_commission * @product_invoice.sub)
+    %p MBLZ
+    %p.ui-li-aside=@product_invoice.mblz_commission
+
+- if @product_invoice.note.present?
+  - list "Note" do
+    %li= @product_invoice.note
+
+- if @product_invoice.footer.present?
+  - list "Footer" do
+    %li= @product_invoice.footer

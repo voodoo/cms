@@ -1,0 +1,21 @@
+- content_for :title_btn do
+  /= link_to_function 'Update', "$('.click_update').trigger('click')"
+
+
+/= render 'cms/shared/update_object'
+
+- content_for :menu do
+  = render :partial => "menu"
+
+
+- title "Editing Style"
+
+#objectMessage
+
+= form_for(['cms', @style], html: {'data-ajax' => 'false', 'remote' => 'true'}) do |f|
+  - list('Edit Style') do
+    = render :partial => 'form', :locals => {:f => f}
+  %p= f.submit "Update", :class => 'click_update'
+
+%p= link_to "Delete", cms_style_path(@style), :method => :delete, 'data-confirm' => REALLY, :data => {:role => 'button', :inline => true, :icon => :delete}
+

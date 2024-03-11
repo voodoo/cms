@@ -1,0 +1,77 @@
+textarea.expanding {
+	line-height: 18px;
+}
+
+input[type='submit'] {
+    margin: 1.5em 0.5em 2em 0em;
+}
+.fieldset {
+    margin-bottom: 1.2em;
+}
+.fieldset * {
+    margin-right: 4px;
+}
+.fieldWithErrors input {
+    background: #FFE5E5;
+    border: 2px solid red;
+    min-height: 1.7em;
+}
+.inline_error_message {
+    color: red;
+    display: inline;
+}
+
+.error_field{
+  background:lightpink;
+  padding:8px;
+}
+.error_field label{
+  background:lightpink url(/images/icon/error.png) left top no-repeat ;
+  padding-left:22px;
+}
+.error_field input, .error_field select, .error_field textarea{
+ border: 1px solid firebrick;
+}
+.required_field_delimeter{
+  color:firebrick;
+}
+fieldset{
+	border:1px solid #ccc;
+	padding:12px;
+	
+}
+fieldset legend{
+	font-size:2em;
+}
+input[type=submit], input[type=button]{
+	font-weight:bold;
+	font-size:120%;
+}
+
+
+label{
+	display:block;
+	font-weight:bold;
+}
+
+div.hint{
+  color: #666;
+  padding:6px;
+}
+
+input{
+	border:1px solid #666;
+}
+
+input[type=text], select{
+  width:100%;
+  font-size:2.2em;
+}
+
+
+textarea{
+	border:1px solid #666;
+	width:100%;
+	height:200px;
+}
+

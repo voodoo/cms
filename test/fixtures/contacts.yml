@@ -1,0 +1,12 @@
+default:
+  site: default
+  first_name: default_contact_first_name
+  last_name: default_contact_last_name
+  priority: 0
+  phone: 2105553333
+priority:
+  site: default
+  first_name: priority_contact_first_name
+  last_name: priority_contact_last_name 
+  priority: 1 
+  phone: 2105551212

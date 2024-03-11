@@ -1,0 +1,44 @@
+- content_for :title_btn, link_to("Delete", admin_path_path(params[:id]), method: :delete, confirm: "Really?")
+
+
+- list 'Session' do
+  %li
+    = link_to @site.subdomain, site_admin_path_path(@site)  
+  %li
+    %h3
+      = @paths.size
+    %p.ui-li-aside Number of Requests
+  
+  %li
+    %h3
+      = Time.at(@paths.first.created_at - @paths.last.created_at).gmtime.strftime('%R:%S')
+    %p.ui-li-aside Total Time
+
+  - if @paths.last.referer
+    %li
+      %h3= @paths.last.referer
+      %p.ui-li-aside Referer  
+
+  %li
+    = @paths.first.browser
+    %p.ui-li-aside Browser
+  
+  %li
+    %h3= @paths.last.ip
+    %p.ui-li-aside IP
+  
+
+
+  / %li(data-theme='e' data-icon='minus')
+  /   = link_to("Delete", admin_path_path(params[:id]), method: :delete, confirm: "Really?")
+
+- list "Paths" do
+  - for path in @paths
+    %li
+      = link_to admin_path_path(path) do
+        %h3= path.url
+        %p.ui-li-aside
+          = path.created_at.to_s(:long)
+
+
+

@@ -1,0 +1,12 @@
+= render 'form'
+
+- tag_count = @tag.contacts.count
+
+- if tag_count > 0
+  %h3.warn Warning  
+  %p(style='color:red') 
+    You can delete this tag but it will remove 
+    = link_to "all tags (#{tag_count})", mblz_tag_path(@tag) 
+    attached to contacts
+= link_to 'Destroy', admin_site_tag_path(@site, @tag), method: :delete, |
+	       confirm: "This will remove all tags attached to contacts", data: {role: 'button', theme:'f'} 

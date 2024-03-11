@@ -1,0 +1,41 @@
+- list 'Items' do
+  - for item in @invoice.invoice_items
+    %li
+      %h3= item.name
+      - unless item.note.blank?
+        %div(style='font-weight:normal;font-size:small')= item.note
+      %span(class="ui-li-count" title="Quantity")= item.qty
+      %p(class='ui-li-aside')
+        %span(title="Price")= number_to_currency item.price
+        %br
+        - if @invoice.review 
+          %span(class="review_icon publishable_#{item.publishable?}" title="Click to change" data-publishable-id="#{item.id}") &#9786;
+        %b(title="Subtotal")= number_to_currency(item.price * item.qty)
+
+      /%b= number_to_currency(item.sub)
+
+:css
+  span.review_icon{
+    cursor: pointer;
+  }
+  span.publishable_false{
+    color:firebrick;
+  }
+:javascript
+  var invoice_id=#{@invoice.id}
+  $('span.review_icon').on('click', function(){
+    var self    = $(this)
+    var item_id = self.data("publishable-id")
+    $.ajax({
+      type: 'POST',
+      url: "/mblz/invoices/" + invoice_id + "/update_item_publishable",
+      data: {invoice_item_id:item_id},
+      success: function(data){
+        $.mobile.loading('hide');
+        notify("Line item's 'Publishable' attribute was changed to " + data)
+        self.removeClass('publishable_true')
+        self.removeClass('publishable_false')
+        self.addClass('publishable_' + data)
+      }
+    });    
+  })

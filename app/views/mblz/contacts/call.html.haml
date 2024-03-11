@@ -1,0 +1,23 @@
+- @title = "Contact"
+- content_for :title_btn, link_to("Cancel", mblz_contact_path(@contact))
+
+- list "Make a call" do
+  %li
+    = link_to "#", id: :phoneAction do  
+      %i.fa.fa-2x.fa-phone.awesome-icon.green#iState     
+      %h3#h3State
+        Call        
+      %p
+        %i.fa.fa-spinner.fa-spin#iSpinner(style='display:none')
+        %b= @contact.full_name
+        = params[:n].to_phone
+      %p.ui-li-aside
+        %span#showLog
+        
+    = link_to 'Show log', "#", id: 'aShowLog'
+
+
+
+= render 'phone_js'
+
+%ul#twilio-log(style='display:none')

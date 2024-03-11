@@ -1,0 +1,13 @@
+  ul.image_list{
+    list-style:none;
+  }
+  ul.image_list li{
+    float:left;
+    margin:4px;
+  }
+  .clearfix:after {
+    visibility: hidden;
+    display: block;
+    content: "";
+    clear: both;
+  }

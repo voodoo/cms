@@ -1,0 +1,10 @@
+- if !@form.wrapper.blank?
+  = raw @form.wrapper.gsub('{{page_content}}', "").gsub('{{title}}', 'Thank You')
+- else
+  %h1 Thank You
+  .notice= flash[:notice]
+
+  %h2 More Forms
+  %ul
+    - for form in current_site.forms
+      %li= link_to form.title, form_path(form)

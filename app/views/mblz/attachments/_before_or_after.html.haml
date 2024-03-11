@@ -1,0 +1,9 @@
+%li(data-icon='plus' data-theme='d') 
+  = link_to "#{is_before == 0 ? 'Before' : 'After'} Job", new_mblz_invoice_attachment_path(@invoice, ba: is_before)
+- @invoice.attachments.select{|a| a.before_or_after === (is_before === 0 ? false : true)}.sort_by{|a| a.position}.each do |att|
+  %li
+    = link_to edit_mblz_invoice_attachment_path(@invoice,att) do
+      = image_tag att.image.url(:thumb)
+      %h3= att.title
+      %p= att.image_file_name
+

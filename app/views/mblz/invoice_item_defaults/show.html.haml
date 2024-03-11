@@ -1,0 +1,14 @@
+- list @item_default.name do
+  - for item in @item_default.invoice_items
+    %li= link_to item.name, mblz_invoice_path(item.invoice), :rel => 'external'
+  
+//- form_for ['mblz',@item_default] do |f|
+//  %div(data-role='fieldset')
+//    %fieldset(data-role='controlgroup')
+//      %legend Change default item to ...
+//      - for default in current_site.invoice_item_defaults
+//        - checked = @item_default == default ? 'checked' : 'notchecked'
+//        - name =  "invoice_item_default_#{default.id}"
+//        %input{:type => 'radio', :name => 'invoice_item_default', :id => name, checked => 'true', :value => default.id}
+//        %label{:for => name}= default.name
+//  = f.submit "Update default of #{@item_default.invoice_items.size} items"

@@ -1,0 +1,9 @@
+%head
+  %title MBLZ
+  %meta{:id => "viewport", :name => "viewport", :content => "width=device-width initial-scale=1.0 maximum-scale=1.0"}
+  /= javascript_include_tag 'http://code.jquery.com/jquery-1.9.1.min.js'
+  = javascript_include_tag :application
+  = stylesheet_link_tag :application, media: :all
+  = csrf_meta_tag
+  %link(rel="shortcut icon" href="https://assets.integrated-internet.com/mblz/img/logo/logo.png")
+  = yield(:head)

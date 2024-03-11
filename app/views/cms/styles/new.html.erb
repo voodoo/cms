@@ -1,0 +1,13 @@
+<% title "New Style" %>
+<% content_for :menu do %>
+  <%= render :partial => "menu" %>
+<% end %>
+
+<% form_for(:style, :url => "/cms/styles") do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'cms/layouts/form', :locals => {:f => f} %>
+  <p>
+    <%= f.submit "Create Style" %>
+  </p>
+<% end %>
+

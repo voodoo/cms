@@ -1,0 +1,44 @@
+/* FAQ Page
+=====================================================================*/
+
+ul#listfaq {
+	width:710px;
+	margin:0;
+	padding: 10px 0;
+	list-style:none;
+}
+ul#listfaq li {
+	width:710px;
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid #453a2f;
+}
+ul#listfaq li a, ul#listfaq li a:link, ul#listfaq li a:visited {
+	font-size:1.1em;
+	color:#1a1a1a;
+	width:691px;
+	height: 23px;	
+	display:block;
+	font-weight: bold;
+	padding: 6px 0 0 19px;
+	background:url(http://assets.integrated-internet.com/sites/canopy/images/back_nav.png) no-repeat;
+	text-decoration: none;
+}
+ul#listfaq li a:hover {
+	background-position: 0 -29px;
+	text-decoration:none;
+}
+ul#listfaq li a.active, ul#listfaq li a.active:link, ul#listfaq li a.active:visited {
+	background-position: 0 -58px;
+	text-decoration: none;
+}
+ul#listfaq li div {
+	display:none;
+}
+ul#listfaq li div.active {
+	display:block;
+}
+ul#listfaq li p {
+	font-size:1.0em;
+	padding: 5px 0 10px 20px;
+}

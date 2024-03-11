@@ -1,0 +1,11 @@
+/- unless user.admin?
+%li{'data-theme' => (user.admin? ? 'e' : nil)}
+  = link_to(edit_admin_user_path(user)) do
+    %h3= user.login
+    %p= user.email
+    %p.ui-li-aside
+      = user.role_name
+      - unless user.active?
+        \/ Inactive
+     
+  //= user.sites.map{|s| s.subdomain}.join(', ')

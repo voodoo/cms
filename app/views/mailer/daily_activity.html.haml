@@ -1,0 +1,18 @@
+- @activities.each do |activity|
+  %h3
+    - subdomain = activity.site.subdomain
+    - if activity.user && activity.user.login != 'admin'
+      - subdomain += "(" + activity.user.login_or_email + ")"
+    = link_to subdomain, "https://#{activity.site.subdomain}.mblz.com/mblz"
+  %ul
+    - if activity.contact
+      %li==Contact: #{ activity.contact.full_name }
+    %li
+      Type: 
+      - if activity.trackable
+        = link_to activity.trackable_type.titleize, polymorphic_url(['mblz',activity.trackable], host: "https://#{activity.site.subdomain}.mblz.com")
+      - else
+        = activity.trackable_type.titleize
+    %li== Action: #{ activity.action.titleize }
+    - unless activity.note.blank?
+      %li== Note: #{ activity.note }

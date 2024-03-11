@@ -1,0 +1,27 @@
+
+= error_messages_for @demo
+
+= form_for @demo do |f|
+  
+  = f.hidden_field :token
+
+  %label Subdomain
+  = f.text_field :subdomain
+
+  %label Your phone
+  = f.text_field :phone, class: :phone
+
+  %label Programmable phone
+  = f.select :pro_phone, [''] + @numbers
+
+  %label Password
+  = password_field :user, :password 
+
+  %label Password Confirmation
+  = password_field :user, :password_confirmation
+
+  %p= f.submit 'Continue'
+
+  = javascript_include_tag 'jquery.mask'
+  :javascript
+    $(function(){$(".phone").mask("(999) 999-9999")}) 

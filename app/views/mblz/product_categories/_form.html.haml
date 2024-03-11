@@ -1,0 +1,17 @@
+= form_for ['mblz', @product_category] do |f|
+  
+  - list 'Product Category' do
+    %li(data-role='fieldcontain')
+      = f.label :name
+      = f.text_field :name
+    %li(data-role='fieldcontain')
+      = f.label :color
+      = f.text_field :color 
+    %li(data-role='fieldcontain')
+      = f.label :html_color
+      = f.text_field :html_color   
+    %li(data-role='fieldcontain')
+      = f.label :matrix
+      = f.text_field :matrix
+ 
+  = f.submit "#{@product_category.new_record? ? 'Create' : 'Update'} Product Category"

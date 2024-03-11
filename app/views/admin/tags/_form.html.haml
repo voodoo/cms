@@ -1,0 +1,26 @@
+= form_for ['admin', @site, @tag] do |f|
+  - list 'Tag'  do
+    - has_cats_already = @site.tag_categories.count > 0
+    - if has_cats_already
+      %li(data-role='fieldcontain')
+        = f.label :category do
+          Category 
+          /= link_to_function 'New', "$('#newCategory').show()"
+        = f.select :category, @site.tag_categories
+    %li(data-role='fieldcontain' id="newCategory" style="#{has_cats_already ? 'display:none' : nil}")
+      %label(for='new_category')
+        New Category 
+        - tag_count = @tag.contacts.count
+        - if !@tag.new_record? && !tag_count.zero?
+          .hint 
+            This will change the category for 
+            = link_to "all tags attached to contacts (#{tag_count})", mblz_tag_path(@tag)  
+            with this tag
+      = text_field :new, :category
+
+     
+    %li(data-role='fieldcontain')
+      = f.label :name
+      = f.text_field :name
+  = f.submit
+  

@@ -1,0 +1,58 @@
+%li(data-role='fieldcontain')
+  = f.label :title
+  = f.text_field :title
+
+%li(data-role='fieldcontain')
+  = f.label :text
+  = f.text_area :text
+
+
+%li(data-role="list-divider" class="meta") Meta 
+
+%li(data-role='fieldcontain' class="meta" )
+  = f.label :subtitle
+  = f.text_field :subtitle 
+
+%li(data-role='fieldcontain' class="meta")
+  = f.label :meta_description
+  = f.text_area :meta_description 
+
+%li(data-role='fieldcontain' class="meta")
+  = f.label :meta_keywords
+  = f.text_area :meta_keywords 
+
+
+%li(data-role='fieldcontain' class="meta" )
+  = f.label :image
+  = f.text_area :image  
+
+%li(data-role='fieldcontain' class="meta" )
+  = f.label :position
+  = f.select :position, 1..(@page.siblings.size+1)
+
+%li(data-role='fieldcontain' class="meta" )
+  = f.label :layout_id
+  = f.select :layout_id, current_site.layout_options
+
+%li(data-role='fieldcontain' class="meta" )
+  = f.label :wrapper
+  = f.text_area :wrapper
+
+%li(data-role='fieldcontain' class="meta" )
+  = f.label :textile
+  = f.check_box :textile
+
+%li
+  = link_to 'Show Meta', '#', class: :show_meta
+
+
+/ %li(data-role='fieldcontain')
+/   = f.label :layout
+/   = f.select :layout_id, current_site.layout_options  
+
+= f.hidden_field :original_updated_at
+
+:coffeescript
+  $('.meta').hide()
+  $('.show_meta').on 'click', (e) ->
+    $('.meta').toggle()

@@ -1,0 +1,14 @@
+ul#faqs{
+	list-style-image:url(/images/icon/tiny/speech_bubble.gif);
+}
+
+ul#faqs li div.answer{
+	padding-left:6px;margin-left:6px;
+	border-left:1px solid #ccc;
+}
+
+ul#faqs span.handle{
+	font-size:80%;
+	color:#666;
+	cursor:move;
+}

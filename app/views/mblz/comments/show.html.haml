@@ -1,0 +1,57 @@
+- list do
+  %li
+    %h3= @comment.title.blank? ? '[BLANK]' : @comment.title
+    %div(style='font-weight:normal;font-size:small')= @comment.comment.to_s.gsub(/\n/,'<br/>').html_safe 
+    %p.ui-li-aside
+      - if @comment.user
+        %b= @comment.user.login_or_email
+        %br/
+      - elsif @comment.from_phone
+        %b= @comment.from_phone.to_phone
+        %br/      
+      %i= @comment.created_at.to_s(:short)
+      %br
+      = @comment.users.map{|u| u.login}.join(',')
+  - if @comment.medias.present?
+    - @comment.medias.each do |media|
+      %li
+        = link_to media.content_type, media.url, target: :_blank
+  - if @comment.recording_url.present?
+    %li(data-theme='b')
+      = link_to "Listen", @comment.recording_url, target: :_blank
+
+  %li(data-theme='e' data-icon='minus')
+    = link_to "Delete", mblz_comment_path(@comment), :method => :delete, "data-confirm" => 'Really?', :rel => 'external'
+
+- if @comment.commentable
+  - list "Contact" do
+    %li
+      = link_to polymorphic_path([:mblz, @comment.commentable]) do
+        %h3= @contact.full_name
+        %span(class='ui-li-count')= @comment.commentable.comments.count
+        - if @comment.commentable.is_a?(Invoice)
+          %p.ui-li-aside
+            Invoice
+            = @comment.commentable.id
+
+    %li(data-theme='a' data-icon='plus')
+      - path = @invoice ? new_mblz_invoice_comment_path(@invoice) : new_mblz_contact_comment_path(@contact)
+      = link_to 'New Comment', path
+- else
+  - list "Link to Invoice",'data-filter' => 'true' do
+    - for invoice in @invoices
+      %li
+        = link_to invoice.contact.full_name, set_link_mblz_invoice_comment_path(invoice, @comment)
+  - list "Link to Contact",'data-filter' => 'true' do
+    - for contact in @contacts
+      %li
+        = link_to contact.full_name, set_link_mblz_contact_comment_path(contact, @comment)
+  
+
+
+  :css
+    form.ui-listview-filter{
+      background:inherit;
+      border:0;
+    }
+

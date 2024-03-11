@@ -1,0 +1,6 @@
+priority:
+  invoice_id: 123
+  invoice_item_default: default
+  site: default
+  qty: 1
+  price: 5.25

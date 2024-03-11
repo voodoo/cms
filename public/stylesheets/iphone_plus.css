@@ -1,0 +1,56 @@
+li.light a{
+	color:#666;
+	font-size:12px;
+}
+li.delete a{
+	color:firebrick;
+}
+
+ul.notice li p{
+	color:teal;
+}
+
+ul li span.small{
+	font-size:10px;
+}
+
+
+ul li small.date{
+	margin-top: 12px;
+}
+
+ul li.contact{
+	background-image: url(/images/icon/smallcontact.png);
+	background-position: 99% center;
+	background-repeat: no-repeat;
+}
+ul li.contact a{
+	color:#666;
+}
+
+ul.footer{
+	font-size:80%;
+	font-weight:normal;
+}
+
+ul li.add {
+	background-image: url(/images/icon/add.png);
+	background-position: 99% center;
+	background-repeat: no-repeat;
+	color:#666;
+}
+ul li.add a {
+	color:#666;
+}
+
+h1 {
+	color: rgb(76,86,108);
+	font: bold 18px Helvetica;
+	text-shadow: #fff 0 1px 0;
+	margin: 15px 0 0 10px;  
+}
+/*ul.form input[type=checkbox]{
+	color:red;
+	width:30px;
+	height:30px;
+}*/

@@ -1,0 +1,9 @@
+- content_for :title_btn do
+  = link_to 'Active Numbers', active_numbers_admin_twilio_configs_path
+- list 'With Incoming Numbers' do
+  - for config in @configs
+    - unless config.incoming_phone.blank?
+      = render('incoming_phone', config: config, phone: config.incoming_phone) 
+    - unless config.incoming_toll_free_phone.blank?
+      = render('incoming_phone', config: config, phone: config.incoming_toll_free_phone)
+  

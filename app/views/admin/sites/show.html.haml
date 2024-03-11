@@ -1,0 +1,159 @@
+- @title = "Site "
+
+- content_for :title_btn, link_to("Edit", edit_admin_site_path(@site))
+
+- list 'Owner' do
+  %li
+    %h3= @site.owner_name
+    %p Name
+  %li
+    %h3= @site.biz_name
+    %p Business Name
+  %li
+    %h3= @site.phone.to_s.to_phone
+    %p Phone  
+  %li
+    %h3= @site.email
+    %p Email  
+
+- list 'Twilio' do
+  %li
+    = link_to edit_admin_twilio_config_path(@site.twilio_config) do
+      %h3 Called phones
+      %p= @site.callable_phones.map(&:to_phone).join(', ')
+      %p.ui-li-aside
+        Twilio Number:
+        %br
+        = @site.twilio_config.incoming_phone.to_phone
+        - if current_site.twilio_config.outgoing_capability?
+          &rarr;
+
+- list 'Users' do
+  - @site.users.each do |user|
+    - next if user.admin? #|| !user.active?
+    /= render '/mblz/users/user', user: user
+    %li{'data-theme' => (user.twilio_active? && user.active?) ? nil : 'e'}
+      = link_to edit_admin_user_path(user) do
+        %h3
+          = user.login_or_email
+        %p= user.role_name
+        %p.ui-li-aside
+          - if user.twilio_active?
+            Calls: 
+            - if user.twilio_after_five?
+              After Five
+              %br/
+            - if user.twilio_before_five?
+              Before Five
+          - else
+            No calls
+            
+  %li(data-icon='add' data-theme='g')
+    = link_to 'Add User', new_admin_user_path(site: @site)
+
+- list 'Site' do
+  %li
+    - host = "https://#{@site.subdomain}.#{request.domain}"
+    = link_to host, target: '_blank' do
+      %h3= @site.subdomain
+      %p Subdomain  
+      %p.ui-li-aside= host    
+
+  %li
+    = link_to admin_contacts_path, target: '_blank', rel: :external, 'data-ajax' => 'false' do
+      Export Contacts
+      %p.ui-li-count= current_site.contacts.count 
+  
+  %li
+    = link_to cms_root_path do
+      CMS
+      %p.ui-li-aside Pages
+      %p.ui-li-count= @site.pages.count
+
+  %li
+    = link_to admin_forms_path do
+      Forms
+      %p.ui-li-aside Types
+      %p.ui-li-count= @site.forms.count
+
+  %li
+    = link_to site_admin_path_path(@site) do
+      Paths
+      %p.ui-li-count= @site.paths.count 
+ 
+  %li
+    = link_to mblz_blips_path do
+      Black Listed IPs
+      %p.ui-li-count= @site.blips.count
+  %li
+    = link_to admin_site_tags_path(@site) do
+      Tags
+      %p.ui-li-count= @site.tags.count
+
+  %li
+    = link_to utility_admin_site_path(@site) do
+      Utility
+      %p.ui-li-aside Calls
+      %p.ui-li-count= @site.incoming_calls.recent.count
+  %li
+    = link_to mblz_reviews_path do
+      Reviews
+      %p.ui-li-count= Review.publishable(current_site).count
+
+
+- list 'Site reCaptcha (Google)' do
+  %li 
+    Key
+    %p.ui-li-aside
+      = @site.captcha_site
+  %li 
+    Secret
+    %p.ui-li-aside
+      = @site.captcha_secret  
+
+
+
+- list 'Invoices Config' do
+  %li
+    = link_to mblz_invoice_item_defaults_path do
+      Invoice Item Defaults
+      %p.ui-li-count= @site.invoice_item_defaults.count
+  %li
+    %h3= @site.tax_rate
+    %p Tax Rate
+  %li
+    %h3= @site.paypal ? 'Yes' : 'No'
+    %p Accepts Paypal    
+  %li
+    %h3= @site.paypal_email
+    %p Paypal Email
+  %li
+    %h3= h @site.invoice_footer.to_s.first(100)
+    %p Footer
+  %li
+    %h3= h @site.invoice_wrapper.to_s.first(100)
+    %p Wrapper    
+  %li
+    %h3= @site.sales_commission
+    %p Sales Commission    
+  %li
+    %h3= @site.mblz_commission
+    %p MBLZ Commission       
+
+- list 'Domains' do
+  - @site.domains.each do |domain|
+    %li= link_to domain.host, edit_admin_site_domain_path(domain.site, domain)
+  %li(data-icon='add')
+    = link_to 'Add Domain', new_admin_site_domain_path(@site)
+      
+        
+- list 'Demo' do
+  %li= link_to 'Fake Data', fake_data_admin_site_path(@site), 'data-confirm' => REALLY
+  - fakers = @site.contacts.where('demo=true')
+  - if fakers.present?
+    %li
+      = link_to fake_data_admin_site_path(@site, :clr => 1) do
+        %h3 Clear Fake Data
+        %p
+          = fakers.size
+          fake contacts

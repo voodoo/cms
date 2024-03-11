@@ -1,0 +1,15 @@
+
+table tr.on td{
+	background:#eee;
+	color:black;
+}
+table tr.off td{
+	background:white;
+	color:#666;	
+}
+table {
+	border:1px solid #ccc;
+	width:100%;
+	border-collapse: collapse; 
+	border-spacing:12px;
+}

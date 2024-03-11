@@ -1,0 +1,20 @@
+%p==https://#{@invoice.site.subdomain}.mblz.com/mblz/invoices/#{@invoice.id}
+
+%p= @invoice.contact.full_name
+
+- if @confirmation.yes_or_no?
+  %p 
+    %b Accepted!
+  %p 
+    %b Desired Appointment Date:
+    = @confirmation.desired_appointment_date
+  %p 
+    Details:
+    = @confirmation.details  
+- else
+  %p 
+    %b DECLINED
+
+  %p 
+    %b Care to share details:
+    = @confirmation.care_to_share

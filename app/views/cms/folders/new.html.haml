@@ -1,0 +1,6 @@
+- list "New Folder" do
+	%li
+		= form_for ['cms',Folder.new], :multipart => true do |f|
+			= f.text_field :name, placeholder: 'Folder Name'
+			= f.text_area :gallery_wrapper, placeholder: 'Gallery Html wrapper'
+			= f.submit

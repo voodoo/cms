@@ -1,0 +1,38 @@
+%h1 Welcome to Mobilizer,
+
+%p Your demo site is ready!
+
+- link = "#{@url}/user_sessions/new?l=#{CGI.escape @user.email}&p=#{CGI.escape @password}"
+%p
+  Please visit
+  = link
+
+%p Where you will immidiately be able to login.
+
+%p
+  Here is your new, free, programmable phone number:
+  = @site.twilio_config.incoming_phone.to_phone
+  %p Share it with others!
+
+%p Once you login, be sure to change your password and update the phone number you want to be rung when your new phone number is called.
+
+%p
+  Update password
+  = edit_admin_user_url(@user, :host => @site.host_or_subdomain)
+
+%p
+  Update phone
+  = edit_admin_twilio_config_url(@user, :host => @site.host_or_subdomain)
+
+
+%p
+  Username:
+  = @user.email
+%p
+  Password:
+  = @password
+%p
+  Phone Number:
+  = @site.twilio_config.incoming_phone.to_phone
+
+

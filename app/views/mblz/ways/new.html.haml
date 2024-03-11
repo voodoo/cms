@@ -1,0 +1,10 @@
+- content_for :title_btn, link_to("Cancel", mblz_ways_path)
+
+.ui-bar.ui-bar-b
+  %p
+    Record your Geo location. Add an optional message.
+  %p
+    Nice functionality for before/after images as well?
+
+= render 'form'
+= javascript_include_tag 'mblz/way'

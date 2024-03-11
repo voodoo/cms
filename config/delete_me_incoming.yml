@@ -1,0 +1,5 @@
+host: 'imap.gmail.com'
+port: '993'
+username: 'paul.vudmaska@gmail.com'
+password: '@ou8123g'
+service_url: 'http://admin:pass@localhost:3000/admin/incoming_email'

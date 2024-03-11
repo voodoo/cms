@@ -1,0 +1,10 @@
+
+/ - content_for :title_btn do
+/   = link_to("Update", "javascript:$('.ui-page-active .click_update').trigger('click')")  
+- title "Edit Product Category"
+= render 'form'
+
+%div(data-role="navbar")
+  %ul
+    /%li= link_to("Delete", mblz_product_category_path(@product_category), data: {method: :delete, confirm: "Really?", theme: 'e'})
+    %li= link_to("Cancel", mblz_product_categories_path, data: {role: 'button'})

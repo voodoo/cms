@@ -1,0 +1,297 @@
+GIT
+  remote: git://github.com/fraser/vpim-rails.git
+  revision: b483db4f8f7ead866bfdb3f0e7563fa1f59c548c
+  specs:
+    vpim-rails (0.667)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    RedCloth (4.2.9)
+    actionmailer (4.2.0)
+      actionpack (= 4.2.0)
+      actionview (= 4.2.0)
+      activejob (= 4.2.0)
+      mail (~> 2.5, >= 2.5.4)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
+    actionpack (4.2.0)
+      actionview (= 4.2.0)
+      activesupport (= 4.2.0)
+      rack (~> 1.6.0)
+      rack-test (~> 0.6.2)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
+      rails-html-sanitizer (~> 1.0, >= 1.0.1)
+    actionview (4.2.0)
+      activesupport (= 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      rails-dom-testing (~> 1.0, >= 1.0.5)
+      rails-html-sanitizer (~> 1.0, >= 1.0.1)
+    activejob (4.2.0)
+      activesupport (= 4.2.0)
+      globalid (>= 0.3.0)
+    activemodel (4.2.0)
+      activesupport (= 4.2.0)
+      builder (~> 3.1)
+    activerecord (4.2.0)
+      activemodel (= 4.2.0)
+      activesupport (= 4.2.0)
+      arel (~> 6.0)
+    activesupport (4.2.0)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    acts_as_commentable (3.0.1)
+    acts_as_list (0.7.2)
+      activerecord (>= 3.0)
+    acts_as_tree (2.1.0)
+      activerecord (>= 3.0.0)
+    addressable (2.3.8)
+    ansi (1.5.0)
+    arel (6.0.0)
+    authlogic (3.4.5)
+      activerecord (>= 3.2)
+      activesupport (>= 3.2)
+      request_store (~> 1.0)
+      scrypt (~> 1.2)
+    awesome_print (1.6.1)
+    bcrypt (3.1.10)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    builder (3.2.2)
+    capistrano (3.4.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-faster-assets (1.0.2)
+      capistrano (>= 3.1)
+    capistrano-passenger (0.0.5)
+      capistrano (~> 3.0)
+    capistrano-rails (1.1.3)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rbenv (2.0.3)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
+    capybara (2.4.4)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.7)
+      climate_control (>= 0.0.3, < 1.0)
+    coderay (1.1.0)
+    coffee-rails (4.1.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0, < 5.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.9.1.1)
+    colorize (0.7.7)
+    crack (0.3.2)
+    daemons (1.2.2)
+    dynamic_form (1.1.4)
+    erubis (2.7.0)
+    eventmachine (1.0.7)
+    exception_notification (4.1.0)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
+    execjs (2.5.2)
+    faker (1.4.3)
+      i18n (~> 0.5)
+    ffi (1.9.8)
+    ffi-compiler (0.1.3)
+      ffi (>= 1.0.0)
+      rake
+    font-awesome-rails (4.3.0.0)
+      railties (>= 3.2, < 5.0)
+    geocoder (1.3.4)
+    globalid (0.3.5)
+      activesupport (>= 4.1.0)
+    haml (4.0.6)
+      tilt
+    httparty (0.10.2)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
+    i18n (0.7.0)
+    jquery_mobile_rails (1.3.2)
+      railties (>= 3.1.0)
+    json (1.8.2)
+    jwt (1.5.0)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    libv8 (3.16.14.7)
+    liquid (3.0.3)
+    loofah (2.0.2)
+      nokogiri (>= 1.5.9)
+    mail (2.6.3)
+      mime-types (>= 1.16, < 3)
+    mime-types (2.6.1)
+    mini_portile (0.6.2)
+    minitest (5.7.0)
+    minitest-capybara (0.7.1)
+      capybara (~> 2.2)
+      minitest (~> 5.0)
+      rake
+    minitest-metadata (0.5.3)
+      minitest (>= 4.7, < 6.0)
+    minitest-rails (2.2.0)
+      minitest (~> 5.7)
+      railties (~> 4.1)
+    minitest-rails-capybara (2.1.1)
+      capybara (~> 2.0)
+      minitest-capybara (~> 0.7.0)
+      minitest-metadata (~> 0.5.0)
+      minitest-rails (~> 2.1)
+    minitest-reporters (1.0.16)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
+    multi_json (1.11.0)
+    multi_xml (0.5.5)
+    mysql2 (0.3.18)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.2)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
+    paperclip (4.2.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
+    rack (1.6.1)
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rails (4.2.0)
+      actionmailer (= 4.2.0)
+      actionpack (= 4.2.0)
+      actionview (= 4.2.0)
+      activejob (= 4.2.0)
+      activemodel (= 4.2.0)
+      activerecord (= 4.2.0)
+      activesupport (= 4.2.0)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.2.0)
+      sprockets-rails
+    rails-deprecated_sanitizer (1.0.3)
+      activesupport (>= 4.2.0.alpha)
+    rails-dom-testing (1.0.6)
+      activesupport (>= 4.2.0.beta, < 5.0)
+      nokogiri (~> 1.6.0)
+      rails-deprecated_sanitizer (>= 1.0.1)
+    rails-html-sanitizer (1.0.2)
+      loofah (~> 2.0)
+    railties (4.2.0)
+      actionpack (= 4.2.0)
+      activesupport (= 4.2.0)
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
+    rake (10.4.2)
+    ref (1.0.5)
+    request_store (1.1.0)
+    ruby-progressbar (1.7.5)
+    sass (3.4.14)
+    scoped_search (3.2.0)
+      activerecord (>= 3.2.0)
+    scrypt (1.2.1)
+      ffi-compiler (>= 0.0.2)
+      rake
+    sprockets (3.1.0)
+      rack (~> 1.0)
+    sprockets-rails (2.3.1)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      sprockets (>= 2.8, < 4.0)
+    sshkit (1.7.1)
+      colorize (>= 0.7.0)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+    therubyracer (0.12.2)
+      libv8 (~> 3.16.14.0)
+      ref
+    thin (1.6.3)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0)
+      rack (~> 1.0)
+    thor (0.19.1)
+    thread_safe (0.3.5)
+    tilt (2.0.1)
+    twilio-rb (2.3.0)
+      activesupport (>= 3.0.0)
+      builder (>= 3.2.2)
+      crack (~> 0.3.2)
+      httparty (~> 0.10.0)
+      i18n (~> 0.5)
+      jwt (>= 0.1.3)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    uglifier (2.7.1)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
+    useragent (0.13.3)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  RedCloth
+  acts_as_commentable (= 3.0.1)
+  acts_as_list
+  acts_as_tree
+  authlogic
+  awesome_print
+  bcrypt
+  better_errors
+  capistrano (~> 3.1)
+  capistrano-bundler
+  capistrano-faster-assets (~> 1.0)
+  capistrano-passenger
+  capistrano-rails (~> 1.1)
+  capistrano-rbenv
+  coffee-rails
+  dynamic_form
+  exception_notification
+  faker
+  font-awesome-rails
+  geocoder
+  haml
+  jquery_mobile_rails (= 1.3.2)
+  kaminari
+  launchy
+  liquid
+  minitest-rails-capybara
+  minitest-reporters
+  mysql2
+  paperclip
+  quiet_assets
+  rails (= 4.2.0)
+  rake
+  sass
+  scoped_search
+  scrypt
+  therubyracer
+  thin
+  twilio-rb
+  uglifier
+  useragent
+  vpim-rails!

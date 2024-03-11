@@ -1,0 +1,11 @@
+.notificationBox
+  - has_flash = false
+  #notifications
+    - %w[notice alert].each do |note_type|
+      - if flash[note_type.to_sym]
+        - has_flash = true
+        .notification{:class => note_type}
+          %p= flash[note_type.to_sym]
+  - if has_flash
+    :javascript
+      $(document).bind('pageinit',notifications)

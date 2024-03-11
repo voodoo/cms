@@ -1,0 +1,32 @@
+- unless current_site.captcha_secret.blank?
+  %script(src='https://www.google.com/recaptcha/api.js')
+
+= form_for @form, :html => {:id => 'frmMblz'} do |f|
+  - if @form.wrapper.blank?
+    %h3= @form.title
+    - unless @form.description.blank?
+      .message.notice= raw @form.description
+  %table.tblFormFields
+    - for titled_field in @form.fields
+      - label, field = titled_field_for(titled_field)
+      %tr
+        %td= label
+        %td
+          .field
+            = field
+    - unless current_site.captcha_secret.blank?
+      %tr
+        %td &nbsp;
+        %td
+          .g-recaptcha{"data-sitekey" =>current_site.captcha_site, "data-callback" => "captchaReturned"}
+
+    %tr.noborder
+      %td &nbsp;
+      %td= f.submit("Submit Form")
+    %tr.noborder
+      %td(colspan='2' id='tdInvalid')
+        .field.invalid
+          Fields with 
+          = required_field_delimeter
+          are required 
+  .special= text_field_tag :special, nil  

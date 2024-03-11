@@ -1,0 +1,95 @@
+- title "Twilio Config"
+
+- content_for :title_btn, link_to("Cancel", admin_site_path(@twilio.site))
+
+= form_for ['admin', @twilio] do |f|
+  - list ['Incoming phones', 'Programmable, provided by MBLZ'] do
+    %li(data-role='fieldcontain')
+      = f.label :incoming_phone, "Phone"
+      = f.text_field :incoming_phone, class: :phone
+
+    %li(data-role='fieldcontain')
+      = f.label :incoming_toll_free_phone, "Toll Free Phone"
+      = f.text_field :incoming_toll_free_phone, class: :phone
+    
+    / %li(data-role="list-divider") 
+    /   Phones     
+    /   %small that handle incoming calls
+    /   %p.ui-li-aside
+    /     %b NOTE: Non MBLZ users
+    / - for phone in @twilio.phones
+    /   = render 'admin/twilio_configs/phone', :phone => phone
+    / %li
+    /   %p= link_to 'New Phone', new_admin_twilio_config_phone_path(@twilio), "data-role" => :button  
+
+    %li(data-role="list-divider" data-theme='c') 
+      Action
+      %p.ui-li-aside When phone is called
+
+
+    %li(data-role='fieldcontain')
+      = f.check_box :call_owner      
+      = f.label :call_owner
+      .hint 
+        Call the owner?
+        %b=current_site.phone.to_phone
+      
+    %li(data-role='fieldcontain')
+      = f.check_box :call_ii
+      = f.label :call_ii, "Call MBLZ" 
+      .hint 
+        Call Admin?
+        %b= APP_CONFIG[:phone].to_phone
+
+ 
+    %li(data-role='fieldcontain')
+      = f.label :email
+      = f.text_field :email   
+      .hint To send phone message
+
+    %li(data-role="list-divider" data-theme='c') 
+      Voice Prompts
+      %p.ui-li-aside If the phone is not answered      
+ 
+    %li(data-role='fieldcontain')
+      = f.label :leave_message
+      = f.text_field :leave_message, placeholder: "Please leave a message"   
+      .hint What to say before taking a message 
+
+
+    / %li(data-role='fieldcontain')
+    /   = f.check_box :take_message      
+    /   = f.label :take_message
+    /   .hint If no one answers?
+
+    %li(data-role='fieldcontain')
+      = f.label :wait_duration
+      = f.text_field :wait_duration, placeholder: 10  
+      .hint How long to wait before voice message initiated
+
+    %li(data-role='fieldcontain')
+      = f.check_box :plays_quality_assurance      
+      = f.label :plays_quality_assurance
+      .hint 
+        Play the quality assurance message?     
+
+    %li(data-role="list-divider" data-theme='c') 
+      Capabilities
+      %p.ui-li-aside from Twilio  
+
+    %li(data-role='fieldcontain')
+      = f.label :capability_outgoing, 'Outgoing (APP SID)'
+      = f.text_field :capability_outgoing 
+      .hint Can make outgoing calls from browser
+
+  %p= f.submit "Update Twilio Config"
+
+:css
+  .hint{
+    font-weight:normal;
+    text-align:right;
+    padding-top:6px;
+  }
+
+
+

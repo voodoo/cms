@@ -1,0 +1,10 @@
+%h1 Edit Upload
+= form_for [:cms, @upload] do |f|
+  = f.text_field :title, placeholder: 'Title'
+  = f.hidden_field :folder_id
+  %div(data-role="controlgroup" data-type="horizontal")
+    = f.submit 'Update'
+    = link_to 'Delete', cms_upload_path(@upload), method: :delete, confirm: 'Really?', data: {role: 'button', theme: 'e'}
+
+
+= image_tag @upload.upload.url(:small)

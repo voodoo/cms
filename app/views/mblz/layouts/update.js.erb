@@ -1,0 +1,6 @@
+$.modal.close()
+<% unless @object.valid? %>
+  $('#objectMessage').html("<%= escape_javascript(error_messages_for(:object)) %>")
+<% else %>
+  $('#objectMessage').html('')
+<% end %>

@@ -1,0 +1,22 @@
+- title 'Edit Phone'
+
+
+= form_for :phone, :url => "/mblz/phones/#{@phone.id}", :method => :put do |f|
+  - list 'Owner\'s phone' do
+    = render :partial => 'form', :locals => {:f => f}
+  %p= f.submit 'Update Phone'
+
+- list 'Incoming Phone' do
+  %li
+    - if current_site.twilio_config.incoming_phone.blank?
+      No incoming phone, please see an admin to get you one
+    - else
+      %h3= current_site.twilio_config.incoming_phone.to_phone
+      %p.ui-li-aside
+        - if current_site.twilio_config.active_incoming_phone
+          = image_tag '/images/icon/select.png'
+        - else
+          Not active!
+
+:javascript
+  $(function(){$(".phone").mask("(999) 999-9999")})

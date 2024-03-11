@@ -1,0 +1,87 @@
+- list nil, 'data-filter' => 'true', 'data-filter-reveal' => "true", id: "newItemFilter", 'data-filter-placeholder': 'Search for new Item' do
+  - current_site.products.active.each do |product|
+    %li
+      = link_to '#', class: 'addProduct', data: {product_id: product.id} do
+        %h3= product.name
+        %p
+          %b= product.product_category.name
+          %br/
+          Location: 
+          %b= product.category_location
+        %p.ui-li-aside
+          = product.size
+          %br
+          = number_to_currency product.price
+
+        .ui-li-count(title='Current Inventory')= product.inventory
+
+
+%span(id='spinner')
+
+= form_for ['mblz', @product_invoice] do |f|
+
+  #newItems
+
+  - for item in @product_invoice.product_invoice_items
+    = render 'item', :item => item
+
+
+  - list "Details" do
+
+    %li(data-role='fieldcontain')
+      = f.label :contact_id
+      = f.select :contact_id, current_site.contacts.order("last_name").map {|p| [ p.last_name_first, p.id ]  }, { selected: (@product_invoice.contact ? @product_invoice.contact.id :  params[:contact]), include_blank: true }
+
+    %li(data-role='fieldcontain')
+      = f.check_box :taxable  
+      = f.label :taxable#, "Taxable <small>#{current_site.tax_rate}</small>".html_safe
+
+    %li(data-role='fieldcontain')
+      = f.label :discount  
+      = f.text_field :discount, type: :number, step: :any
+
+      
+    %li(data-role='fieldcontain')
+      = f.label :note
+      = f.text_field :note
+
+
+    %li(data-role='fieldcontain')
+      = f.label :footer
+      = f.text_field :footer 
+
+  %div(data-role='controlgroup' id='product_invoice_paid')
+    %h4 Paid by
+    - current_status = @product_invoice.paid.to_i
+    - ProductInvoice::PAID_STATUS.each_with_index do |status,i|
+      - checked = current_status == i ? 'checked' : 'notchecked'
+      - id = "status#{i}"
+      %input{:type => "radio", :name => "product_invoice[paid]", :id => id,  :value => i, checked => "checked", :invoice => @product_invoice.id, 'data-theme': (i == 0 && current_status == 0) ? 'e' : nil}
+      %label{:for => id}
+        = status
+
+
+
+  - list "Commissions" do
+
+    %li(data-role='fieldcontain')
+      = f.label :mblz_commission, 'MBLZ'
+      = f.text_field :mblz_commission, type: :number, step: :any
+
+      
+    %li(data-role='fieldcontain')
+      = f.label :sales_commission, 'Sales'
+      = f.text_field :sales_commission, type: :number, step: :any
+    
+
+  = f.submit "#{@product_invoice.new_record? ? 'Create' : 'Update'} Invoice", :class => 'click_update'
+
+= javascript_include_tag 'product_invoice/edit'
+
+:javascript
+  $("input[type=number]").on('blur', 
+    function(e){
+      var field = $(e.target)
+      if(field.val() == '') field.val(0) 
+  }) 
+

@@ -1,0 +1,14 @@
+ul#folders{
+	list-style:none;
+	padding-left:0;
+	margin-left: 0;
+}
+ul#folders > li{
+ border: 1px solid #ccc;
+
+}
+ul#folders  ul > li{
+	list-style:none;
+	float:left;
+  margin:4px;
+}

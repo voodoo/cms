@@ -1,0 +1,15 @@
+- if @product_invoices.present?  
+  - for invoice in @product_invoices
+    %li{:title => "Created: #{invoice.created_at} / Updated: #{invoice.updated_at}"}
+      = link_to mblz_product_invoice_path(invoice) do
+        - if invoice.contact
+          %h3= invoice.contact.full_name
+        %p
+          %b= number_to_currency invoice.total
+
+        .ui-li-count= invoice.product_invoice_items.size
+
+
+- else
+  %li None
+        

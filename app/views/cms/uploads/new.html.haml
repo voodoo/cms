@@ -1,0 +1,7 @@
+%h1 New Upload
+= form_for [:cms, @upload],:multipart => true do |f|
+  = f.text_field :title, placeholder: 'Title'
+  = f.file_field :upload
+  = f.hidden_field :folder_id
+  %div(data-role="controlgroup" data-type="horizontal")
+    = f.submit 'Create'

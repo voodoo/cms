@@ -1,0 +1,102 @@
+
+
+- list 'Contact info' do
+  %li(data-role='fieldcontain')
+    = f.label :owner_name
+    = f.text_field :owner_name
+  %li(data-role='fieldcontain')
+    = f.label :owner_photo
+    = f.text_field :owner_photo    
+
+  %li(data-role='fieldcontain')
+    = f.label :biz_name
+    = f.text_field :biz_name
+  %li(data-role='fieldcontain')
+    = f.label :biz_description
+    = f.text_field :biz_description
+  %li(data-role='fieldcontain')
+    = f.label :biz_keywords
+    = f.text_field :biz_keywords    
+
+  %li(data-role='fieldcontain')
+    = f.label :owner_street, 'Street'
+    = f.text_field :owner_street
+  %li(data-role='fieldcontain')
+    = f.label :owner_city, 'City'
+    = f.text_field :owner_city
+  %li(data-role='fieldcontain')
+    = f.label :owner_state, 'State'
+    = f.text_field :owner_state
+  %li(data-role='fieldcontain')
+    = f.label :owner_zip, 'Zip'
+    = f.text_field :owner_zip
+  %li(data-role='fieldcontain')
+  
+    = f.label :phone
+    = f.text_field :phone, :class => 'phone'
+  %li(data-role='fieldcontain')
+    = f.label :email
+    = f.text_field :email
+  %li(data-role='fieldcontain')
+    = f.check_box :pinned    
+    = f.label :pinned
+  %li(data-role='fieldcontain')
+    = f.label :subdomain
+    = f.text_field :subdomain    
+
+- list 'Google\'s reCaptcha' do
+  %li(data-role='fieldcontain')
+    = f.label :captcha_site, "Key"
+    = f.text_field :captcha_site  
+  %li(data-role='fieldcontain')
+    = f.label :captcha_secret, "Secret"
+    = f.text_field :captcha_secret
+    
+%div(data-role='collapsible-set')
+  %h3 Invoice info
+  %div(data-role='collapsible')
+    %h3 
+      Accepts Paypal
+      %small.hint= @site.paypal ? 'Yes' : 'No'
+    = f.check_box :paypal  
+    = f.label :paypal
+  %div(data-role='collapsible')
+    %h3
+      Paypal Email
+      %small.hint= @site.paypal_email
+    = f.label :paypal_email
+    = f.text_field :paypal_email  
+   
+
+  %div(data-role='collapsible')
+    %h3 Footer
+    = f.label :invoice_footer
+    = f.text_area :invoice_footer
+
+  %div(data-role='collapsible')
+    %h3 Wrapper
+    = f.label :invoice_wrapper
+    = f.text_area :invoice_wrapper
+
+  %div(data-role='collapsible')
+    %h3 Tax Rate
+    = f.label :tax_rate
+    = f.text_field :tax_rate, type: :number, step: :any
+
+  %div(data-role='collapsible')
+    %h3 Sales Commission
+    = f.label :sales_commission
+    = f.text_field :sales_commission
+
+  %div(data-role='collapsible')
+    %h3 MBLZ Commission
+    = f.label :mblz_commission
+    = f.text_field :mblz_commission    
+
+:javascript
+  $(function(){$(".phone").mask("(999) 999-9999")})  
+  $("input[type=number]").on('blur', 
+    function(e){
+      var field = $(e.target)
+      if(field.val() == '') field.val(0) 
+  }) 

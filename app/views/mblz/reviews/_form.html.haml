@@ -1,0 +1,64 @@
+- @title = 'Review'
+- content_for :title_btn, link_to("Cancel", mblz_invoice_path(@invoice))
+
+- list 'Details' do
+  %li
+    = link_to mblz_contact_path(@invoice.contact) do
+      %h3= @invoice.contact.full_name
+      %p Contact
+  %li
+    = link_to mblz_invoice_path(@invoice) do
+      %h3= number_to_currency @invoice.total
+      %p Invoice      
+= form_for ['mblz', @invoice, @review] do |f|
+  
+  - list "Review" do
+
+    %li
+      = f.label :title
+      = f.text_field :title
+        
+    %li
+      = f.check_box :satisfied
+      = f.label :satisfied
+    - unless @review.new_record?
+      %li
+        %h3 Original Comment
+        = @review.original_comment   
+
+    %li
+      = f.label :comment
+      = f.text_area :comment
+
+    %li(data-role="list-divider" data-theme='c') Confirmed By:
+
+    %li
+      = f.check_box :confirmed_by_owner      
+      = f.label :confirmed_by_owner, 'Owner'
+
+
+    %li
+      = f.check_box :confirmed_by_customer
+      = f.label :confirmed_by_customer, 'Customer'
+
+
+
+  = f.hidden_field :icon
+
+  %ul#divIcons(data-role='listview' data-inset='true')
+    %li(data-role='list-divider' data-theme='c') Icons
+    - review_icons.each do |k,v|
+      - active = @review.icon == k.to_s
+      %li.icon{data: {dicon: k, icon: active ? 'check' : nil, theme: active ? 'b' : 'c'}}
+        = link_to '#'  do
+          %i.fa.fa-2x{class: "fa-#{k}"}
+  = f.submit(data: {theme: 'b'})   
+
+
+
+= javascript_include_tag 'review/icons'
+
+%div(data-role="controlgroup" data-type="horizontal")
+  - unless @review.new_record?
+    = link_to("Delete", mblz_invoice_review_path(@invoice, @review), data: {role: :button, method: :delete, confirm: "Really?", theme: 'e'})
+  = link_to("Cancel", mblz_invoice_path(@invoice), data: {role: 'button'})

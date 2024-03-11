@@ -1,0 +1,16 @@
+%p
+  Hello
+  %b= @invoice.contact.full_name
+  , 
+
+%p
+  %b= @invoice.site.biz_name 
+  has sent you an
+  = @invoice.or_estimate
+  for services.
+%p
+  Please visit 
+  = @invoice.token_url
+
+%p Thank you!
+

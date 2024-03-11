@@ -1,0 +1,12 @@
+- list 'Comments' do
+  - for comment in @invoice.comments.reverse
+    %li
+      = link_to mblz_invoice_comment_path(@invoice, comment) do
+        %h3= comment.title
+        %p= comment.comment
+        %p.ui-li-aside
+          = comment.created_at.to_s(:short)
+          %br/
+          %b= comment.user.login
+  %li(data-theme='g')= link_to 'New Comment', new_mblz_invoice_comment_path(@invoice)
+

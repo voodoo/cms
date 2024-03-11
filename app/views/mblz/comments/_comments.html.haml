@@ -1,0 +1,32 @@
+- if @comments
+  - for comment in @comments
+    %li
+      = link_to mblz_comment_path(comment) do
+        - if comment.commentable
+          %h3= comment.commentable_contact.full_name
+          %p
+            %b= comment.title
+            \:
+            = comment.comment
+          %p.ui-li-aside
+            %b= comment.commentable_type
+            \/
+            = comment.user.login rescue '[Unknown]'
+            %br/
+            =comment.created_at.to_s(:short)  
+            %br/
+            = comment.users.map{|u| u.login_or_email}.join(',')
+        - else
+          %h3
+            Incoming text message 
+            = comment.from_phone.to_phone if comment.from_phone
+
+          %div(style='font-weight:normal')
+            = comment.comment
+
+          %p.ui-li-aside
+            - if comment.user 
+              %b= comment.user.login_or_email
+              %br/
+            =comment.created_at.to_s(:short)  
+      

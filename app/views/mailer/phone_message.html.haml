@@ -1,0 +1,8 @@
+== Call from #{@thecall.calling}
+- if @thecall.contact
+  = @thecall.contact.full_name
+
+%p= @thecall.recordings.first.urled
+
+%p= @request.host
+

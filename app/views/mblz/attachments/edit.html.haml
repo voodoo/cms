@@ -1,0 +1,37 @@
+- content_for :title_btn, link_to("Cancel", mblz_invoice_path(@invoice))
+.ui-grid-a
+  .ui-block-a
+    %h3 
+      Attachment to Invoice for
+      %i= @invoice.contact.full_name  
+  .ui-block-b
+    = image_tag @attachment.image.url(:thumb),style: 'float:right'
+/= debug @invoice.invoice_items.map{|i| i.invoice_item_default}
+.clear-fix
+= form_for [:mblz, @invoice, @attachment], multipart: true do |att|
+  - list 'Edit' do
+    %li(data-role='fieldcontain')
+      = att.label :image
+      = att.file_field :image
+    %li(data-role='fieldcontain')
+      =att.label :title
+      = att.text_field :title, placeholder: "Title"
+    %li(data-role='fieldcontain')
+      = att.label :before_or_after
+      = att.select :before_or_after, [['Before', false], ['After', true]]
+    / %li(data-role='fieldcontain')
+    /   = att.label :invoice_item_id
+    /   = att.select :invoice_item_id, [['None',nil]] + @invoice.invoice_items.map{|i| [i.name_plus_note, i.id]}
+  
+  = att.submit "Update Attachment", 'data-theme' => 'b'
+
+- if @invoice.attachments.select{|a| a.before_or_after === @attachment.before_or_after}.size > 1
+  - list 'Move' do
+    - if @attachment.lower_item
+      %li(data-icon="arrow-d")
+        = link_to "Down", move_mblz_invoice_attachment_path(@invoice, @attachment, down: 1), method: :put
+    - if @attachment.higher_item
+      %li(data-icon="arrow-u")
+        = link_to "Up", move_mblz_invoice_attachment_path(@invoice, @attachment, up: 1), method: :put
+
+= link_to 'Delete', mblz_invoice_attachment_path(@invoice, @attachment), method: :delete, data: {confirm: 'Really?', role: 'button', theme: 'e'}

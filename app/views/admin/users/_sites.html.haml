@@ -1,0 +1,11 @@
+%div(data-role="collapsible" data-collapsed="false")
+  %h3 Sites Access
+  %div(data-role='fieldcontain')
+    %fieldset(data-role='controlgroup' id='fieldset_user_sites')
+      %legend Site Access
+      - for site in Site.includes(:site_users)
+        = check_box_tag "site#{site.subdomain}",nil, @user.sites.include?(site), 
+          :data => {:user => @user.id, :site => site.id}
+        %label{:for => "site#{site.subdomain}"}
+          = site.subdomain
+  = javascript_include_tag "admin/user_sites"   

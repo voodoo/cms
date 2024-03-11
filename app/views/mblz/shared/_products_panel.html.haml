@@ -1,0 +1,50 @@
+- list 'Product Invoice' do  
+  %li(data-theme="g" data-icon="plus")
+    = link_to new_mblz_product_invoice_path do
+      New
+  %li
+    = link_to mblz_product_invoices_path do
+      List
+      .ui-li-count= current_site.product_invoices.count   
+
+
+- list 'Product Sales' do  
+  %li
+    = link_to sales_mblz_reports_path do
+      %h3 Recent
+      %p= number_to_currency to_total(ProductInvoice.todays_sales_for current_site)
+  %li
+    = link_to sales_by_year_mblz_reports_path do
+      %h3 Quarterly
+      %p=  number_to_currency to_total(ProductInvoice.sales_since(current_site, 90))
+
+- list 'Product' do
+  %li(data-theme="g" data-icon="plus")
+    = link_to new_mblz_product_path do
+      New  
+  %li
+    = link_to mblz_products_path do
+      List
+      .ui-li-count= current_site.products.count
+
+  %li
+    = link_to mblz_product_categories_path do
+      Categories
+      .ui-li-count= current_site.product_categories.count        
+
+- list 'Inventory' do
+  %li(data-theme="g" data-icon="plus")
+    = link_to new_mblz_product_inventory_path do
+      New          
+  %li
+    = link_to mblz_product_inventories_path do
+      List
+      .ui-li-count= current_site.product_inventories.count     
+  %li
+    = link_to details_mblz_product_inventories_path do
+      Details   
+      
+  / %li
+  /   = link_to current_mblz_product_inventories_path do
+  /     Current Inventory
+

@@ -1,0 +1,44 @@
+= error_messages_for @contact
+= form_for ['mblz',@contact] do |f|
+  - list "Name" do
+    %li(data-role='fieldcontain')
+      = f.label :business_name
+      = f.text_field :business_name
+    %li(data-role='fieldcontain')
+      = f.label :first_name    
+      = f.text_field :first_name
+    %li(data-role='fieldcontain')
+      = f.label :middle_name    
+      = f.text_field :middle_name
+    %li(data-role='fieldcontain')
+      = f.label :last_name
+      = f.text_field :last_name
+    %li(data-role='list-divider') Contact info
+    %li(data-role='fieldcontain')
+      = f.label :email
+      = f.text_field :email, :type => :email
+    %li(data-role='fieldcontain')
+      = f.label :phone
+      = f.text_field :phone, :class => 'phone'#, :type => 'tel', :pattern => "^[0-9]+[\- ]*[0-9]+$"
+    %li(data-role='fieldcontain')
+      = f.label :cell_phone
+      = f.text_field :cell_phone, :class => 'phone'
+
+      
+    %li(data-role='list-divider') Address
+    %li(data-role='fieldcontain')
+      = f.label :street
+      = f.text_field :street
+    %li(data-role='fieldcontain')
+      = f.label :city
+      = f.text_field :city
+    %li(data-role='fieldcontain')
+      = f.label :state
+      = f.select :state, UsStates::US_STATES
+    %li(data-role='fieldcontain')
+      = f.label :zip
+      = f.text_field :zip
+
+  = f.submit "#{@contact.new_record? ? 'Create' : 'Update'} Contact", :class => 'click_update', 'data-theme': 'g'
+  = javascript_include_tag 'contact/uniq'
+  = f.hidden_field :submission_id

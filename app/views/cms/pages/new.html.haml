@@ -1,0 +1,12 @@
+= form_for ['cms', @page] do |f|
+  = f.hidden_field :parent_id
+  %ul(data-role='listview')
+    %li(data-role='fieldcontain')
+      = f.label :title
+      = f.text_field :title
+    %li(data-role='fieldcontain')
+      = f.label :text
+      = f.text_area :text
+
+      = f.hidden_field :layout_id, value: current_site.layouts.first.id
+    %li= f.submit 'Create Page'

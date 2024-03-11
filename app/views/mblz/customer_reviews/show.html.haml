@@ -1,0 +1,56 @@
+- if @invoice.review.publishable?
+  = stylesheet_link_tag 'hr'
+  %h2 
+    Customer Review 
+    %small Public View
+  .panel.panel-primary
+    .panel-heading
+      .row
+        .col-sm-10
+          .panel-title= @invoice.review.title || 'Satisfied'
+        .col-sm-2
+          %i.fa.fa-2x.pull-right{class: "fa-#{@invoice.review.icon}"}
+      
+    .panel-body
+
+      %blockquote
+        //(style='background-color:#fff')
+        %p= @invoice.review.comment
+        %footer
+          %b= @invoice.contact.initials
+          in San Antonio
+    .panel-footer
+      %h4 Job description
+      %ul
+        - @invoice.invoice_items.each do |item|
+          - next unless item.publishable?
+          %li
+            %b= item.name
+            = item.note
+      #customer_review_images
+        - if @invoice.attachments.present?   
+
+          - host = request.host.include?('localhost') ? 'localhost:3000' : 'mblz.mblz.com'
+          - before = @invoice.attachments.select{|a| !a.before_or_after}
+          - after  = @invoice.attachments.select{|a| a.before_or_after}
+          %hr.soften  
+          - if before.present?
+            %h3 Before
+            - before.each do |att|
+              = link_to att.image.url(:original), title: att.title_plus,'data-toggle' => :tooltip   do
+                = image_tag att.image.url(:thumb),title: att.title_plus, class: "img-circle"    
+          - if after.present?
+            %h3 After
+            - after.each do |att|
+              = link_to  att.image.url(:original), title: att.title_plus, 'data-toggle' => :tooltip do
+                = image_tag  att.image.url(:thumb), class: "img-circle"        
+                  
+          :javascript
+            document.getElementById('customer_review_images').onclick = function (event) {
+            event = event || window.event;
+            var target = event.target || event.srcElement,
+            link = target.src ? target.parentNode : target,
+            options = {index: link, event: event},
+            links = this.getElementsByTagName('a');
+            blueimp.Gallery(links, options);
+            };               

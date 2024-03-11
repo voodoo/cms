@@ -1,0 +1,47 @@
+
+- navbar
+
+- content_for :title_btn do
+  = link_to "Logout", logout_path, rel: :external, data: {role: :button, icon: :back, iconpos: :notext}, method: :delete
+  /%a(href=logout_path rel='external' data-role="button" data-icon='back' data-iconpos='notext' method="delete")  Logout
+
+%form(action="/mblz/now")
+  %label(for='search_q')
+  %input(type='search' name='q' id='search_q' placeholder='Search' value="#{params[:q]}")
+
+- list do
+  %li(data-icon='plus' data-theme='a')
+    = link_to mblz_contacts_path do
+      Contacts
+      %p.ui-li-aside Last updated first
+    = link_to "New", new_mblz_contact_path, "data-theme" => 'g'
+  = render 'mblz/contacts/contacts'
+
+- list do
+  %li(data-theme='a')
+    = link_to mblz_invoices_path do
+      Invoices
+      %p.ui-li-aside Last updated first
+  = render 'mblz/invoices/invoices'
+
+- list  do
+  %li(data-theme='a')
+    = link_to mblz_comments_path do
+      Comments
+      %p.ui-li-aside Last updated first
+  = render 'mblz/comments/comments'
+
+- list  do
+  %li(data-theme='a')
+    = link_to mblz_incoming_calls_path do
+      Incoming Calls
+      %p.ui-li-aside Last updated first
+  = render 'mblz/incoming_calls/calls'
+
+
+- list  do
+  %li(data-theme='a')
+    = link_to mblz_outgoing_calls_path do
+      Outgoing Calls
+      %p.ui-li-aside Last updated first
+  = render 'mblz/outgoing_calls/calls'

@@ -1,0 +1,26 @@
+- content_for :title_btn do 
+  = link_to("New", new_mblz_product_invoice_path, 'data-icon': 'plus')
+
+- list "Product Invoices" do
+      
+  - @product_invoices.each do |pi|
+    %li{"data-theme": pi.paid.zero? ? 'e' : nil}
+      = link_to ['mblz',pi] do
+        %h3
+          = number_to_currency pi.total
+        %p
+          = pi.note
+          - if pi.contact
+            %br/
+            %b= pi.contact.full_name
+        %p.ui-li-aside
+          = pi.created_at.to_s(:short)
+          - if pi.paid?
+            %br/
+            %b= pi.paid_status
+          
+        %p.ui-li-count= pi.count_of_products
+
+%b= number_to_currency @product_invoices.map{|i| i.total}.sum
+
+= paginate(@product_invoices)  if @product_invoices.respond_to?(:current_page)

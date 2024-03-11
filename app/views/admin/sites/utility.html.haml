@@ -1,0 +1,67 @@
+- @title     = "Site Utility"
+
+- payme = 0
+- list ['Utility', 'Items created the last 30 days' ] do
+  %li
+    %h3= @calls.size
+    %p
+      Calls 
+    %p.ui-li-aside   
+      - calls =    @calls.size * @cost[:calls]
+      - payme += calls
+      %b= number_to_currency(calls)
+      %br/
+      = number_to_currency @cost[:calls]
+  %li
+    %h3= @contacts.size
+    %p Contacts 
+    %p.ui-li-aside
+      - contacts = @contacts.size * @cost[:contacts]
+      - payme += contacts
+      %b= number_to_currency(contacts) 
+      %br/
+      = number_to_currency @cost[:contacts] 
+  %li
+    %h3= @estimates.size
+    %p Estimates
+    %p.ui-li-aside
+      - estimates = @estimates.size * @cost[:estimates]
+      - payme     += estimates
+      %b= number_to_currency(estimates)  
+      %br/
+      = number_to_currency @cost[:estimates]   
+  %li
+    %h3= @invoices.size
+    %p Invoices
+    %p.ui-li-aside  
+      - invoices = @invoices.size * @cost[:invoices]
+      - payme    += invoices
+      %b= number_to_currency(invoices)    
+      %br/
+      = number_to_currency @cost[:invoices] 
+
+
+  %li
+    - sum = @paid_invoices.map(&:total).sum
+    %h3= number_to_currency(sum)
+    %p
+      Paid Invoices
+      = @paid_invoices.size
+    %p.ui-li-aside 
+      - paid_invoices = sum * @cost[:paid_invoices]
+      - payme    += paid_invoices
+      %b= number_to_currency(paid_invoices)  
+      %br/
+      =(@cost[:paid_invoices] * 100).to_i
+      percent
+
+  %li
+    %h3 Total
+    .ui-li-aside= number_to_currency payme
+
+/ - list 'Invoices' do
+/   - for invoice in @invoices  
+/     %li
+/       = link_to mblz_invoice_path(invoice)  do
+/         %h3= invoice.contact.full_name
+/         %p= invoice.status_name

@@ -1,0 +1,1 @@
+Twilio::Config.setup(:account_sid  => Rails.application.secrets["twilio"]["sid"],:auth_token   => Rails.application.secrets["twilio"]["token"])

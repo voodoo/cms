@@ -1,0 +1,24 @@
+- if @invoice.estimate_confirmations.present?
+  .row
+    .col-sm-12
+      .panel.panel-default
+        .panel-heading
+          .panel-title Previous Confirmation / Communications
+        .panel-body
+          %ul
+            - @invoice.estimate_confirmations.reverse.each do |confirmation|
+              %li
+                Confirmed?
+                - if confirmation.yes_or_no?               
+                  %b Yes
+                  %p
+                    %b Details:
+                    = or_blank(confirmation.details)
+                  %p
+                    %b Requested Date:
+                    = or_blank(confirmation.desired_appointment_date)
+                - else
+                  %b No
+                  %p
+                    %b Details:
+                    = or_blank(confirmation.care_to_share)

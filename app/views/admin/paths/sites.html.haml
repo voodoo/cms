@@ -1,0 +1,9 @@
+- clear_old
+
+- list "Site Requests" do
+  - for site_path in @site_paths
+    %li
+      = link_to site_admin_path_path(site_path[:site]) do
+        %h3= site_path[:site].subdomain
+        %p.ui-li-count= site_path[:paths].size
+

@@ -1,0 +1,14 @@
+- for blip in @blips
+  - has_blip = false
+  - list blip.ip do 
+    - for form in current_site.submissions.where('ip = ?', blip.ip)
+      - has_blip = true
+      - bot = form.bot? ? 'h' : nil
+      %li(data-theme=bot)
+        = link_to mblz_form_path(form) do
+          %h3= form.title
+          %p=form.response.each(&:values).join(',') rescue 'ERROR:No values'
+          %p{'class' => "ui-li-aside"} 
+            = form.created_at.to_s :short         
+    - label = has_blip ? 'Remove all forms' : 'Remove'
+    %li(data-theme='e')= link_to label, mblz_blip_path(blip), :method => :delete

@@ -1,0 +1,4 @@
+- if @page.nil?
+  = render :partial => "shared/page_not_found"
+- else
+  = raw @page.text

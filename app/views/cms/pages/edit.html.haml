@@ -1,0 +1,15 @@
+- content_for :title_btn do
+  = link_to 'Update', '#', onclick: "$('.click_update').trigger('click');return false"
+
+= form_for ['cms', @page], html: {'data-ajax' => 'false', 'remote' => 'true'} do |f|
+  - list "Edit Page" do
+    = render :partial => 'form', :locals => {:f => f}
+  
+  = f.submit 'Update Page', :class => 'click_update'
+  
+  = link_to("Delete", cms_page_path(@page), 'data-confirm' => "Really?", :method => :delete, data: {role: :button, theme: 'e'})
+  
+  - list 'Public Link' do
+    %li
+      = link_to @page.path, target: '_blank' do
+        %h3= @page.title  

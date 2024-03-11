@@ -1,0 +1,20 @@
+
+<ul id="faqs">
+<% for faq in @faqs %>
+   <% content_tag_for "li", faq do %>
+    <h3><%= textilize_without_paragraph faq.question %></h3>
+    <div class="answer"><%= textilize faq.answer %></div>
+    <% if current_user %>
+    <p>
+      <%= link_to "Edit", edit_cms_faq_path(faq) %> 
+      <span class="handle" style="cursor:move"><img src="/images/icon/move.gif" title="Move Faq"/></span>
+    </p>
+    <% end %>
+  <% end %>
+<% end %>
+</ul>
+
+<%= sortable_element("faqs", :url => sort_cms_faqs_path, :handle => "handle") if current_user %>
+
+<%= link_to 'New faq', new_cms_faq_path if current_user %>
+

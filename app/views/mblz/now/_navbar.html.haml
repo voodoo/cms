@@ -1,0 +1,5 @@
+%div(data-role='navbar' id='nowNavbar')
+  %ul
+    %li= link_to('<b>&lt;</b>'.html_safe,"/mblz/now?d=#{@yesterday}")
+    %li= link_to(@date == Date.today ? 'Today' : @date.to_s(:short),"/mblz/now", :id => 'lnkDate')
+    %li= link_to('<b>&gt;</b>'.html_safe,"/mblz/now?d=#{@tomorrow}")

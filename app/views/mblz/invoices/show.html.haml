@@ -1,0 +1,15 @@
+- content_for :title_btn, link_to("Edit", edit_mblz_invoice_path(@invoice), data: {icon: :edit, :title => 'Edit Invoice', iconpos: :notext})
+
+- parts = %w{head contact work items totals status actions confirmations comments events}
+- parts.each do |part|
+  = render "mblz/invoices/invoice/#{part}"
+
+= render 'mblz/attachments/invoice'
+
+= render template: 'mblz/reviews/show' if @invoice.paid?
+
+/- content_for :title_btn, link_to("Details", '#panelInvoice', data: {icon: :bars, :title => 'Invoice Actions', iconpos: :notext})
+/ - content_for :subpanel do
+/   %div(data-role='panel' id='panelInvoice' data-display="push" data-position="right")
+/     = render "mblz/invoices/invoice/status"
+/     = render "mblz/invoices/invoice/actions"

@@ -1,0 +1,8 @@
+- if @invoice.estimate?
+  = render :template => "/mblz/estimate_confirmations/new"
+- if @invoice.paid? 
+  - if @invoice.review.nil?
+    /= render :template => "/mblz/customer_reviews/new"
+  - else
+    = render :template => "/mblz/customer_reviews/show"  
+/= render template: '/mblz/estimate_confirmations/index'

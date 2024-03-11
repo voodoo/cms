@@ -1,0 +1,34 @@
+-  if @invoice
+  - form_path        = mblz_invoice_comments_path(@invoice)
+  - full_name        = @invoice.contact.full_name
+  - commentable_id   = @invoice.id
+  - commentable_type = 'Invoice'
+  - @comment.title    = truncate(@invoice.contact.full_name + " " + mblz_invoice_path(@invoice), length: 45)
+- else
+  - form_path         = mblz_contact_comments_path(@contact) 
+  - full_name         = @contact.full_name
+  - commentable_id    = @contact.id
+  - commentable_type  = 'Contact'
+  - @comment.title    =  truncate(@contact.full_name + " " + mblz_contact_path(@contact), length: 45)
+
+= form_for :comment, :url => form_path do |f|
+  - list full_name do
+    = f.hidden_field :commentable_id, value: commentable_id
+    = f.hidden_field :commentable_type, value: commentable_type
+    %li= f.text_field :title, :placeholder => 'Comment Title', maxlength: 50
+    %li= f.text_area :comment, :placeholder => 'Type new comment here', maxlength: 160
+    %li(data-role='list-divider') Instant messages to:
+    - for user in current_site.users
+      - next if user.phone.blank? || !user.active?
+      %li(data-role='fieldcontain') 
+        - uid = "user_id_#{user.id}"
+        = check_box_tag "comment[user_ids][]", user.id, nil, id: uid
+        = f.label :user_id, for: uid do
+          = user.login_or_email
+          %span.hint= user.phone.to_phone
+    %li= f.submit 'Create'
+
+:javascript
+  $(function(){
+    $('#comment_comment').select()  
+  })

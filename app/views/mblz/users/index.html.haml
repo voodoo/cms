@@ -1,0 +1,13 @@
+- title 'Edit Settings'
+
+= error_messages_for current_user
+
+= form_for ['mblz', current_user] do |f|
+  - list current_user.login do
+    = render :partial => 'form', :locals => {:f => f}
+  %p= f.submit 'Update My Info', 'data-theme': :b
+
+- if current_user.owner_or_above?
+  - list ["Export", 'Site owners only'] do
+    %li= link_to 'Contacts', export_all_mblz_contacts_path
+    %li= link_to 'Invoices', export_all_mblz_invoices_path

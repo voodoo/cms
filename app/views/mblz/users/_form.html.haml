@@ -1,0 +1,20 @@
+
+%li
+  = f.label :login
+  = f.text_field :login
+
+%li
+  = f.label :email
+  = f.text_field :email
+
+%li
+  = f.label :pin, "PIN"
+  = f.text_field :pin, maxlength: 4
+
+  
+%li
+  = f.label :password
+  = f.password_field :password
+%li
+  = f.label :password_confirmation
+  = f.password_field :password_confirmation

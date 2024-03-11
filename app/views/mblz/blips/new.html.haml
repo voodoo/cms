@@ -1,0 +1,9 @@
+%h1 Create new Blacklisted IP
+
+
+= form_for ['mblz',@blip] do |f|
+  - list @blip.ip do
+    %li= link_to 'Submission', mblz_form_path(@sub)
+    = f.hidden_field :ip
+    = f.hidden_field :submission_id
+  = f.submit

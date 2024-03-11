@@ -1,0 +1,15 @@
+= form_for [:mblz, @invoice, @invoice_payment] do |f|
+  - list 'Create an Invoice Payment' do
+    %li
+      %h3= @invoice.contact.full_name
+      %p.ui-li-aside Customer
+    %li
+      %h3= @invoice.id
+      %p.ui-li-aside Invoice Number
+    %li
+      = f.label :payment_type
+      = f.select :invoice_payment_type_id, InvoicePaymentType.select_options  
+    %li
+      = f.label :note
+      = f.text_area :note
+  = f.submit

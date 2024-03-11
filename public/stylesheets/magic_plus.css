@@ -1,0 +1,6 @@
+div.fieldWithErrors input[type=text], div.fieldWithErrors input[type=password]{
+ background:pink;	
+}
+.rounded{
+	border-radius: 10px;
+}

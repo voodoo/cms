@@ -1,0 +1,53 @@
+/- @estimate_confirmation = EstimateConfirmation.new(desired_appointment_date: Date.today)#.to_s.split('-').reverse.join('/'))
+.row
+  .col-sm-12
+    .panel.panel-success
+      .panel-heading
+        .panel-title Customer Review 
+      .panel-body#confirmation-container
+        #btnsYesOrNo
+          %h4.page-header(style='margin-top:0')
+            Were you satisfied?
+            %small If you have the time, please give us a review 
+          .col-sm-offset-1
+            = link_to "Yes, I am satisfied", "#", class: 'btn btn-success btn-yes-no'
+            &nbsp;
+            %b= link_to "No, I am NOT satisfied", "#", class: 'btn-yes-no'
+        = form_for :review, :html => {class: 'form-horizontal', id: 'frm-review-satisfied'} do |f|
+          #divYes(style='display:none')
+            %h4.page-header(style='margin-top:0')
+              You were satisfied!
+              %i.fa.fa-smile-o.pull-right
+            .form-group
+              %label.col-sm-2.control-label Review
+              .col-sm-10
+                = f.text_area :comment_satisfied, :placeholder => "Tell us more about why you are satisfied", class: 'form-control'
+                %p.help-block Optional, but appreciated, if you have the time
+              / %label.col-sm-2.control-label 
+              /   Icon
+              /   %br
+              /   .fa.fa-rocket.fa-2x
+              / .col-sm-10
+              /   = f.select :icon, %w[happy rocket], {}, {class: 'form-control'}
+              /   %p.help-block Choose the icon that best respresents this review               
+            .col-sm-offset-2
+              = f.submit "I'm satisfied", :name => 'btnYes', class: 'btn btn-success'
+              &nbsp;
+              = link_to "Cancel", "#", class: 'btn-cancel'
+        = form_for :review, :html => {class: 'form-horizontal', id: 'frm-review-unsatisfied'} do |f|
+          #divNo(style='display:none')
+            %h4.page-header(style='margin-top:0')
+              Sorry to hear you are NOT satisfied        
+            .form-group
+              %label.col-sm-3.control-label
+                Care to share why?
+              .col-sm-9
+                = f.text_field :comment_unsatisfied, class: 'form-control', placeholder: 'Why you were not satisfied'
+                %p.help-block Please tell us why you were not satisfied
+            .col-sm-offset-3
+              = f.submit "Submit review", :name => 'btnNo', class: 'btn btn-info'
+              &nbsp;
+              = link_to "Cancel", '#', class: 'btn-cancel'
+          = f.hidden_field :yes_or_no
+          = f.hidden_field :token, :value => @invoice.token
+= javascript_include_tag "invoice/review"

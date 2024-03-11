@@ -1,0 +1,13 @@
+- if @demo.errors.any?
+  .errors
+    %h3
+      = pluralize(@demo.errors.count, "error")
+      errors prohibited this demo being created
+    %ul
+      -  @demo.errors.full_messages.each do |msg|
+        %li= msg
+
+= form_for ['admin',@demo] do |f|
+  -list 'New Demo Site' do
+    %li= f.text_field :email, placeholder: 'Email'
+    %li= f.submit 'Create Demo Site'

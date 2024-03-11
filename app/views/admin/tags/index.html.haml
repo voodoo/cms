@@ -1,0 +1,10 @@
+- if @site
+  - content_for :title_btn, link_to("New", new_admin_site_tag_path(@site))
+  = render 'site'
+- else
+  - if current_site.tags.empty?
+    - content_for :title_btn, link_to("New", new_admin_site_tag_path(current_site))
+
+  - list 'Sites with tags' do
+    - for site in @sites
+      %li= link_to site.subdomain, admin_site_tags_path(site)

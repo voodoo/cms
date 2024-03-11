@@ -1,0 +1,18 @@
+//= render 'cms/shared/update_object'
+
+//= render :partial => "menu" 
+
+- @title = "Editing Layout"
+
+#objectMessage
+- form_for(['mblz', @layout]) do |f|
+  = render :partial => 'form', :locals => {:f => f} 
+  //#menu= render 'menu'
+  %p
+    = f.submit "Update"
+    - if current_site.layouts.count > 1
+      = link_to "Delete", mblz_layout_path(@layout), :method => "delete", 'data-confirm' => REALLY
+    
+  //= render :partial => 'cms/shared/versions', :locals => {:object => @layout}
+
+  .clear

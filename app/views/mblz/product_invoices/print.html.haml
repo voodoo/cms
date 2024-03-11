@@ -1,0 +1,91 @@
+.container-fluid
+  .row
+    .col-xs-6
+      .panel.panel-default
+        .panel-heading
+          .panel-title Invoice
+        .panel-body
+          .row
+            .col-sm-12.col-xs-12.col-md-6
+              Number:
+              %b= @product_invoice.id
+              %br/
+              Date: 
+              %b= @product_invoice.created_at.to_s(:mdy)  
+            .col-sm-12.col-xs-12.col-md-6
+              %b 
+                Total:
+                .badge.total= number_to_currency @product_invoice.total    
+    .col-xs-6                    
+      .panel.panel-default
+        .panel-heading
+          .panel-title From
+        .panel-body
+          %p
+            %b= current_site.biz_name
+          %p= current_site.owner_name
+          %p
+            = current_site.owner_street
+            %br
+            = current_site.owner_city
+            %br
+            = "#{current_site.owner_state}, #{current_site.owner_zip}"
+          %p
+            - phone = current_site.phone
+            = phone.to_phone unless phone.blank?
+            %br
+            = current_site.email
+
+.container-fluid
+  .row
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr.info
+          %th{:width => 200} Name
+          %th{:width => 50, :style => 'text-align:center'} Qty
+          %th{:width => 50} Price
+          %th{:width => 50} Subtotal
+
+      - @product_invoice.product_invoice_items.each do |item|
+        %tr{:class => cycle('odd','even')}
+          %td
+            %b= item.product.name    
+
+          %td(align='center')
+            = item.qty
+
+          %td
+            = number_to_currency item.price
+          %td
+            %b= number_to_currency item.sub
+          
+      %tr{:class => :totals}
+        %td{:colspan => 1, :rowspan => 3, style: 'border-top:2px solid #999;text-align:center;vertical-align:middle'}
+          %em= @product_invoice.footer     
+        %td{:style => 'text-align:right;border-top:2px solid #999', colspan: 2}
+          Subtotal
+        %td(style="border-top:2px solid #999")
+          %b= number_to_currency @product_invoice.sub
+      - if @product_invoice.discount != 0
+        %tr{:class => :totals}
+          %td(style="text-align:right" colspan="2")
+            Discount
+            - if @product_invoice.discount < 1
+              == #{(@product_invoice.discount*100).to_i}%
+          %td(colspan="2")
+            %b= number_to_currency @product_invoice.discounted      
+      %tr{:class => :totals}
+        %td(style="text-align:right" colspan="2")
+          Tax
+        %td(colspan="2")
+          %b= number_to_currency @product_invoice.tax
+      %tr{:class => :total, style: 'border-bottom:1px solid #ccc'}
+        %td(style="text-align:right" colspan="#{@product_invoice.discount != 0 ? 3 : 2}")
+          %h3 Total
+        %td
+          %h3.total= number_to_currency @product_invoice.total
+:css
+  @media print body{
+    font: 48px Arial, Helvetica,"Lucida Grande", serif;
+  }
+%script window.print()

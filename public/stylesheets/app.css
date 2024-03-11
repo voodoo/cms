@@ -1,0 +1,151 @@
+ body{
+ 	background:#ddd;
+ }
+div#container{
+	padding-top:40px;
+
+}
+div#doc{
+	padding:12px;
+	background: white;
+
+}
+ p{
+ 	padding:6px;
+ 	padding-left:0;
+ }
+
+ a{
+ 	color:#333;
+ 	text-decoration:underline;
+ }
+ a:hover{
+ 	color:black;
+ 	text-decoration:underline;
+ }
+
+ a.add{
+	color:teal;
+ }
+ #stripe{
+ 	background-color:#000;
+ 	padding:4px;
+ 	text-align:right;
+ 	color:#ddd;
+ }
+ #stripe a{
+ 	color:#eee;
+ }
+ #stripe a:hover{
+   color:black;
+   background:#ddd;
+ }
+ 
+ #head{
+ 	background-color:#666;
+ 	padding:6px;
+ 	
+ }
+ #head a{
+ 	color:#eee;
+ }
+ div.toolbar{
+ 	background-color:#666;
+ 	border-bottom:1px solid #333;
+ 	padding:6px;
+ 	
+ }
+ div.toolbar a{
+  padding:8px;
+  background:#333;
+  color:#eee;
+ }
+ 
+ #container{
+ 	padding:4px;padding-top:0;
+ 	background:#ddd;
+ }
+ div.clear{
+ 	clear:both;
+ }
+ #container div#menu{
+ 	float:right;
+ 	border:1px solid #666;
+ 	padding:6px;
+ 	margin:16px;
+	width:40%;
+ 	background:#eee;
+ 	
+ }
+ #container div#doc-container{
+ 	margin:6px;
+ 	background:white;
+ 	border:1px solid #666;
+ 	border-left:2px solid #333;
+ 	margin-right: 0;
+ 
+ }
+ #container div#doc{
+ 	padding:16px; padding-top:4px; margin-right:4px;
+ 	padding-right: 0;
+ }
+	div.grippie {
+		background:#EEEEEE url(/images/ui/grippie.png) no-repeat scroll center 2px;
+		border-color:#DDDDDD;
+		border-style:solid;
+		border-width:0pt 1px 1px;
+		cursor:s-resize;
+		height:9px;
+		overflow:hidden;
+	}
+	.resizable-textarea textarea {
+		display:block;
+		margin-bottom:0pt;
+		width:100%;
+		height: 100px;
+	}
+ 
+ #doc-container h1{
+ 	background:#eee;
+ 	margin:0;
+ 	padding:4px;padding-top:0;
+ 	padding-left:12px;
+ }
+ a.new {
+ 	font-size:16px;
+ 	color:teal;
+ 	border:1px solid teal;
+ 	display:block;
+ 	padding:6px;
+ }
+ p.links{
+ 	margin-top:16px;
+ 	
+ }
+ p.links a{
+ 	border: 1px solid #ddd;
+ 	padding:4px;
+ 	margin:4px;
+ 	display:inline;
+ }
+ 
+ #doc div.pageText{
+ 	border-left:1px solid #ddd;
+ 	padding:16px;
+ 	margin:12px;
+ }
+/*
+ #updateMenu{float:right;width:20%;}
+ p.title{
+	float:left;
+	width:70%;
+}
+ */
+/* div.crumb{
+ 	padding-top:0px;
+ 	margin-top:-10px;
+ 	border:1px solid #eee;
+ 	border-left:0;border-right:0;border-top:0;
+ 	margin-bottom:6px;
+ }
+*/

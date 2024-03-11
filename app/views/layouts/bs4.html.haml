@@ -1,0 +1,43 @@
+!!!
+%html
+  %head
+    %title Product Invoice
+
+    %meta(content='width=device-width, initial-scale=1.0' name='viewport')
+
+    - bootstrap_version = '3.3.4'
+    = javascript_include_tag '//code.jquery.com/jquery-2.1.3.min.js'
+
+    %script{:src => "//maxcdn.bootstrapcdn.com/bootstrap/#{bootstrap_version}/js/bootstrap.min.js"}    
+    %link{href: "//maxcdn.bootstrapcdn.com/bootstrap/#{bootstrap_version}/css/bootstrap.min.css", rel: "stylesheet", media: :all}
+
+    %link(rel="shortcut icon" href="//assets.integrated-internet.com/public/sites/ii/icons/icon.gif")
+
+    / = stylesheet_link_tag 'invoice', 'blockquote'
+    / = stylesheet_link_tag 'print', media: 'print'
+    / = javascript_include_tag "invoice/invoice", "invoice/validator"
+   
+
+  %body.invoice
+    .navbar-wrapper.no-print
+      .container
+        .navbar-fixed-top.navbar-default.bordered
+          .container
+            .navbar-header
+              %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+                %span.icon-bar
+                %span.icon-bar
+                %span.icon-bar
+              - domain = ("https://www." + current_site.domains.first.host) rescue '#'
+              = link_to domain, class: "navbar-brand" do
+                = current_site.biz_name
+            .navbar-collapse.collapse
+              %ul.nav.navbar-nav
+                %li.active
+                  = link_to  "javascript:window.print()"  do
+                    Print PDF
+
+    .container= yield
+
+    %style
+      body{padding-top: 60px}

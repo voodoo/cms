@@ -1,0 +1,31 @@
+- if @invoices.present?  
+  - for invoice in @invoices
+    %li{:title => "Created: #{invoice.created_at} / Updated: #{invoice.updated_at}", 'data-theme' => invoice.received_by? ? nil : 'e'}
+      = link_to mblz_invoice_path(invoice) do
+        %h3= invoice.contact.full_name unless @contact
+        %p
+          %b= number_to_currency invoice.total
+          - if invoice.in_work? && !invoice.work_note.blank?
+            %p
+              %br/
+              %b 
+                Work Note:
+                = invoice.work_note
+
+        .ui-li-count= invoice.invoice_items.size
+        %p.ui-li-aside
+          = colored_status(invoice)
+          = invoice.id
+          %br/
+          = invoice.current_status.created_at.to_s :long
+          - if invoice.in_work?
+            %br/
+            %br/
+            %b= invoice.work_date.to_s :mdy
+      = link_to '#', client_invoice_path(invoice.token ,:nc => 1), title: 'Public View', target: '_blank'
+
+
+
+- else
+  %li None
+        

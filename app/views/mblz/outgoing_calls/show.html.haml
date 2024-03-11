@@ -1,0 +1,18 @@
+- content_for :title_btn, link_to("Delete", mblz_outgoing_call_path(@call), data: {ajax: false, :confirm => 'Really?', :method => :delete})
+
+- list 'Outgoing Call' do
+  %li
+    =link_to mblz_contact_path(@call.contact) do
+      %h3= @call.contact.full_name
+      %p= @call.user.login
+      %p.ui-li-aside= @call.created_at.to_s(:short)
+
+
+- if current_user.admin?
+  - list 'Status'  do
+    - @call.status.reverse.each do |st|
+      %li= st
+    %li(data-role='list-divider' data-theme='c') Paths
+    - @call.paths.reverse.each do |pt|
+      %li= pt
+

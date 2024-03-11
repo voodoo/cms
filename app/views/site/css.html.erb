@@ -1,0 +1,15 @@
+<% 
+   # /css will contain all styles for this site unless params are sent
+   # - eg /css?body
+   #    would only render style named body, so you can constrain your css
+ 
+   # Use liquid to transform css
+   # http://www.liquidmarkup.org/
+   # For example, define colors
+   #  - assign color = "Big Red"
+   #  - body{ 
+   #         color:{{color}};
+   #    } 
+%>
+
+<%= render :inline => Liquid::Template.parse(@css).render(params) %> 

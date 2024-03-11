@@ -1,0 +1,12 @@
+%div{'data-role' => 'page', 'id' => "#{controller_name}_#{action_name}"}
+  = render('mblz/shared/header')
+  %div(data-role='content')
+    = render('mblz/shared/notifications')
+    = yield
+  = yield :panel
+  = yield(:subpanel)
+
+  / ugly fix to jqm does not lose layout
+  / %script
+  /   heads = document.getElementsByTagName('head')
+  /   if(heads[0].innerHTML == "") location.reload()

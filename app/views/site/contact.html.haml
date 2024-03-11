@@ -1,0 +1,36 @@
+%hr
+.container-fluid
+  .well 
+    .row
+      .col-md-6
+        %h2(itemtype="http://schema.org/Person")
+          = @site.owner_name
+          %small.muted Owner
+        - unless @site.owner_photo.blank?
+          %img(src="http://assets.integrated-internet.com/sites/heartwood/gp.png")
+        %h1
+          = link_to "Send us a message!", '/forms', class: 'btn btn-primary'     
+          
+      .col-md-6
+        %div(itemscope itemtype="http://schema.org/LocalBusiness")
+          %h1(itemtype="http://schema.org/Person")
+            %span(itemprop="name")= @site.biz_name
+            %small.muted Business Name    
+          %h4(itemprop="description")= @site.biz_description
+          %hr    
+          
+              
+          %h3.muted Address
+          %div(itemprop="address" itemscope itemtype="http://schema.org/PostalAddress")
+            %span(itemprop="streetAddress")= @site.owner_street
+            %div
+              %span(itemprop="streetLocality")= @site.owner_city
+              ,
+              %span(itemprop="addressRegion")= @site.owner_state
+            %div
+              %span(itemprop="postalCode")= @site.owner_zip
+
+          %h4.muted Phone
+          %span(itemprop="telephone")= @site.phone.to_phone
+          
+

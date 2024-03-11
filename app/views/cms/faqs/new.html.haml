@@ -1,0 +1,5 @@
+- fieldset_form_for(['cms', @faq]) do |f|
+  = render :partial => 'form', :locals => {:f => f}
+  = f.submit "Create"
+
+= link_to 'Back', faqs_path

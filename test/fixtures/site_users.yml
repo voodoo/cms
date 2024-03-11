@@ -1,0 +1,9 @@
+default:
+  site: default
+  user: admin
+user:
+  site: default
+  user: user
+nopin:
+  site: default
+  user: nopin  

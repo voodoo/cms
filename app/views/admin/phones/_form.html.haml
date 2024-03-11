@@ -1,0 +1,22 @@
+= form_for [:admin, current_site.twilio_config, @phone] do |f|
+  /= f.hidden_field :phoneable_type
+  - list 'New Phone' do
+    %li(data-role='fieldcontain')
+      = f.label :number
+      = f.text_field :number, class: :phone
+    %li(data-role='fieldcontain')
+      = f.label :name
+      = f.text_field :name
+    %li(data-role='fieldcontain')
+      = f.check_box :active, :class => :twilio_active   
+      = f.label :active
+    %li(data-role='fieldcontain')
+      = f.check_box :before_five, :class => :before_five   
+      = f.label :before_five, "Call before 5 o'clock"        
+    %li(data-role='fieldcontain')
+      = f.check_box :after_five, :class => :after_five   
+      = f.label :after_five, "Call after 5 o'clock"    
+  = f.submit   
+
+
+= javascript_include_tag "active_twilio_toggle"

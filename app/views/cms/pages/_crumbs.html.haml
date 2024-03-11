@@ -1,0 +1,8 @@
+- if @page.parent
+  %div(data-role='controlgroup' data-type='horizontal')
+    - parent = @page.parent
+    - while parent
+      = link_to parent.title, mblz_page_path(parent), 'data-role' => 'button'
+      - parent = parent.parent
+
+		

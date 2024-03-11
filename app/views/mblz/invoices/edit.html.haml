@@ -1,0 +1,12 @@
+
+- content_for :title_btn do
+  = link_to("Update", "javascript:$('.ui-page-active .click_update').trigger('click')")  
+- title "Edit Invoice"
+= render 'form'
+
+%div(data-role="navbar")
+  %ul
+    %li= link_to("Delete", mblz_invoice_path(@invoice), data: {method: :delete, confirm: "Really?", theme: 'e'})
+    %li= link_to("Cancel", mblz_invoice_path(@invoice), data: {role: 'button'})
+    %li{data: {theme: 'g', icon: 'grid'}}
+      = link_to 'Duplicate', dupe_mblz_invoice_path(@invoice), title: 'Make a copy of this invoice', data: {method: :post, confirm: 'Really?'}

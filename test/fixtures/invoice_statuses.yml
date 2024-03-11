@@ -1,0 +1,6 @@
+default:
+  invoice_id: 122
+  status: 2
+priority:
+  invoice_id: 123
+  status: 2  

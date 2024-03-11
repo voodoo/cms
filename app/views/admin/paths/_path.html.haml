@@ -1,0 +1,10 @@
+%ul
+  - unless @path.referer.blank?
+    %li= @path.referer
+  %li= @path.browser
+  %li= @path.ip  
+  - @path.params.delete(:controller)
+  - @path.params.delete(:action)
+  - unless @path.params.empty?
+    %li
+      %pre= debug @path.params

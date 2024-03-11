@@ -1,0 +1,20 @@
+- if @calls.present?
+  - for call in @calls
+    - icon,theme = icon_theme_for(call)
+    %li{'data-icon' => icon, 'data-theme' => theme}
+      /= debug icon
+      = link_to mblz_incoming_call_path(call) do
+        %h3= call.calling.to_phone rescue '!ERROR! to_phone'
+        - if call.contact
+          %p= call.contact.full_name
+        - else
+          %p= call.caller_name
+        %p.ui-li-aside
+          %b= call.created_at.to_s(:short)
+          %br
+          = call.city
+          \,
+          = call.zip
+- else
+  %li
+    %small None Found          

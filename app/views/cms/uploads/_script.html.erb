@@ -1,0 +1,10 @@
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $('input[type=file],input[type=hidden]').each(function() {
+      // change name of element before applying MultiFile
+      // so array of files can be send to server with mugshot[uploaded_data][]
+      if(!$(this).attr('name').match(/authenticity/))
+        $(this).attr('name', $(this).attr('name') + '[]');
+    })
+  })  
+</script>

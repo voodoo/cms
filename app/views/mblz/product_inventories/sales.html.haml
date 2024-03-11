@@ -1,0 +1,19 @@
+-title "Sales since last inventory"
+- list nil, 'data-filter' => "true"  do
+  - @products.each do |product|
+    - details = ProductInventory.details_for(current_site, product)
+    - next unless details[:product_count] != details[:projected_count]
+    %li
+      - if details[:last_inventory] 
+        = link_to mblz_product_inventory_path(details[:last_inventory]) do
+          %h3= product.name
+          %p 
+            There have been 
+            %b= details[:sold]
+            products sold lince last inventory on
+            %b= details[:last_inventory].created_at.to_s :short
+      - else
+        %h1= product.name
+        %p
+          Not inventoried yet
+      %p.ui-li-count= details[:projected_count]

@@ -1,0 +1,7 @@
+- title "Editing Site"
+- content_for :title_btn, link_to("Delete", admin_site_path(@site), :method => "delete", 'data-confirm' => REALLY, 'data-role' => 'button', 'data-icon' => 'delete')
+
+= form_for(['admin', @site]) do |f|
+  = render :partial => 'form', :locals => {:f => f}
+  = f.submit "Update", 'data-theme' => 'b' 
+

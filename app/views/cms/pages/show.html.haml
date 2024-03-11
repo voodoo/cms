@@ -1,0 +1,22 @@
+- if @page and !@page.parent.nil?
+  - content_for :title_btn do
+    = link_to(@page.parent.title, cms_page_path(@page.parent), 'data-icon' => "back" )
+
+-list(nil, {'data-split-icon' => "add"}) do
+  %li
+    = link_to edit_cms_page_path(@page) do
+      %h3= @page.title
+      %p.hint= strip_tags @page.text.to_s.first(200)
+      - if current_site.root_page == @page
+        = image_tag '/images/icon/home.png'
+      = link_to 'Add Page', new_cms_page_path(:parent_id => @page.id)
+   
+
+- list nil, {'data-split-icon' => "arrow-r"} do
+  - for page in @page.children
+    %li
+      = link_to edit_cms_page_path(page) do
+        = page.title
+        %span(class='ui-li-count')= page.children.size
+      = link_to cms_page_path(page) do
+        Edit      

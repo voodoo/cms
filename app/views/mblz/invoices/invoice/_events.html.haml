@@ -1,0 +1,6 @@
+- list ['Status Changes', @invoice.received_by? ? "Received by #{@invoice.received_by.login}" : '<span style="color:firebrick;float:right;font-weight:bold">Not received by owner</span>'] do
+  - for event in @invoice.invoice_statuses.reverse
+    %li
+      %h3= event.status_name
+      %p= event.user.login if event.user
+      %p.ui-li-aside= event.created_at.to_s(:long)

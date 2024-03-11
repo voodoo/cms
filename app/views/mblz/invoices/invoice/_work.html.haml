@@ -1,0 +1,5 @@
+- if @invoice.in_work?
+  - list "Work" do
+    %li
+      %h3= @invoice.work_date.to_s(:long) 
+      %div(style="font-weight:normal")= @invoice.work_note

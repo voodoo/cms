@@ -1,0 +1,12 @@
+  <ul class="menu" id="styles">
+      <% for style in @styles %>
+       <li class="page" id="style_<%= style.id %>" style="clear:both;">
+       <% if @styles.count > 1 %>
+         <span class="handle" style="float:left;margin:12px;cursor:move"><img src="/images/icon/tiny/permalink.gif"/></span>
+       <% end %>
+       <%= link_to "#{style.title}", edit_cms_style_path(style) %>
+       </li>
+      <% end %>
+      <li class="add"><%= link_to 'Add', new_cms_style_path %></li>
+  </ul>
+  <%#= sortable_element("styles", :url => sort_cms_styles_path, :handle => "handle") %>

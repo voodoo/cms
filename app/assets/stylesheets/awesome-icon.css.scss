@@ -1,0 +1,12 @@
+.awesome-icon {
+  float:left;
+  margin:12px;
+  margin-left:4px;
+  min-width:30px;
+  &.green {
+    color:teal;
+  }
+  &.red {
+    color:firebrick;
+  }
+}

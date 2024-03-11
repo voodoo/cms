@@ -1,0 +1,79 @@
+<script src="//static.twilio.com/libs/twiliojs/1.2/twilio.min.js"></script>
+
+<script>
+
+  Twilio.Device.setup("<%= @token %>") ;
+ 
+  Twilio.Device.ready(function (device) {
+    tLog("Ready");
+  });
+
+  Twilio.Device.error(function (error) {
+    tLog("Error: " + error.message);
+  });
+
+  Twilio.Device.connect(function (conn) {
+    tLog("Successfully established call");
+  });
+
+  Twilio.Device.disconnect(function (conn) {
+  	 tLog("Call ended");
+  });
+
+  function hangup() {
+    Twilio.Device.disconnectAll();
+  }
+
+
+  function call() {
+  	var params = {contact_id: <%= @contact.id%>, phone_number: <%= params[:n] %>, user_id: <%= current_user.id %> }
+    Twilio.Device.connect(params);
+  }
+
+  function tLog(msg){
+  	console.log(msg)
+    $('#showLog').text(msg)
+  	$('#twilio-log').prepend('<li>' + msg + '</li>')
+  }
+
+  function handleUi(){
+    var text = $('#showLog').text()
+    if(text == '' || text == 'Ready' || text == "Call ended"){
+      ready()
+    } else {
+      calling()
+    }
+    console.log(text) 
+  }
+
+
+  nIntervId = setInterval(handleUi, 1000);
+  
+ 
+  function ready(){
+    $('#h3State').text("Call")
+    $('#iState').removeClass('red').addClass('green')
+    $('#iSpinner').hide()
+  }
+  function calling(){
+    $('#h3State').text("Hangup")
+    $('#iState').removeClass('green').addClass('red') 
+    $('#iSpinner').show()   
+  }
+
+  $('#phoneAction').on('click', function(e){
+  	e.preventDefault()
+  	if($('#h3State').text() == 'Call'){
+  		call()
+  	} else {
+  		hangup()
+  	}
+  })
+
+  $('#aShowLog').on('click', function(e){
+    e.preventDefault()
+    $('#twilio-log').toggle()
+
+  })
+
+</script>

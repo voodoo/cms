@@ -1,0 +1,62 @@
+.col-lg-4.col-sm-12.col-xs-12
+  .panel.panel-default
+    .panel-heading
+      .panel-title= @invoice.or_estimate
+    .panel-body
+      .row
+        .col-sm-12.col-xs-12.col-md-6
+          Status:
+          %b= @invoice.status_name 
+          %br/
+          Number:
+          %b= @invoice.id
+          %br/
+          Date: 
+          %b= @invoice.current_status.created_at.to_s(:mdy)  
+        .col-sm-12.col-xs-12.col-md-6
+          %b 
+            Total:
+            .badge.total{class: @invoice.paid? ? 'alert-success' : 'alert-warning'}= number_to_currency @invoice.total    
+.col-lg-4.col-sm-6.col-xs-12                    
+  .panel.panel-default
+    .panel-heading
+      .panel-title From
+    .panel-body
+      %p
+        %b= current_site.biz_name
+      %p= current_site.owner_name
+      %p
+        = current_site.owner_street
+        %br
+        = current_site.owner_city
+        %br
+        = "#{current_site.owner_state}, #{current_site.owner_zip}"
+      %p
+        - phone = current_site.phone
+        = phone.to_phone unless phone.blank?
+        %br
+        = current_site.email
+.col-lg-4.col-sm-6.col-xs-12    
+  .panel.panel-default
+    .panel-heading
+      .panel-title To
+    .panel-body
+      .row
+        .col-sm-6
+          - unless @contact.business_name.blank?
+            %h4= @contact.business_name 
+          %b= @contact.full_name
+          %p
+            = @contact.street
+            %br/
+            = @contact.city
+            ,
+            = @contact.state
+            = @contact.zip
+        .col-sm-6
+
+          %p
+            = @contact.phoned
+            %br/
+            = @contact.email  
+

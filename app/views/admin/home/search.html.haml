@@ -1,0 +1,49 @@
+- title 'Search Sites'
+
+= render 'search'
+
+- list 'Sites' do
+  - if @sites.present?
+    - for site in @sites
+      %li= link_to site.subdomain, admin_site_path(site)
+  - else
+    %li 
+      No sites found with
+      %i= params[:q]
+
+- list 'Domains' do
+  - if @domains.present?
+    - for domain in @domains
+      %li= link_to domain.host, admin_domain_path(domain)
+  - else
+    %li 
+      No domains found with
+      %i= params[:q]
+
+- list 'Users' do
+  - if @users.present?
+    - for user in @users
+      %li= link_to((user.login || user.email), admin_user_path(user))
+  - else
+    %li 
+      No users found with
+      %i= params[:q]
+
+
+/ - if @sites.empty?
+/   %p 
+/     No Sites found with
+/     %b= params[:q]
+/ - else
+/   - list 'Sites' do
+/     - @sites.each do |site|
+/       = render 'admin/sites/site', :site => site
+
+/ - if @users.empty?
+/   %p 
+/     No Users found with
+/     %b= params[:q]
+/ - else
+/   - list 'Users' do
+/     - @users.each do |user|
+/       = render 'admin/users/user', :user => user      

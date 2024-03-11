@@ -1,0 +1,52 @@
+
+- title 'Admin'
+
+= render 'search'
+
+- list "Current site" do
+  %li
+    = link_to admin_site_path(current_site) do
+      %h3= current_site.subdomain
+      %p
+        = current_site.biz_name
+      %p.ui-li-aside
+        - if current_site.domains.present?
+          = current_site.domains.first.host
+        - else
+          = current_site.created_at.to_s(:short)
+
+- list 'All', 'data-split-icon' => "plus" do
+  %li
+    = link_to admin_users_path do
+      Users
+      %p.ui-li-count= User.count
+    = link_to 'New User', new_admin_user_path
+
+  %li
+    = link_to admin_sites_path do
+      Sites
+      %p.ui-li-count= Site.count
+    = link_to 'New Site', new_admin_site_path
+
+  %li
+    = link_to admin_tags_path do
+      Tags
+      %p.ui-li-count= Tag.count
+
+
+  %li
+    = link_to admin_domains_path do
+      Domains
+      %p.ui-li-count= Domain.count
+
+  %li
+    = link_to sites_admin_paths_path do
+      Paths 
+      %p.ui-li-count= Path.count    
+  
+  %li= link_to 'Twilio', admin_twilio_configs_path
+  %li= link_to 'Activities', admin_activities_path  
+  %li= link_to 'Incoming Calls', admin_incoming_calls_path      
+
+
+

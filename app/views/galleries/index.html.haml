@@ -1,0 +1,30 @@
+= stylesheet_link_tag '//23.253.214.114/gallery/css/blueimp-gallery.min.css'
+= javascript_include_tag '//23.253.214.114/gallery/js/blueimp-gallery.min.js'
+
+.blueimp-gallery.blueimp-gallery-controls#blueimp-gallery
+  .slides
+  %h3.title
+  %a.prev ‹
+  %a.next ›
+  /%a.close ×
+  %a.play-pause
+  %ol.indicator    
+#links
+  - @folders.each do |folder|
+    .container.gallery
+      %h4= folder.name
+      .images
+        - folder.uploads.order('position').each do |img|
+          = link_to(image_tag(img.upload.url(:thumb)), img.upload.url(:original), title: img.title)
+
+
+
+:javascript
+  document.getElementById('links').onclick = function (event) {
+  event = event || window.event;
+  var target = event.target || event.srcElement,
+  link = target.src ? target.parentNode : target,
+  options = {index: link, event: event},
+  links = this.getElementsByTagName('a');
+  blueimp.Gallery(links, options);
+  };

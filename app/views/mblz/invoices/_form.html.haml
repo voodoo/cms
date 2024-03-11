@@ -1,0 +1,40 @@
+= form_for ['mblz', @invoice] do |f|
+  
+  - list "Contact" do
+    %li
+      = f.hidden_field :contact_id
+      = @invoice.contact.full_name
+
+  - if @invoice.status_name == 'Work'
+    - list "Work" do
+      %li
+        = f.label :work_date  
+        %input{id: "invoice_work_date", name: 'invoice[work_date]', type: 'date', value: @invoice.work_date}
+      %li  
+        = f.label :work_note  
+        = f.text_area :work_note, :placeholder => 'Add work notes like time of arrival and special instructions'
+
+  %h4 Invoice Items  
+  - for item in @invoice.invoice_items
+    = render 'item', :item => item
+
+  - for i in 1..(@invoice.new_record? ? 2 : 1) 
+    = render 'item', :item => InvoiceItem.new
+          
+  #newItems
+  %div(data-role='controlgroup' data-type='horizontal')
+    = link_to 'New Item', "javascript:aNewItem()", 'data-role' => 'button'
+    %span(id='spinner')
+
+  - list do
+    %li
+      = f.check_box :taxable
+      = f.label :taxable
+    %li
+      = f.label :footer
+      = f.text_area :footer, :placeholder => "Footer"
+      %p.hint Shows up at the  bottom of the Public view
+
+  = f.submit "#{@invoice.new_record? ? 'Create' : 'Update'} Invoice", :class => 'click_update'
+
+= javascript_include_tag 'invoice/edit'

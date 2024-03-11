@@ -1,0 +1,35 @@
+ul#contacts{
+ margin-left:0;
+}
+ul#contacts > li{
+	/*list-style-image:url(/images/icon/smallcontact.png);*/
+	list-style:none;
+	border-radius: 15px;
+	border:1px solid #ccc;
+	margin:12px;
+	margin-left:0;
+	padding-left:12px;
+	background-image:url(/images/bg/contact-head.png);
+	background-position: top ;
+	background-repeat:repeat-x;
+	-webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+ 
+}
+ul#contacts > li > h2 > a{
+ color:#333;
+ display:block;
+ text-decoration:none;
+ text-shadow: 0 2px #fff;
+ 
+}
+
+ul#contacts > li > h2 > a:hover{
+ color:#000;
+ text-decoration:underline;
+/* text-shadow: 0 2px #000;
+*/
+}
+
+ul#contacts li img{
+ float:left;
+}

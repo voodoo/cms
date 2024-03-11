@@ -1,0 +1,10 @@
+- content_for :title_btn, link_to("New", new_admin_user_path(), 'data-role' => 'button')
+
+- list nil, 'data-filter' => "true" do
+  = render :partial => @users
+
+:css
+  form.ui-listview-filter{
+    background:inherit;
+    border:0;
+  }

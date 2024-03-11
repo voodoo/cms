@@ -1,0 +1,46 @@
+%table.table.table-striped.table-bordered
+  %thead
+    %tr.info
+      %th{:width => 200} Name
+      %th Note
+      %th{:width => 50, :style => 'text-align:center'} Qty
+      %th{:width => 50} Price
+      %th{:width => 50} Subtotal
+
+  - @invoice.invoice_items.each_with_index do |item, i|
+    - i = i+1
+    %tr{:class => cycle('odd','even')}
+      %td
+        %b= item.name
+        = hidden_field_tag "item_name_#{i}", item.name
+        = hidden_field_tag "item_number_#{i}", item.invoice_item_default.id      
+      %td
+        = item.note
+      %td(align='center')
+        = item.qty
+        = hidden_field_tag "quantity_#{i}", item.qty
+        = hidden_field_tag "tax_rate_#{i}", @invoice.tax_rate * 100
+      %td
+        = number_to_currency item.price
+        = hidden_field_tag "amount_#{i}", item.price
+      %td
+        %b= number_to_currency item.sub
+      
+  %tr{:class => :totals}
+    %td{:colspan => 2, :rowspan => 3, style: 'border-top:2px solid #999;text-align:center;vertical-align:middle'}
+      %em= @invoice.footer     
+    %td{:style => 'text-align:right;border-top:2px solid #999', colspan: 2}
+      Subtotal
+    %td(style="border-top:2px solid #999")
+      %b= number_to_currency @invoice.sub
+  %tr{:class => :totals}
+    %td(style="text-align:right" colspan="2")
+      == Tax(#{@invoice.tax_rate})
+    %td(colspan="2")
+      %b= number_to_currency @invoice.tax
+      = hidden_field_tag 'tax_cart', '%.2f' % @invoice.tax
+  %tr{:class => :total, style: 'border-bottom:1px solid #ccc'}
+    %td(style="text-align:right" colspan="2")
+      %h3 Total
+    %td
+      %h3.total{class: @invoice.paid? ? 'paid' : 'notpaid'}= number_to_currency @invoice.total

@@ -1,0 +1,13 @@
+= form_for [:cms, folder] do |f|
+  - list 'Folder Details', style: "display:none", id: "folder-detail-#{folder.id}" do  
+    %li(data-role='fieldcontain')
+      = f.label :name
+      = f.text_field :name
+    %li(data-role='fieldcontain')
+      = f.label :gallery_wrapper
+      = f.text_field :gallery_wrapper, placeholder: "Gallery Wrapper"
+    %li
+      .form-actions(data-role="controlgroup" data-type='horizontal')
+        = f.submit
+        = link_to "Delete", cms_folder_path(folder), confirm: "Really?", method: :delete, data: {role: :button, theme: :f}, remote: true
+        = link_to "Cancel", "javascript:$('#folder-detail-#{folder.id}').toggle()", data: {role: :button, theme: :a}

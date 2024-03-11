@@ -1,0 +1,12 @@
+- content_for :title_btn, link_to("New", new_mblz_way_path)
+- list "Where are yous" do
+  - @ways.each do |way|
+    %li
+      = link_to "https://maps.google.com/maps?z=12&t=m&q=loc:#{way.lat}+#{way.lng}", target: '_blank' do
+        %h3= way.user.login
+        %p= way.message
+        %p.ui-li-aside
+          = time_ago_in_words(way.created_at)
+          ago
+
+

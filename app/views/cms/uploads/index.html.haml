@@ -1,0 +1,71 @@
+- for folder in @folders
+  %ul(data-role='listview' data-inset='true' id="folder#{folder.id}")
+    %li(data-role='list-divider')
+      = folder.name
+      .pull-right.folder(data-folder="#{folder.id}")
+        - if folder.higher_item 
+          %span.up ^
+        - if folder.lower_item
+          %span.down v
+    - folder.uploads.each do |upload|
+      %li
+        = link_to edit_cms_upload_path(upload) do
+          = image_tag(upload.upload.url(:thumb))
+          %h3= upload.title #.blank? ? upload.title : 'BLANK'
+          %p= upload.created_at.to_s(:short)
+          .ui-li-aside.upload(data-upload="#{upload.id}")
+            - if upload.higher_item 
+              %span.up ^ 
+            - if upload.lower_item
+              %span.down v
+        = link_to 'View', upload.upload.url(:original), target: '_blank'
+    %li{data:{theme: 'g'}}= link_to "New", new_cms_upload_path(f: folder.id)
+
+
+
+
+= render template: 'cms/folders/new'
+
+:css
+  .ui-li-aside span{
+    font-size:20px;
+  }
+:coffeescript
+  
+  $('span.up, span.down', '.upload').on 'click', (e) ->
+    e.preventDefault()
+    span = $(@)
+    id = span.parent().data('upload')
+    direction = span.attr('class')
+    document.location = "/cms/uploads/" + id + "/move?d=" + direction
+  
+  $('span.up, span.down', '.folder').on 'click', (e) ->
+    e.preventDefault()
+    span = $(@)
+    id = span.parent().data('folder')
+    direction = span.attr('class')
+    document.location = "/cms/folders/" + id + "/move?d=" + direction    
+/ - for upload in folder.uploads
+/   %div{:id => "img#{upload.id}", title: (upload.title || upload.upload.url(:thumb))}
+/     = link_to(image_tag(upload.upload.url(:thumb)), upload.upload.url(:original), :onerror => "this.src='/images/rails.png'", :target => '_blank')
+/     .title
+/       = link_to "x", cms_upload_path(upload), :method => :delete, confirm: REALLY, "data-icon" => 'add'
+/     .clearfix
+/       .formContainer{id: "addUpload#{folder.id}", style: "display:none"}
+/         = form_for :upload, :url => cms_uploads_path, :multipart => true do |f|
+/           = f.hidden_field :folder_id, :value => folder.id
+/           .ui-grid-a
+/             .ui-block-a= f.file_field :upload
+/             .ui-block-b
+/               = f.text_field :title, placeholder: 'Image title'
+/           = f.submit "Upload Image"
+
+
+/ = render "folder", folder: folder
+
+/ .btn-group(data-role="controlgroup" data-type='horizontal')
+/   = link_to "New Image", new_cms_upload_path(f: folder.id), "data-role" => :button
+
+/   = link_to "Edit Folder", "javascript:$('#folder-detail-#{folder.id}').toggle()", "data-role" => :button
+    
+

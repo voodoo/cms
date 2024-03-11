@@ -1,0 +1,176 @@
+<style>
+
+*{border:0;margin:0;}
+body{
+	background:#<%= color(:light) %>;
+}
+p{
+	padding:6px;
+	padding-left:0;
+}
+
+ul.link{
+	list-style:none;
+	padding-left:0;
+}
+ul.link li{
+	padding:6px;
+	border-left:2px solid #<%= color(:light) %>;
+	border-bottom:1px solid #<%= color(:darker) %>;
+}
+ul.link li.on{
+	background-color:#<%= color(:lighter) %>;
+}
+ul.link li.off{
+	
+}
+ul.link li a{
+	width:100%;
+	display:block;
+	padding:6px;
+}
+ul.link li a:hover{
+	background:#<%= color(:lighter) %>;
+}
+
+a{
+	color:#<%= color(:darker) %>;
+	text-decoration:underline;
+}
+a:hover{
+	color:black;
+	text-decoration:underline;
+}
+#stripe{
+	background-color:#<%= color(:darkest) %>;
+	padding:4px;
+	text-align:right;
+	color:#<%= color(:light) %>;
+}
+#stripe a{
+	color:#<%= color(:lighter) %>;
+}
+#stripe a:hover{
+  color:black;
+  background:#<%= color(:light) %>;
+}
+
+#head{
+	background-color:#<%= color(:dark) %>;
+	padding:6px;
+	
+}
+#head a{
+	color:#<%= color(:lighter) %>;
+}
+div.toolbar{
+	background-color:#<%= color(:dark) %>;
+	border-bottom:1px solid #<%= color(:darker) %>;
+	padding:6px;
+	
+}
+div.toolbar a{
+ padding:8px;
+ background:#<%= color(:darker) %>;
+ color:#<%= color(:lighter) %>;
+}
+
+#container{
+	padding:6px;
+	background:#<%= color(:light) %>;
+}
+div.clear{
+	clear:both;
+}
+#container div#menu{
+	float:left;
+	border:1px solid #<%= color(:dark) %>;
+	padding:6px;
+	margin:6px;
+	margin-left:0;
+	width:24%;
+	margin-left:22px;
+	background:#<%= color(:lighter) %>;
+}
+#container div#doc-container{
+	float:left;
+	width:70%;
+	margin:6px;
+	background:white;
+	border:1px solid #<%= color(:dark) %>;
+	border-left:2px solid #<%= color(:darker) %>;
+
+}
+#container div#doc{
+	padding:16px;
+}
+p{
+	margin:0 0 20px;
+}
+label{
+	display:block;
+	font-weight:bold;
+	margin-bottom:4px;
+}
+
+input{
+	border:1px solid #<%= color(:dark) %>;
+}
+
+textarea{
+	border:1px solid #<%= color(:dark) %>;
+	width:100%;
+}
+
+div.message{
+	padding:12px;
+	border:1px solid #<%= color(:light) %>;
+	background-color:#<%= color(:lighter) %>;
+	margin-top:0px;
+	margin-bottom:12px;
+}
+div.notice{
+	color:teal;
+}
+div.warn{
+	color:firebrick;
+}
+
+#doc-container h1{
+	background:#<%= color(:lighter) %>;
+	margin:0;
+	padding:4px;
+	padding-left:12px;
+}
+a.new {
+	font-size:16px;
+	color:teal;
+	border:1px solid teal;
+	display:block;
+	padding:6px;
+}
+p.links{
+	margin-top:16px;
+	
+}
+p.links a{
+	border: 1px solid #<%= color(:light) %>;
+	padding:4px;
+	margin:4px;
+	display:inline;
+}
+
+#doc div.pageText{
+	border-left:1px solid #<%= color(:light) %>;
+	padding:16px;
+	margin:12px;
+}
+
+div.crumb{
+	padding-top:0px;
+	margin-top:-10px;
+	border:1px solid #<%= color(:lighter) %>;
+	border-left:0;border-right:0;border-top:0;
+	margin-bottom:6px;
+}
+</style>

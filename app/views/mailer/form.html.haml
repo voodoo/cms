@@ -1,0 +1,10 @@
+%h1= @name
+
+%ul
+  - for field in @message.response
+    %li
+      = field.first
+      %br
+      %b= field.last
+  
+= render 'footer'

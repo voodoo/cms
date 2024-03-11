@@ -1,0 +1,6 @@
+- path_to_details = @in_admin ? "https://#{activity.site.subdomain}.mblz.com" : ''
+= link_to path_to_details + polymorphic_path([:mblz,activity.trackable]) do
+  = render 'mblz/activities/trackable_details', activity: activity
+
+- if activity.user && ! @user # already viewing this user
+  = link_to activity.user.login_or_email, path_to_details + "/mblz/activities/?user_id=#{activity.user.id}"

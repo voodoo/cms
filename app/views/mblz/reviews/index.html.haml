@@ -1,0 +1,7 @@
+- list 'Reviews' do
+  - @reviews.each do |review|
+    %li
+      = link_to mblz_invoice_review_path(review.invoice, review) do
+        = review.invoice.contact.full_name
+        %p.ui-li-aside
+          %i.fa.fa-2x{class: "fa-#{review.icon}"}

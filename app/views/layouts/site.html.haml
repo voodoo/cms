@@ -1,0 +1,23 @@
+- page_template = Liquid::Template.parse(yield)
+- page_content = page_template.render("page" => @page, 'path' => request.path)
+
+- if @page && @page.class == Page && @page.textile?
+  - page_content  = RedCloth.new(page_content).to_html
+
+- if @page
+  - unless @page.wrapper.blank?
+    - page_content = @page.wrapper.sub("{{page_content}}", page_content)
+  
+- if @page && @page.class == Page && @page.layout
+  - @layout = @page.layout.text
+- else
+  - @layout = '{{page_content}}'
+
+- if @page_params
+  - template = Liquid::Template.parse(@layout || '')
+  - output = template.render(@page_params.merge("page_content" => page_content))
+- else
+  - template = Liquid::Template.parse(current_site.layouts.first.text)
+  - output   = template.render("page_content" => page_content, 'path' => request.path, 'controller'  => controller_name.capitalize, 'action' => action_name.capitalize)
+
+= output.html_safe 

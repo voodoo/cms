@@ -1,0 +1,18 @@
+/ %li(data-theme='a')= link_to site.subdomain, admin_site_path(site)
+/ %li
+/   - url = "https://#{site.subdomain}.cmessence.com"
+/   = link_to  url, edit_admin_site_path(site) 
+/   = link_to "View", url , :target => '_blank'
+/ %li(data-role='list-divider')  Domains
+/ - for domain in site.domains
+/   %li= link_to domain.host, edit_admin_site_domain_path(site,domain)
+/ %li(data-icon='add')
+/   = link_to new_admin_site_domain_path(site) do
+/     %small [Add]
+/ %li(data-role='list-divider')  Users
+/ - for user in site.users
+/   - next if user.admin?
+/   %li= link_to user.email, edit_admin_user_path(user)
+/ %li(data-icon='add')
+/   = link_to new_admin_user_path(:site_id => site.id) do
+/     %small [Add]

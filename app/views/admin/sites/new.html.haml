@@ -1,0 +1,38 @@
+- title "New Site"
+= error_messages_for @site
+= form_for(['admin', @site]) do |f|
+  = render :partial => 'form', :locals => {:f => f}
+  = f.submit
+
+  #divSites
+    %p
+    - list 'Copy Site ...', 'data-filter' => 'true', 'id' => 'ulSite' do
+      - for site in Site.order('updated_at desc')
+        %li{"data-site-id" => site.id, "data-site-subdomain" => site.subdomain}
+          = link_to site.subdomain, "#"
+  
+  #divSiteSelected
+    %label Copy Site
+    %p
+      %b#pSiteSelected
+  
+  = f.hidden_field :copied_site_id
+
+  
+
+:javascript
+  $('#ulSite li a').on('click', function(){
+    var li             = $(this).closest('li')
+    var site_id        = li.data('site-id')
+    var site_subdomain = li.data('site-subdomain')
+    $('#divSites').hide()
+    $('#divSiteSelected').show()
+    $('#pSiteSelected').html(site_subdomain)
+    $('#site_copied_site_id').val(site_id)
+  })
+
+:css
+  form.ui-listview-filter{
+    background:inherit;
+    border:0;
+  }

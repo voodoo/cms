@@ -1,0 +1,18 @@
+- if @invoices
+  - content_for :title_btn do 
+    = link_to("Export", export_mblz_invoices_path(m: params[:m]))
+  %ul{'data-role' => 'listview',  'data-inset' => 'true'}
+    %li(data-role='list-divider')
+      = Date::MONTHNAMES[params[:m].to_i]
+      %p(class='ui-li-aside')= number_to_currency(@invoices.map{|i| i.total}.sum)
+    = render 'invoices'
+- else
+  - list do
+    - Date::MONTHNAMES.each_with_index do |month,index|
+      - next unless month
+      %li
+        = link_to "?m=#{index}" do
+          = month
+          %p(class='ui-li-aside')
+            = report_year_for(index)
+            &nbsp;

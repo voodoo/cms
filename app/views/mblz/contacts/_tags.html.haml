@@ -1,0 +1,13 @@
+- unless current_site.tags.empty?
+  - list ['Tags', 'mark contacts for future reference'] do
+    - current_site.tags.group(:category).each do |category|
+      %li(data-role='list-divider')
+        = category.category
+        %p.ui-li-aside Category
+      - current_site.tags.where(category: category.category).each do |tag|
+        - theme = @contact.tags.include?(tag) ? 'b' : nil
+        %li(data-theme=theme)
+          = link_to mblz_contact_tag_path(@contact, tag), method: :put do
+            = tag.name
+            .ui-li-count= tag.contacts.size
+          = link_to "View tag #{tag.name}", mblz_tag_path(tag)

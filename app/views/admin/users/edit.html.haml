@@ -1,0 +1,15 @@
+- title 'Edit User'
+
+= form_for ['admin', @user] do |f|
+  - list @user.login do
+    = render :partial => 'form', :locals => {:f => f}
+  %p= f.submit 'Update user info'
+
+  = render 'twilio', f: f
+  %p= f.submit 'Update user info'
+
+- if !@user.admin?
+  = render 'sites'
+- else
+  %h3 User is an Admin (and will have access to all sites)
+

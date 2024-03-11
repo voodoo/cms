@@ -1,0 +1,8 @@
+%b Perhaps you are looking for ...
+
+%ul.not-jq
+  - for contact in @contacts
+    %li= link_to contact.full_name, mblz_contact_path(contact), :target => '_blank'
+
+
+  

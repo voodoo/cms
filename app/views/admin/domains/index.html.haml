@@ -1,0 +1,6 @@
+- list nil, 'data-filter' => "true", 'data-inset' => 'false' do
+  - for domain in @domains
+    %li
+      = link_to edit_admin_site_domain_path(domain.site, domain) do
+        %h3= domain.host
+        %p= domain.site.subdomain

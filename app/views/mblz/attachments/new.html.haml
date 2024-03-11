@@ -1,0 +1,27 @@
+= javascript_include_tag :resizeUpload, :binaryAjax, :exif, "invoice/uploads"
+
+= form_for [:mblz, @invoice, @invoice.attachments.new], multipart: true do |att|
+  - list ["Add Attachments to invoice for", @invoice.contact.full_name] do
+    %li(data-role='fieldcontain')
+      = att.label :image
+      = att.file_field :image, multiple: true
+      = att.hidden_field :before_or_after, value: params[:ba]
+    %li= att.submit "Upload '#{@s_before} Job' Image", id: :btnSubmit
+  #filesInfo
+  
+
+:css
+  #filesInfo img,#filesInfo input{
+    width: 160px;
+  }  
+:javascript
+  $( document ).on( "pageinit", function( event ) {
+    $('#attachment_image').change(function(e) {
+      $('#filesInfo').html('')
+      resizeFiles(e.target.files);
+    });
+    $('#btnSubmit').on('click', function(e){
+      e.preventDefault();
+      uploadFiles(#{@invoice.id}, #{params[:ba]})
+    })
+  });

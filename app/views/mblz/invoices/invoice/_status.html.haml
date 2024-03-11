@@ -1,0 +1,26 @@
+
+%div(data-role='controlgroup' id='invoice_status_cancel_reason' style="display:none")
+  %h4 Cancel Reasons
+  - cancel_reason = @invoice.status
+  - InvoiceStatus.cancel_reasons.each_with_index do |status, i|
+    - checked = cancel_reason == i ? 'checked' : 'notchecked'
+    - id = "cancel_reason#{i}"
+    %input{:type => "radio", :name => "cancel_reason", :id => id,  :value => i, checked => "checked", :invoice => @invoice.id}
+    %label{:for => id}
+      = status
+
+/%div(data-role='fieldcontain')
+%div(data-role='controlgroup' id='invoice_status')
+  %h4 Invoice status
+  - current_status = @invoice.status
+  - InvoiceStatus::NAMES.each_with_index do |status, i|
+    - checked = current_status == i ? 'checked' : 'notchecked'
+    - id = "status#{i}"
+    %input{:type => "radio", :name => "status", :id => id,  :value => i, checked => "checked", :invoice => @invoice.id}
+    %label{:for => id}
+      = status
+      - if status == 'Work' && !@invoice.work_date.nil?
+        %small= @invoice.work_date.to_s(:mdy)
+
+/ React to click invoice status - send to server via ajax
+= javascript_include_tag 'invoice/update_status'

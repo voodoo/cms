@@ -1,0 +1,12 @@
+class Cms::IncomingCallsController < MblzController
+
+  
+  def destroy
+    current_site.incoming_calls.find(params[:id]).destroy
+  end
+  
+  def show #by contact id
+    contact = Contact.find(params[:id])
+    @calls = contact.incoming_calls
+  end
+end

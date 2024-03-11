@@ -1,0 +1,27 @@
+%i.awesome-icon.fa-2x.fa{class: trackable_icon(activity.trackable_type)}
+
+- if activity.contact
+  %h3  
+    = activity.contact.full_name
+    - if activity.trackable_type == 'IncomingCall'
+      - if activity.trackable && activity.trackable.contact
+        %span(style='color:teal') (calling)
+
+%p  
+  = activity.trackable_type.titleize
+  - if activity.trackable.nil?
+    %small (deleted)
+  - unless activity.note.blank?
+    %p
+      %b(title='Note')= activity.note
+
+
+%p.ui-li-aside
+  - if @in_admin
+    %b= activity.site.subdomain
+    %br/
+  %b= activity.action.titleize
+  by
+  %b= activity.user ? activity.user.login_or_email : '[Unknown]'
+  %br/
+  = activity.created_at.to_s(:short)  

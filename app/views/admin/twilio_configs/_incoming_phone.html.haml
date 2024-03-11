@@ -1,0 +1,7 @@
+- active_incoming_phone = TwilioConfig.active_phone? phone
+- theme = active_incoming_phone ? nil : 'e'
+%li(data-theme=theme)
+  = link_to edit_admin_twilio_config_path(config) do
+    %h3= phone.to_phone
+    %p= config.site.subdomain 
+      

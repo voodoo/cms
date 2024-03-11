@@ -1,0 +1,5 @@
+%div(data-role='navbar' id='reportsNavbar')
+  %ul
+    %li= link_to("City","/mblz/reports", class: (action_name == 'index' ? 'ui-btn-active' : nil))
+    %li= link_to("Zip","/mblz/reports/1", class: (action_name == 'show' ? 'ui-btn-active' : nil))
+ 

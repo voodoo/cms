@@ -1,0 +1,27 @@
+- unless @field.new_record?
+  - content_for :title_btn do
+    = link_to "Delete", admin_form_field_path(@form, @field), data: {method: :delete, confirm: REALLY, role: :button, theme: 'r'}
+= error_messages_for @field
+
+= form_for ['admin', @form, @field] do |f|
+  - list  do
+    %li
+      = f.label :title
+      = f.text_field :title
+    %li
+      = f.label :field_type
+      = f.select :field_type, ["Text", "Textarea", "Select"]
+    %li
+      = f.label :options, 'Options/Default'
+      = f.text_field :options     
+    %li
+      = f.check_box :required 
+      = f.label :required     
+
+    - unless @field.new_record?
+      %li
+        = f.label :position, "Move to ..."
+        = f.select :position, @field.form.fields.map{|field| [field.title, field.position]}
+  /= f.hidden_field :form_id
+  = f.submit
+  

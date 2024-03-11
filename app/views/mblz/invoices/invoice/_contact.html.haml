@@ -1,0 +1,5 @@
+- list "Contact" do
+  %li
+    = link_to mblz_contact_path(@invoice.contact) do
+      %h3= @invoice.contact.full_name
+

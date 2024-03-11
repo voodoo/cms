@@ -1,0 +1,6 @@
+%h2 Faqs
+%ul{:id => 'listfaq'}
+  - for faq in @faqs
+    %li
+      = link_to faq.question, '#', :class => 'linkslide'
+      .slide= raw(RedCloth.new(faq.answer).to_html)

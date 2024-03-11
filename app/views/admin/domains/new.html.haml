@@ -1,0 +1,5 @@
+- title "New Domain"
+
+= form_for(['admin', @site, @domain]) do |f|
+  = render :partial => 'form', :locals => {:f => f}
+  %p= f.submit "Create"

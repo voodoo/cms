@@ -1,0 +1,65 @@
+- content_for :title_btn, link_to("Delete", mblz_incoming_call_path(@call), data: {ajax: false, :confirm => 'Really?'}, :method => :delete)
+
+- list 'Incoming Call' do
+  %li
+    =link_to "tel:#{@call.calling}" do
+      %h3= @call.calling.to_phone unless @call.calling.blank?
+      %p= @call.caller_name
+      %p{:class => "ui-li-aside"}
+        = time_ago_in_words(@call.created_at)
+        ago
+  - if @call.contact
+    %li
+      =link_to @call.contact.full_name, mblz_contact_path(@call.contact)
+  - if @call.recorded_message_url.present? 
+    %li(data-icon='star' data-theme='g')
+      = link_to "#{@call.recorded_message_url}.mp3" , :target => '_blank' do
+        Listen to Recording
+    - unless @call.recorded_message_transcript.blank?
+      %li
+        %h3 Voice Transcription
+        %p.voice_transcription
+          = @call.recorded_message_transcript
+  - elsif @call.recording_url.present? 
+    %li(data-icon='info' data-theme='b')
+      = link_to "#{@call.recording_url}.mp3" , :target => '_blank' do
+        Listen to Call
+    - unless @call.recorded_message_transcript.blank?
+      %li
+        %h3 Voice Transcription
+        %p.voice_transcription
+          = @call.recorded_message_transcript          
+  - if @call.called_phones
+    %li
+      %h3= @call.called_phones.map(&:to_phone).join(', ')
+      %p{:class => "ui-li-aside"} Called phones 
+
+  - if @call.answered_by
+    %li
+      %h3= @call.answered_by.to_s.to_phone
+      %p{:class => "ui-li-aside"} Answered by  
+
+  %li
+    %h3= @call.zip
+    %p{:class => "ui-li-aside"} Zip
+  %li
+    %h3= @call.city
+    %p{:class => "ui-li-aside"} City
+  %li
+    %h3= @call.state
+    %p{:class => "ui-li-aside"} State
+
+
+- list 'Phone console' do
+  %li
+    = link_to release_mblz_incoming_call_path(@call), method: :put do
+      = "Release#{'d' if @call.released_from_console} from Console"
+
+- if current_user.admin?
+  - list 'Status'  do
+    - @call.status.reverse.each do |st|
+      %li= st
+    %li(data-role='list-divider' data-theme='c') Paths
+    - @call.paths.reverse.each do |pt|
+      %li= pt
+

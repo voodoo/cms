@@ -1,0 +1,6 @@
+- content_for :title_btn do
+  /= link_to_function 'Update', "$('.click_update').trigger('click')"
+
+= form_for(['cms', @layout], html: {'data-ajax' => 'false', 'remote' => 'true'}) do |f|
+  = render :partial => 'form', :locals => {:f => f} 
+  %p= f.submit "Update", :class => 'click_update'

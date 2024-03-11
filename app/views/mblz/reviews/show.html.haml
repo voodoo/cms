@@ -1,0 +1,43 @@
+- list do
+  - if review = @invoice.review
+    %li{data: {theme: 'b'}}
+      = link_to edit_mblz_invoice_review_path(@invoice, review) do
+        %h3          
+          Customer Review
+        - if review.publishable?
+          %p.ui-li-aside
+            %i.fa.fa-2x{class: "fa-#{review.icon}"}
+    %li
+      %h3 Publishable?
+      %p Will need a static build to publish
+      .ui-li-aside
+        = to_yes_no review.publishable?
+    %li
+      %h3 Satisfied
+      %p Is the Customer Satisfied?
+      .ui-li-aside
+        = to_yes_no review.satisfied
+    %li
+      %h3 Owner
+      %p Has Confirmed?
+      .ui-li-aside
+        = to_yes_no review.confirmed_by_owner
+    %li
+      %h3 Customer
+      %p Has signed off to make public?
+      .ui-li-aside
+        = to_yes_no review.confirmed_by_customer
+    %li
+      %h3= review.title
+      %p Title
+
+    %li
+      %h3= review.comment 
+      %p Comment
+
+    %li
+      %h3= review.original_comment 
+      %p Original Comment
+  - else
+    %li{data: {theme: 'b'}}= link_to "Create Review", new_mblz_invoice_review_path(@invoice)
+

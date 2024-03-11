@@ -1,0 +1,31 @@
+
+<input type='hidden' id="contact_contacts" style='width:100%;height:40px'/>
+
+<script>
+   $(document).ready(function() { 
+     $("#contact_contacts").select2(
+      {
+        multiple: true,
+        placeholder: "Search for Contact",
+        minimumInputLength: 3,
+        ajax: {
+          url: "/mblz/contacts/lookup",
+          dataType:'json',
+          data: function(term,page){
+            return {q: term}
+          },
+          results: function(data, page){
+            //console.log(data)
+            return {results: data}
+          }       
+        },
+        //formatResult: function(){}, // omitted for brevity, see the source of this page
+        //formatSelection: function(){},  // omitted for brevity, see the source of this page
+        dropdownCssClass: "bigdrop" // appl        
+      }
+     );
+     $("#contact_contacts").on("change",function(e){
+         $.ajax({type:'PUT', url: "/mblz/contacts/<%= @contact.id %>/update_contactables", data: {id: e.val} })
+      });
+    });
+</script>

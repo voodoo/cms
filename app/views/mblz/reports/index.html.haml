@@ -1,0 +1,14 @@
+- navbar
+
+%p
+  %br/
+
+%h3 Call reports by zip or city
+
+- list "Calls" do
+  - for calling in @grouped
+    - next if calling.first.to_s.strip.blank?
+    %li
+      = link_to "https://maps.google.com/maps?q=#{calling.first}", :target => "_blank" do
+        %h3= calling.first
+        %p.ui-li-count= calling.last.size

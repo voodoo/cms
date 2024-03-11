@@ -1,0 +1,50 @@
+- content_for :title_btn, link_to("Edit", edit_mblz_product_path(@product), data: {icon: :edit, :title => 'Edit Product', iconpos: :notext})
+
+= javascript_include_tag :resizeUpload, :binaryAjax, :exif, "product_invoice/attachment"
+
+= form_for ['mblz', @product] do |f|
+  - list @product.name do
+    %li
+      %h3= @product.product_category.name
+      %p Category  
+    %li
+      %h3= matrix(@product)
+      %p Location      
+    = render 'item_if', {value: number_to_currency(@product.price), title: 'Price'}
+    = render 'item_if', {value: number_to_currency(@product.cost), title: 'Cost'}
+    = render 'item_if', {value: @product.markup, title: 'Markup'}
+    %li
+      %h3= number_to_currency @product.suggested_price
+      %p Suggested Price         
+
+    - if @product.inactive?
+      %li(data-theme='e') 
+        = link_to "Product is INACTIVE", edit_mblz_product_path(@product)
+    %li(data-role='list-divider') Nursery
+    %li
+      %h3= @product.water_name
+      %p Water   
+    %li
+      %h3= @product.sun_name
+      %p Sun     
+    = render 'item_if', {value: @product.color, title: 'Color'}     
+    = render 'item_if', {value: @product.height, title: 'Height'}   
+    = render 'item_if', {value: @product.tolerance, title: 'Tolerance'}  
+
+    %li(data-role='fieldcontain')
+      = image_tag @product.image.url(:thumb), id: 'img_product_image'
+      = f.label :image
+      = f.file_field :image    
+
+
+:css
+  span.located{color:firebrick}  
+
+:javascript
+  $PRODUCT_ID = #{@product.id}
+  $( document ).on( "pageinit", function( event ) {
+    $('#product_image').change(function(e) {
+      resizeFile(e.target.files);
+    });
+
+  });  

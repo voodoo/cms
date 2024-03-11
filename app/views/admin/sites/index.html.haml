@@ -1,0 +1,14 @@
+- content_for :title_btn, link_to("New", new_admin_site_path)
+
+- list nil, 'data-filter' => "true", 'data-inset' => 'false' do
+  - for site in @sites
+    %li
+      = link_to admin_site_path(site) do
+        %h3= site.subdomain
+        %p= site.domains.map{|d| d.host}.join(', ')
+        %p= raw site.users.map{|u| u.login_or_email}.join(',')
+        - if site.demo
+          %p.ui-li-aside
+            Demo
+
+

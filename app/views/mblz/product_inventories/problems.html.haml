@@ -1,0 +1,6 @@
+- list "Products with problems" do
+  - @problems.each do |product|
+    %li
+      = link_to  mblz_product_path(product) do
+        %h3= product.name
+      .ui-li-count= product.inventory

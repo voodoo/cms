@@ -1,0 +1,79 @@
+%div(data-role='panel' id='panelMain' data-display="push")
+
+  - list current_site.subdomain do
+    / - unless [mblz_root_path, mblz_path].include? request.path
+    /   %li= link_to 'Now', mblz_root_path
+    %li
+      = link_to mblz_contacts_path do
+        %h3 Contacts
+        .ui-li-count
+          = @count[:contacts]
+    %li
+      = link_to mblz_incoming_calls_path do
+        Calls
+        .ui-li-count
+          = @count[:calls]        
+
+    %li
+      = link_to mblz_invoices_path do
+        Invoices
+        .ui-li-count= @count[:invoices]
+    %li
+      = link_to mblz_comments_path do
+        Comments
+        .ui-li-count= @count[:comments]
+
+    %li
+      = link_to mblz_activities_path do
+        Activities
+        .ui-li-count= @count[:activities]
+
+    %li
+      = link_to mblz_outgoing_calls_path do
+        Outgoing calls
+        .ui-li-count= @count[:outgoing_calls]
+
+    %li
+      = link_to mblz_submissions_path do
+        Forms
+        .ui-li-count= @count[:forms]
+  - if current_site.products.present?
+    = render 'mblz/shared/products_panel' 
+
+        
+
+
+  - if current_user.admin?
+    - list 'Admin' do
+      %li
+        = link_to admin_site_path(current_site) do
+          %h3= current_site.subdomain
+          %p
+            %b= current_site.owner_name
+            %br/
+            = current_site.biz_name
+      %li= link_to 'All', admin_root_path
+
+  - list "More" do
+    %li= link_to 'Where are you?', new_mblz_way_path
+    %li= link_to 'Settings', mblz_users_path
+    %li= link_to 'CMS', cms_root_path
+
+  - unless current_user.owner?
+    %p
+      You are:
+      %b= current_user.login
+      with role:
+      %b= current_user.role_name
+        
+
+
+  - if current_user.sites.count > 1
+    - list "Switch Sites" do
+      - current_user.sites.sort_by{|s| s.subdomain.downcase}.each do |site|
+        - next unless site.pinned?
+        %li
+          =link_to site.subdomain, "https://#{site.subdomain}.mblz.com/mblz"
+
+
+

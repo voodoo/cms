@@ -1,0 +1,6 @@
+%div(data-role='fieldcontain')
+  %fieldset(data-role='controlgroup')
+    %legend Permissions
+    - for permission in Permission::MODULES
+      = check_box_tag "permission#{permission}",nil, @user.has_permission?(permission)
+      %label{:for => "permission#{permission}"}= permission

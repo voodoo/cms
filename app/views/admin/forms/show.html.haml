@@ -1,0 +1,43 @@
+- content_for :title_btn do
+  = link_to "Delete", admin_form_path(@form), method: :delete, confirm: REALLY
+
+
+%h3= @form.title
+
+
+
+- list 'Fields' do
+  - for field in @form.fields
+    %li
+      = link_to edit_admin_form_field_path(@form, field) do
+        %h3= field.title
+        - unless field.options.blank?
+          %p= field.options
+        %p.ui-li-aside
+          %b= field.field_type
+
+          - if field.required?
+            %br/
+            Required
+
+= link_to("New Field", new_admin_form_field_path(@form), data: {role: 'button'})
+
+= form_for ['admin', @form] do |f|
+  - list @form.title do
+    %li
+      %label Title
+      = f.text_field :title
+    %li
+      %label Description
+      = f.text_area :description
+    %li
+      %label Wrapper
+      = f.text_area :wrapper      
+  = f.submit
+
+
+/ %li= @form.name
+/ = debug @form
+/ - form_for ['cms', @form] do |f|
+/   = f.text_field :name
+/   = f.submit_tag

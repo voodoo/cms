@@ -1,0 +1,8 @@
+%div(data-role="navbar")
+  %ul
+    - a = params[:f] == 'a' ? 'ui-btn-active' : nil
+    - m = params[:f] == 'm' ? 'ui-btn-active' : nil
+    - if params[:f]
+      %li= link_to "All",        '?'
+    %li= link_to "Answered",     '?f=a', {class: a}
+    %li= link_to "With message", '?f=m', {class: m}

@@ -1,0 +1,7 @@
+- list "Product sales for ..." do
+  %li= link_to @product.name, mblz_product_path(@product)
+
+- list "Invoices" do
+  - @details[:product_invoices].each do |invoice|
+    %li= link_to(number_to_currency(invoice.total), mblz_product_invoice_path(invoice))
+

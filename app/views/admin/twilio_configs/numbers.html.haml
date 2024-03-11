@@ -1,0 +1,5 @@
+Careful, you are buying a number here for site
+%b= @twilio.site.subdomain
+- list 'Available Numbers' do
+  -for number in @numbers
+    %li= link_to number.friendly_name, set_number_admin_twilio_config_path(@twilio, n: number.phone_number)

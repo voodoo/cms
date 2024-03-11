@@ -1,0 +1,9 @@
+- wrapped = raw render 'form'
+.mblz.container
+  - if !@form.wrapper.blank?
+    = raw @form.wrapper.gsub('{{page_content}}', wrapped).gsub('{{title}}', @form.title).gsub('{{description}}', @form.description)
+  - else
+    = wrapped
+
+= stylesheet_link_tag "#{ASSETS_HOST}/mblz/css/form.css"
+= javascript_include_tag "#{ASSETS_HOST}/mblz/js/form.js"

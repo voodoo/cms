@@ -1,0 +1,16 @@
+- list ['Active Numbers','Numbers we are currently paying for in Twilio'],'data-filter' => "true", 'data-inset' => 'false' do
+  -for number in @numbers
+    - if incoming = TwilioConfig.find_by_incoming_phone(number.phone_number.last(10))
+      %li
+        = link_to edit_admin_twilio_config_path(incoming) do
+          %h3= number.friendly_name
+          %p= number.voice_url
+    - else
+      %li(data-theme='e')
+        = link_to release_number_admin_twilio_configs_path(sid: number.sid), 'data-confirm' => "BEWARE: Release in Twilio" do
+          %h3= number.friendly_name
+          %p
+            = number.voice_url
+          %p.ui-li-aside
+            Not in system
+

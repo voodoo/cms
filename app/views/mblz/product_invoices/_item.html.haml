@@ -1,0 +1,20 @@
+- list "Item", class: 'invoice-item' do
+  %li(data-role='fieldcontain')
+    %label(for='product_invoice_item__product_id') Product
+    = select_product_invoice_items item
+  %li(data-role='fieldcontain')
+    %div(class='ui-grid-b')
+      %div(class='ui-block-a')
+        %label(for='product_invoice_item__price') Price
+        = text_field_tag "product_invoice_item[][price]", item.price, type: :number, step: :any  
+      %div(class='ui-block-b')
+      %div(class='ui-block-c')
+        %label(for='product_invoice_item__qty') Quantity
+        = text_field_tag "product_invoice_item[][qty]",   item.qty || 1 , :type => :number
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+config: &config
+  domain: localhost:3000
+  to_email: paul@integrated-internet.com
+  bcc_email: "paul.vudmaska@gmail.com,elva.tristan@gmail.com"
+  from_email: admin@mblz.com
+  demo_email: demo@mblz.com
+  phone: '2102898278'
+  email: 
+    admin: elva.tristan@gmail.com
+  twilio:
+    leave_message: Please leave a message  
+  dont_log_these_paths:
+    - /css
+    - /login
+    - /logout
+    - /user_sessions
+    - /assets
+    - /apple
+
+
+development:
+  <<: *config
+test:
+  <<: *config
+
+production:
+  domain: integrated-internet.com
+  <<: *config

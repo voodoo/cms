@@ -1,0 +1,26 @@
+.bootcards-list#selectWho
+  .panel.panel-default
+    .panel-heading
+      .panel-title Ping my phone
+    .list-group
+      %a.list-group-item{:href => "#", "data-email" => '2104227745@txt.att.net'}
+        %h4.list-group-item-heading Vudmaska, Paul
+      %a.list-group-item{:href => "#", "data-email" => '2102898278@txt.att.net'}
+        %h4.list-group-item-heading Tristan, ET
+
+.bootcards-list#showWho(style="display:none")
+  .panel.panel-default
+    .panel-heading
+      .panel-title Pinging ...
+    .panel-body
+      .row
+      .bootcards-summary-item
+        %a.list-group-item{:href => "#"}
+          %h4.list-group-item-heading
+            .fa.fa-3x.fa-users
+            #pinging 
+            %span.label.label-info#counter 
+          
+
+
+%script(src="/javascripts/here_i_am.js")

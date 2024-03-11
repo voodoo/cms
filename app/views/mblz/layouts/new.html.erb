@@ -1,0 +1,10 @@
+<% title "New Layout" %>
+
+<% form_for(:layout, :url => "/cms/layouts") do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <p>
+    <%= f.submit "Create Layout" %>
+  </p>
+<% end %>
+

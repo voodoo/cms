@@ -1,0 +1,4 @@
+- list 'Tables' do
+  - for table in @tables
+    - name = table.values.last
+    %li= link_to name, admin_table_path(name)

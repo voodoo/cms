@@ -1,0 +1,12 @@
+- list 'Payments' do
+  - for payment in @invoice.invoice_payments.reverse
+    %li
+      %h3= payment.invoice_payment_type.name
+      %p= payment.note
+      %p.ui-li-aside
+        = payment.created_at.to_s(:long)
+        - if payment.user 
+          %br/
+          %b= payment.user.login
+  %li(data-theme='g')= link_to 'New', new_mblz_invoice_invoice_payment_path(@invoice)
+

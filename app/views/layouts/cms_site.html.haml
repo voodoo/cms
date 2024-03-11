@@ -1,0 +1,4 @@
+- content  = yield
+- template = Liquid::Template.parse(@layout)
+- output   = template.render(@page_params.merge("page_content" => content))
+= output.html_safe 

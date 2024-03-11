@@ -1,0 +1,5 @@
+- content_for :title_btn, link_to("New Form", new_admin_form_path)
+
+- list 'Forms' do
+  - for form in @forms
+    %li= link_to form.name, admin_form_path(form)

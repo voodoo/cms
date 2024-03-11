@@ -1,0 +1,16 @@
+default:
+  id: 122
+  site: default
+  contact: default
+  user: admin
+  status: 1
+  token: _madeuptoken_
+  received_by: admin
+priority:
+  id: 123
+  site: default
+  contact: priority
+  user: admin
+  status: 1
+  token: _madeuptoken_  
+  received_by: admin

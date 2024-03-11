@@ -1,0 +1,15 @@
+
+div.message, div.box{
+	padding:12px;
+	border:1px solid #ddd;
+	background-color:#eee;
+	margin-top:0px;
+	margin:12px;
+}
+div.notice{
+	color:teal;
+}
+div.warn{
+	color:firebrick;
+	background: pink;
+}

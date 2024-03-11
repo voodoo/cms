@@ -1,0 +1,8 @@
+- title "Who is ..."
+- form_for :whois do |f|
+  = f.text_field :url, :value => (params[:whois] ? params[:whois][:url] : '')
+  = f.submit "Lookup"
+  
+- if @who
+  %pre= @who  
+  

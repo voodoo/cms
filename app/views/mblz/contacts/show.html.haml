@@ -1,0 +1,67 @@
+- @title = "Contact"
+- content_for :title_btn, link_to("Edit", edit_mblz_contact_path(@contact), class: :click_edit)
+
+.ui-grid-a.ui-responsive
+  .ui-block-a
+    - list  'Contact', style: 'margin-right:4px;' do
+      - unless @contact.priority.zero?
+        - priority = Contact::PRIORITY[@contact.priority]
+        %li{"data-theme" => priority[:theme]}
+          = link_to priority[:name], release_priority_mblz_contact_path(@contact), 'data-confirm' => "Release this priority?" 
+
+      = list_item @contact, :business_name  
+      = list_item @contact, :full_name 
+      %li
+        = link_to "mailto:#{@contact.email}" do
+          %h3= @contact.email
+          %p Email
+
+      = render 'phone', :phone => @contact.phone, title: 'Phone'
+      = render 'phone', :phone => @contact.cell_phone, title: 'Cell Phone'
+
+  .ui-block-b
+    - list 'Address' do 
+      = list_item @contact, :street
+      = list_item @contact, :city
+      = list_item @contact, :state
+      = list_item @contact, :zip
+      - if @contact.submission
+        %li= link_to 'Created from web form', mblz_submission_path(@contact.submission)
+      - if @contact.geocoded?
+        %li= link_to "Map", map_mblz_contact_path(@contact)
+
+- if @contact.priority.zero?
+  = form_for ['update_priority','mblz', @contact],  html: {id: 'frmEditPriority'} do |f|
+    %fieldset(data-role='controlgroup' id='contact_priority')
+      %legend(style="font-weight:bold") Priority
+      - Contact::PRIORITY.each_with_index do |config,idx|
+        = f.radio_button :priority, idx, 'data-theme' => config[:theme]
+        = f.label config[:name], :for => "contact_priority_#{idx}"
+  = javascript_include_tag 'contact/update_priority'
+
+= render 'actions'
+
+- list 'Service Invoices' do
+  - @invoices = @contact.invoices.reverse
+  = render 'mblz/invoices/invoices'
+  %li(data-theme='g' data-icon='plus')= link_to("New Service Invoice", new_mblz_invoice_path(:contact => @contact.id))
+  
+- list 'Product Invoices' do
+  - @product_invoices = @contact.product_invoices.reverse
+  = render 'mblz/product_invoices/list'
+  %li(data-theme='g' data-icon='plus')= link_to("New Product Invoice", new_mblz_product_invoice_path(:contact => @contact.id))
+  
+
+- list 'Comments' do
+  - @comments = @contact.comments.reverse
+  = render 'mblz/comments/comments'
+  %li(data-theme='g' data-icon='plus')= link_to 'New Comment', new_mblz_contact_comment_path(@contact) 
+ 
+
+= render 'tags'
+
+- unless @contact.incoming_calls.empty?
+  - list 'Incoming calls' do
+    - for call in @contact.incoming_calls
+      %li= call.calling.to_phone
+

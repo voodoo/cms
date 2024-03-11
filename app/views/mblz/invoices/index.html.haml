@@ -1,0 +1,30 @@
+- if params[:s]
+  - content_for :title_btn do 
+    /.ui-mini.ui-btn-right{data: {role: :controlgroup, type: :horizontal}}
+    = link_to("All", mblz_invoices_path)
+    /= link_to 'Map', map_mblz_invoices_path(s: params[:s]), class: 'ui-btn ui-btn-icon-right'
+
+
+- navbar
+%p
+  %br/
+
+- if !@invoices.empty? && params[:s]
+  - list  do
+    %li
+      %h3= number_to_currency @invoices.map{|i| i.total}.sum
+      %p Total
+      %p.ui-li-count= @invoices.size
+    %li
+      = link_to 'Map', map_mblz_invoices_path(s: params[:s])
+
+- list @title, 'data-filter' => 'true' do
+  = render 'invoices'
+
+= raw paginate(@invoices)  if @invoices.respond_to?(:current_page)
+
+:css
+  form.ui-listview-filter{
+    background:inherit;
+    border:0;
+  }

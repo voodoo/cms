@@ -1,0 +1,7 @@
+= form_for [:cms, @upload],:multipart => true do |f|
+  = f.text_field :title
+  = f.hidden_field :folder_id
+  %div(data-role="controlgroup" data-type="horizontal")
+    = f.submit(@upload.new_record? ? 'Create' : 'Update')
+    -unless @upload.new_record?
+      = link_to 'Delete', cms_upload_path(@upload), method: :delete, confirm: 'Really?', data: {role: 'button', theme: 'e'}

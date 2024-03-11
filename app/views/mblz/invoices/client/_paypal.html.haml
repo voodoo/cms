@@ -1,0 +1,8 @@
+- if @invoice.status_name == 'Invoice' && current_site.accepts_paypal?
+  = hidden_field_tag 'cmd', '_cart'
+  = hidden_field_tag 'upload', '1'
+  = hidden_field_tag 'business', current_site.paypal_email
+  = hidden_field_tag 'currency_code', 'USD'
+  = hidden_field_tag "return", client_invoice_paid_url(@invoice.token, :nc => 1) 
+  %input{:type => "image", :src => "https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif", :border => "0", :name => "submit", :alt => "PayPal - The safer, easier way to pay online!", :style => 'border:0'}
+  %img{:alt => "", :border => "0", :src => "https://www.paypal.com/en_US/i/scr/pixel.gif", :width => "1",  :height => "1"}

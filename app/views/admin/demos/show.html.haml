@@ -1,0 +1,33 @@
+- list @demo.subdomain do
+  %li= link_to @demo.site.subdomain, admin_site_path(@demo.site)
+  %li
+    %h3= @demo.email
+    %p Email
+
+  %li
+    %h3= @demo.created_at.to_s(:long)
+    %p Created
+    %p.ui-li-aside
+      = time_ago_in_words @demo.created_at
+      ago
+
+  %li
+    %h3= @demo.site.twilio_config.sid
+    %p SID
+
+  %li
+    %h3= @demo.site.twilio_config.incoming_phone.to_s.to_phone
+    %p Incoming Phone
+    - if TwilioConfig.active_phone?(@demo.site.twilio_config.incoming_phone)
+      .ui-li-aside Active!
+  / %li
+  /   %h3= @demo.site.twilio_config.incoming_toll_free_phone.to_s.to_phone
+  /   %p Incoming Toll Free Phone
+  /   - if @demo.site.twilio_config.active_incoming_toll_free_phone
+  /     .ui-li-aside Active!      
+  - if @demo.created_by
+    %li
+      %h3= @demo.created_by.login
+      %p Created By
+
+  %li(data-theme='e')= link_to "Delete", admin_demo_path(@demo), :method => :delete, :confirm => 'Really?'

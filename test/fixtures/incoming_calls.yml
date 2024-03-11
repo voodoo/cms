@@ -1,0 +1,21 @@
+default:
+  site: default
+  paths: []
+  status: []
+  sid: default_sid
+
+with_message:
+  site: default
+  sid: with_message_sid
+  recorded_message_url: "http://twilio.com?call_with_message_sid.mp3"
+  released_from_console: true
+  paths: []
+  status: []
+
+with_message_not_released:
+  site: default
+  sid: with_message_not_released_sid
+  recorded_message_url: "http://twilio.com/messages?with_message_not_released.mp3"
+  released_from_console: false
+  paths: []
+  status: []

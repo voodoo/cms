@@ -1,0 +1,59 @@
+#toolbar{
+	position: fixed;
+	width:100%;
+	opacity:.9;
+	z-index: 1000;
+}
+ul.toolbar {
+	margin: 0; padding: 0;
+	float: left;
+	width: 100%;
+	list-style: none;
+	position: relative;
+	font-size: .8em;
+	background: url(http://assets.integrated-internet.com/img/toolbar/nav.gif) repeat-x;
+}
+ul.toolbar li {
+	float: left;
+	margin-right: 1px; padding: 0;
+	border-right: 1px solid #555;
+}
+ul.toolbar li.right{
+	float:right;
+	/*border-left: 1px solid #555;*/
+
+}
+ul.toolbar li a {
+	padding: 10px 15px;
+	display: block;
+	color: #f0f0f0;
+	text-decoration: none;
+}
+ul.toolbar li a.current {
+	padding: 10px 15px;
+	display: block;
+	color: #f0f0f0;
+	text-decoration: none;
+	background: #1376c9 url(http://assets.integrated-internet.com/img/toolbar/nav_current.gif) repeat-x; 
+}
+ul.toolbar li a:hover { background: #1376c9 url(http://assets.integrated-internet.com/img/toolbar/nav_active.gif) repeat-x; }
+
+ul.toolbar li span {
+	float: left;
+	padding: 15px 0;
+	position: absolute;
+	left: 0; top:34px;
+	display: none;
+	width: 470px;
+	background: #1376c9;
+	color: #fff;
+	-moz-border-radius-bottomright: 5px;
+	-khtml-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-khtml-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+ul.toolbar li:hover span { display: block; }
+ul.toolbar li span a { display: inline; }
+ul.toolbar li span a:hover {text-decoration: underline;}

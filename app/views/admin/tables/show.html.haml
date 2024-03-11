@@ -1,0 +1,10 @@
+- list @table_name do
+  - for col in @table.columns
+    %li
+      %h3= @table.first.send(col.name.to_sym)
+      %p= col.name
+
+- id = @table.first.send(:id)
+%div(data-role='controlgroup' data-type='horizontal')
+  = link_to 'Previous', admin_table_path(params[:id], :pid => id -1), 'data-role' => 'button'
+  = link_to 'Next', admin_table_path(params[:id], :pid => id + 1), 'data-role' => 'button'

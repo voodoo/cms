@@ -1,0 +1,46 @@
+- if @invoice.attachments.present?
+  = stylesheet_link_tag '//assets.integrated-internet.com/sites/site/assets/css/gallery/blueimp.css'
+  = javascript_include_tag '//assets.integrated-internet.com/sites/site/assets/js/gallery/blueimp.js'
+  .blueimp-gallery.blueimp-gallery-controls#blueimp-gallery
+    .slides
+    %h3.title
+    %a.prev &lsaquo;
+    %a.next &rsaquo;
+    /%a.close ×
+    %a.play-pause
+    %ol.indicator    
+  .gallery
+    .panel.panel-default
+      .panel-heading 
+        .panel-title 
+          Images
+          .pull-right
+            %small.text-muted Before and After
+      .panel-body
+        #links.images
+          - before = @invoice.attachments.select{|a| !a.before_or_after}
+          - after  = @invoice.attachments.select{|a| a.before_or_after}
+          - if before.present?
+            %h4.page-header.less-padding
+              Before
+            - before.each do |att|
+              = link_to att.image.url(:original), title: att.title_plus  do
+                = image_tag att.image.url(:thumb),title: att.title_plus , 'data-toggle' => :tooltip
+          - if after.present?
+            %h4.page-header.less-padding
+              After
+            - after.each do |att|
+              = link_to  att.image.url(:original), title: att.title_plus, 'data-toggle' => :tooltip do
+                = image_tag  att.image.url(:thumb)
+
+  :javascript
+    document.getElementById('links').onclick = function (event) {
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+    link = target.src ? target.parentNode : target,
+    options = {index: link, event: event},
+    links = this.getElementsByTagName('a');
+    blueimp.Gallery(links, options);
+    };  
+
+    

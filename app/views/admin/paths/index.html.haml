@@ -1,0 +1,27 @@
+- clear_old
+- s = params[:id].blank? ? admin_paths_path : site_admin_path_path(params[:id])
+- placeholder = @site ? "Search #{@site.subdomain}" : "Search All"
+%form(action=s)
+  %label(for='search_q')
+  %input(type='search' name='q' id='search_q' placeholder=placeholder value="#{params[:q]}")
+
+
+- list "Requests" do
+  - for path in @paths
+    %li
+      -if path.session_id
+        = link_to by_session_admin_path_path(path.session_id) do
+          %h3= path.url
+          %p= path.site.subdomain
+          %p.ui-li-aside
+            = path.created_at.to_s(:long)
+          - count = Path.where(session_id: path.session_id).count
+          - if count > 1
+            %p.ui-li-count= count
+      - else
+        NO SESSION ID
+        = debug path
+
+
+= paginate(@paths)  
+

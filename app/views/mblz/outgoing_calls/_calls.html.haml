@@ -1,0 +1,18 @@
+- if @outgoing_calls.present?
+  - for call in @outgoing_calls
+    - if call.recording_url.blank?
+      %li
+        %h3= call.contact.full_name
+        %p= call.user.login
+        %p.ui-li-aside No answer
+    - else     
+      %li{data: {theme: 'b'}}        
+        = link_to call.recording_url, :target => '_blank' do
+          %h3= call.contact.full_name
+          %p= call.user.login
+          %p.ui-li-aside 
+            Duration:
+            %b=call.duration
+- else
+  %li
+    %small None Found    

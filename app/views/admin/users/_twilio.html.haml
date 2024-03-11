@@ -1,0 +1,16 @@
+- list ['Twilio', 'Accepts incoming calls?'] do
+  %li(data-role='fieldcontain')
+    = f.check_box :twilio_active, :class => :twilio_active
+    = f.label :twilio_active, "Active?"
+
+  %li(data-role='fieldcontain')
+    = f.check_box :twilio_before_five, :class => :before_five
+    = f.label :twilio_before_five, "Call before 5 o'clock"       
+  %li(data-role='fieldcontain')
+    = f.check_box :twilio_after_five, :class => :after_five   
+    = f.label :twilio_after_five, "Call after 5 o'clock"  
+  %li(data-role='fieldcontain')
+    = f.check_box :twilio_weekend, :class => :weekend   
+    = f.label :twilio_weekend, "Call on weekend"      
+
+= javascript_include_tag "admin/toggle_twilio"

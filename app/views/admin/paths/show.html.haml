@@ -1,0 +1,16 @@
+- content_for :title_btn, link_to("Delete", admin_path_path(@path), method: :delete, confirm: "Really?")
+
+- list @path.url do
+  %li
+    = link_to @path.site.subdomain, site_admin_path_path(@path.site)
+  - if @path.referer
+    %li= @path.referer
+  %li= @path.ip
+  %li
+    = @path.browser
+
+- list 'Params' do
+  - for param in @path.params
+    %li
+      %h3= param.last
+      %p= param.first

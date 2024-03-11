@@ -1,0 +1,16 @@
+
+
+
+- list "Product categories"do
+  - @categories.each do |category|
+    %li
+      = link_to edit_mblz_product_category_path(category) do
+        %h3
+          = category.name
+          
+        %p= category.color
+        %p.ui-li-aside
+          = category.matrix
+
+      
+

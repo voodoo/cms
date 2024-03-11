@@ -1,0 +1,12 @@
+- list @site do
+  - @tags.group_by(&:category).each do |cat, tags|
+    %li(data-role='list-divider')
+      = cat
+    - for tag in tags
+      %li
+        = link_to edit_admin_site_tag_path(@site,tag) do
+          = tag.name
+          .ui-li-count= tag.contacts.count
+
+
+/= link_to 'New', new_admin_site_tag_path(@site), 'data-role' => :button

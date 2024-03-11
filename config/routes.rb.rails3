@@ -1,0 +1,269 @@
+Cms::Application.routes.draw do
+
+  match '/robots', :to => "site#robots",  defaults: { format: 'text/plain' }
+  match '/login',  :to => "user_sessions#new"
+  match '/logout', :to => "user_sessions#destroy"
+  match '/css', :to => 'site#css',  :defaults => { :format => 'xml' }
+  match '/contact', to: 'site#contact'
+
+  # Just an alias for now  
+  match '/mblz', :to => 'mblz/now#index', as: :mblz
+  
+  # CLIENT INVOICES ########
+  match '/invoice/:id', :to => "mblz/invoices#client", :as => 'client_invoice'
+  match '/invoice/paid/:id', :to => "mblz/invoices#paid", :as => 'client_invoice_paid'
+
+  match '/sitemap', :to => 'site#sitemap', :format => 'text/xml'
+  
+  ############## GALLERY ################
+  match '/gallery/:name', to: 'galleries#show'
+  match '/gallery', to: 'galleries#show', name: 'Gallery'
+  
+  resources :galleries
+
+
+  resources :user_sessions
+
+  namespace :twilios do
+
+    root :to => 'boards#index', :defaults => { :format => 'xml' }
+
+    resources :boards, :defaults => { :format => 'xml' } do
+      collection do
+        post :recording
+        post :answered
+        get :recording
+        post :recording_complete
+        post :transcription_complete
+      end
+    end
+
+    resources :messages, :defaults => { :format => 'xml' } do
+
+    end
+
+
+  end
+
+  resources :demos do
+
+  end
+
+  resources :forms do
+    collection do
+      get :thank_you
+    end
+  end
+
+  resources :faqs
+  
+
+  namespace :mblz do
+    root :to => 'now#index'
+
+    resources :blips, :now, :users, :phones, :comments, :reports
+    resources :incoming_calls, :forms, :outgoing_calls, :invoice_item_defaults
+    resources :tags
+
+    resources :activities do
+      collection do
+        get :user
+      end
+    end
+    
+    resources :contacts do
+      collection do
+        get :create_from_form
+        get :lookup
+        get :uniq
+      end
+      member do
+        get :export
+        get :release_priority
+        get :outgoing_phone_call
+        get :touch
+        #put :update_contactables
+      end
+      resources :comments do
+        member do
+          get :set_link
+        end
+      end
+      resources :tags
+    end
+    resources :invoices do
+      member do
+        post :update_status
+        get :send_to_contact
+        get :client
+        post :dupe
+      end
+      collection do
+         get :item
+         get :reports
+         get :export
+      end
+      resources :comments
+      resources :estimate_confirmations
+      resources :invoice_payments
+      resources :attachments do
+        member do
+          put :move
+        end
+      end
+    end
+  end # magic
+  
+  namespace :cms do
+    root :to => 'dashboard#index'
+
+    resources :forms do
+      resources :fields  
+    end
+    
+
+    
+    #resource :iphone, :as => 'iphone'
+    resources :styles#, :collection => {:sort => :post}, :member => {:version => :put}
+    resources :pages do
+       collection do
+         post :sort
+         post :copy
+       end
+    end
+    #=> :post, :copy => :post, :paste => :get}, :member => {:version => :put}
+    resources :layouts do
+      collection do
+        post :sort
+      end
+      member do
+        put :version
+      end
+    end
+    resources :uploads do
+      member do
+        get :move
+      end
+    end
+    resources :folders do
+      member do
+        get :move
+      end
+    end
+  end
+
+  namespace :admin do
+    root :to => 'home#index'
+    resources :tables
+    resources :demos
+    resources :tags
+    resources :activities
+    resources :twilio_logs
+    resources :contacts
+    
+    resources :paths do
+      member do
+        get :by_session
+        get :site
+      end
+      collection do
+        put :clear
+        get :sites
+      end      
+    end    
+    resources :sites do
+      member do
+        get :fake_data
+        get :utility
+        #post :update_site_access
+      end
+      resources :domains
+      resources :tags
+
+    end
+
+    resources :domains
+
+    resources :users do
+      member do
+        post :update_site_access
+      end
+    end
+    resources :twilio_configs do
+      resources :phones
+      collection do
+        get :release_number
+        get :active_numbers
+      end
+      member do
+        get :numbers
+        get :set_number
+      end
+    end
+
+    resources :demos
+
+  end
+
+
+
+  match "*url" => "site#show_page"
+  root :to => "site#show_page"
+
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
+
+  # Sample of regular route:
+  #   match 'products/:id' => 'catalog#view'
+  # Keep in mind you can assign values other than :controller and :action
+
+  # Sample of named route:
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # This route can be invoked with purchase_url(:id => product.id)
+
+  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
+
+  # Sample resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
+
+  # Sample resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+
+  # Sample resource route with more complex sub-resources
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  #   end
+
+  # Sample resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
+
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => "welcome#index"
+
+  # See how all your routes lay out with "rake routes"
+
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id(.:format)))'
+end

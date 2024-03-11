@@ -1,0 +1,29 @@
+- list @form.title do
+  - if @form.response.is_a?(Hash)
+    - @form.response.each do |k,v|
+      %li
+        %h3= v
+        %p= k
+  - else
+    %li= @form.response
+
+  %li= @form.ip
+  - if @form.bot?
+    %li
+      %h3= @form.suspicious_att
+      %p Suspicious form field filled out by bot?
+
+= link_to 'Create Contact', create_from_form_mblz_contacts_path(:form => @form.id), 'data-role' => 'button', :rel => 'external'
+
+%div(data-role='controlgroup' data-type='horizontal')
+  = link_to "Delete", mblz_submission_path(@form), "data-role" => 'button', 'data-theme' => 'e', :method => :delete
+  - if @form.black_listed?
+    = link_to "Black Lists", mblz_blips_path, 'data-role' => 'button'
+  - else
+    = link_to 'Black List', new_mblz_blip_path(:sid => @form.id), "data-role" => 'button', 'data-theme' => 'a'
+
+/ - list 'Session' do
+/   - if current_user.admin?
+/     %li(data-theme='g')= link_to "Inspect", by_session_admin_path_path(@form.tracked_session["session_id"])
+/   - for path in @form.tracked_session["paths"]
+/     %li= path    

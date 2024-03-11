@@ -1,0 +1,9 @@
+%h1 Invalid Form Submission
+
+.warn.block The following fields are invalid and/or required
+
+%ul
+  -for field in @invalid
+    %li= field
+
+= button_to_function "Back", "history.back()"

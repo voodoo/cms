@@ -1,0 +1,38 @@
+
+= form_for ['mblz', @product_inventory] do |f|
+  - list "Product Inventories", 'data-filter' => "true"  do
+    - @products.each do |product|
+      - details = ProductInventory.details_for(current_site, product)
+      %li(data-role='fieldcontain')
+        %label(for='product_inventory__actual')= product.name
+        = text_field_tag 'product_inventory[][actual]',  details[:projected_count] || 0, style: "width:100px", type: :number
+        = hidden_field_tag 'product_inventory[][projected]',  details[:projected_count] || 0
+        = hidden_field_tag 'product_inventory[][product_id]', product.id
+        %p.ui-li-aside
+          = product.size
+          %br
+          = number_to_currency product.price
+        .ui-li-count(title="Projected")=details[:projected_count] || 0
+
+  %p
+    = label_tag :note
+    = text_field_tag :note
+  = f.submit
+
+
+:javascript
+  $("input[type=number]").on('blur', 
+    function(e){
+      var field = $(e.target)
+      if(field.val() == '') field.val(0) 
+  }) 
+  $("input[type=number]").on('keydown', 
+    function(e){
+      this.value=this.value.replace(/[^\d]/,'')
+  })   
+
+- if params[:name].present?
+  :javascript
+    $( document ).on( "pageinit", function( event ) {
+      $("input[data-type=search]").val("#{j(params[:name])}").trigger('keyup')
+    })

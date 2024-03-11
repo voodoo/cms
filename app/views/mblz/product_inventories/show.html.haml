@@ -1,0 +1,22 @@
+- title "Product Inventory"
+- unless @product_inventory.note.blank?
+  .ui-body.ui-body-a.ui-corner-all
+    %p= @product_inventory.note
+- list [@product_inventory.user.login, @product_inventory.created_at.to_s(:short)] do
+  - @product_inventory.product_inventory_items.each do |pii|
+    %li
+      - unless pii.product
+        %h3== Error: #{pii.product_id} - deleted?
+        - next
+      %h3= pii.product.name
+      - color = pii.actual_count >= pii.projected_count ? 'black' : 'firebrick'
+      %p
+        Inventory was changed from 
+        %span(style="color: #{color}")= pii.projected_count
+        to 
+        = pii.actual_count
+      %p.ui-li-aside
+        = pii.product.size
+        %br
+        = number_to_currency(pii.product.price)        
+      .ui-li-count(title="Actual")= pii.actual_count

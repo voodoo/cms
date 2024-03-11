@@ -1,0 +1,43 @@
+= stylesheet_link_tag '//23.253.214.114/gallery/css/blueimp-gallery.min.css'
+- content_for :blueimp do
+  .blueimp-gallery.blueimp-gallery-controls#blueimp-gallery
+    .slides
+    %h3.title
+    /#(contenteditable="true")
+    %a.prev ‹
+    %a.next ›
+    /%a.close ×
+    %a.play-pause
+    %ol.indicator    
+  #links
+    - @images.order('position').each do |img|
+      = link_to(image_tag(img.upload.url(:thumb)), img.upload.url(:original), title: img.title)
+      /= debug img
+
+- if @folder.gallery_wrapper.blank?
+  .container
+    .row
+      .span12
+        %h3= @folder.name
+        = yield(:blueimp)
+- else
+  = @folder.gallery_wrapper.to_s.sub('{{template}}', yield(:blueimp)).html_safe
+  = @folder.id
+= javascript_include_tag '//23.253.214.114/gallery/js/blueimp-gallery.min.js'
+
+:javascript
+  document.getElementById('links').onclick = function (event) {
+  event = event || window.event;
+  var target = event.target || event.srcElement,
+  link = target.src ? target.parentNode : target,
+  options = {index: link, event: event},
+  links = this.getElementsByTagName('a');
+  blueimp.Gallery(links, options);
+  };
+
+/ - if current_user
+/   :javascript
+/     $('#blueimp-gallery h3').on('click', function(e){
+/       console.log(e)
+/       e.preventDefault()
+/     })

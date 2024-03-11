@@ -1,0 +1,17 @@
+- @title = 'Demos'
+- content_for :title_btn, link_to("New", new_admin_demo_path)
+
+- list 'Demos' do
+  - for demo in @demos
+    %li
+      = link_to admin_demo_path(demo) do
+        %h3= demo.subdomain
+        %p= demo.email
+        %p.ui-li-aside{:title => demo.created_at.to_s(:long)}
+          = time_ago_in_words demo.created_at
+          ago
+          = incoming = demo.site.twilio_config.incoming_phone rescue "Demo #{demo.id}"
+          - unless incoming.blank?
+            %br
+              = incoming.to_phone
+      /= link_to 'Delete Demo', admin_demo_path(demo), :method => :delete, :confirm => 'Really?'

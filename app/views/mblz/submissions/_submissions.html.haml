@@ -1,0 +1,26 @@
+- if @forms.present?
+  - for form in @forms
+    - next if form.black_listed?
+    - theme = nil
+    - if form.is_from_google?
+      - theme = 'g'
+    - elsif form.bot?
+      - theme = 'f'
+    - elsif form.suspicious?
+      - theme = 'e'
+    %li(data-theme=theme)
+      = link_to mblz_submission_path(form) do
+        %h3= form.title
+        %p= form.response.values.first rescue form.response.inspect
+        %p(class='ui-li-aside')
+          = form.created_at.to_s(:short)
+          - if form.bot?
+            %br/
+            Bot
+          - if form.suspicious_content?
+            %br/
+            Content
+- else
+  %li
+    %small None Found
+

@@ -1,0 +1,6 @@
+- if phone.present?
+  %li
+    - href = iphone? ? "tel://#{phone}" : (current_site.twilio_config.outgoing_capability? ? call_mblz_contact_path(@contact, n: phone) : "javascript:alert('Can not call from browser')")
+    %a{:href => href}
+      %h3= phone.to_phone
+      %p= title     

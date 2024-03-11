@@ -1,0 +1,7 @@
+%div(data-role='fieldcontain')
+  %fieldset(data-role='controlgroup' class='user_namespaces')
+    %legend Name Spaces
+    - for namespace in Namespace::PERMISSIONS
+      - perms = @user.namespaces.find(:first, :conditions => ["permission = ?", namespace])
+      = check_box_tag "namespace#{namespace}",nil, perms, :value => @user.id 
+      %label{:for => "namespace#{namespace}"}= namespace

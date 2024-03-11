@@ -1,0 +1,9 @@
+= form_for ['mblz',@way] do |f|
+  = f.hidden_field :lat  
+  = f.hidden_field :lng  
+  - list "Where are you?" do
+    %li(data-role='fieldcontain')
+      = f.label :message  
+      = f.text_field :message
+  - if controller_name == 'ways'
+    = submit_tag "Here I am", disabled: true, id: 'btnHereIAm'

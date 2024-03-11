@@ -1,0 +1,15 @@
+- content_for :title_btn, link_to("New", new_mblz_invoice_item_default_path)
+
+- if @dones.present?
+  - list "DELETE Unused Invoice Items" do
+    - for item in @dones
+      %li{'data-theme' => 'e', 'data-icon' => 'delete'}
+        = link_to mblz_invoice_item_default_path(item), :method => 'delete' do
+          = item.name
+        
+- list "Invoice Items" do
+  - for item in @items.reverse
+    %li
+      = link_to mblz_invoice_item_default_path(item.invoice_item_default) do  
+        = item.invoice_item_default.name
+        %span(class='ui-li-count')= item.counter

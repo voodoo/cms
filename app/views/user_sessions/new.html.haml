@@ -1,0 +1,37 @@
+- @title = 'Mobilize'
+- if current_user    
+  %p
+    - # haha sometimess haml sucks
+    == You are already logged in as <b>#{current_user.login}</b>.
+    
+
+  %div(data-role='controlgroup' data-type='horizontal')
+    = link_to 'Return to MBLZ', mblz_root_path, data: {role: :button, icon: :home}
+    = link_to "Logout", logout_path,  data: {role: :button, icon: :back}, method: :delete
+ 
+- else
+
+  = form_for @user_session, :html => {'data-ajax' => 'false'} do |f|
+    %ul(data-role='listview' data-inset='true')
+      %li(data-role='list-divider') Log in
+      %li
+        %label(for='user_session_login') Email or User Name
+        = f.text_field :login, :value => (@login || cookies[:login])
+
+      %li
+        %label(for='user_session_password') Password
+        = f.password_field :password, :value => params[:p]
+
+    %button(type="submit") Log in to Mobilize
+
+  /.center= image_tag "#{ASSETS_HOST}/mblz/img/logo/logo128.png"
+
+  :javascript
+    $(function(){
+      var user = $('#user_session_login')
+      var pwd  = $('#user_session_password')
+     
+      if(user.val()) pwd.select()
+      else user.select() 
+
+    })

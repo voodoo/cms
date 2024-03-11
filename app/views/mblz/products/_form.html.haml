@@ -1,0 +1,73 @@
+
+= @product.errors.full_messages.to_sentence
+
+= form_for ['mblz', @product] do |f|
+  
+  - list 'Product' do
+    %li(data-role='fieldcontain')
+      = f.label :name
+      = f.text_field :name
+    %li(data-role='fieldcontain')
+      = f.label :product_category_id
+      = f.select :product_category_id, Product.options_for_category_select   
+    
+    %li(data-role='fieldcontain')
+      = f.label :location, "Location <small style='color:gray'>#{@product.product_category.matrix}</small>".html_safe
+      = f.text_field :location    
+      = matrix(@product).html_safe
+
+    %li(data-role='fieldcontain')
+      = f.check_box :inactive 
+      = f.label :inactive
+
+    - [:size, :note, :price].each do |item|
+      %li(data-role='fieldcontain')
+        = f.label item
+        = f.text_field item
+
+    %li(data-role='list-divider') Cost/Pricing
+
+    %li(data-role='fieldcontain')
+      = f.label :cost
+      = f.text_field :cost
+    %li(data-role='fieldcontain')
+      = f.label :markup, "Markup(multiplier)"
+      = f.text_field :markup
+    %li(data-role='fieldcontain')
+      %h3= number_to_currency @product.suggested_price
+      %p Suggested Price      
+
+    %li(data-role='list-divider') Nursery
+    %li(data-role='fieldcontain')
+      = f.label :color
+      = f.text_field :color    
+    %li(data-role='fieldcontain')
+      = f.label :water
+      = f.select :water, Product.options_for_water_select
+    %li(data-role='fieldcontain')
+      = f.label :sun
+      = f.select :sun, Product.options_for_sun_select
+
+    %li(data-role='fieldcontain')
+      = f.label :height, "Height potential"
+      = f.text_field :height
+    %li(data-role='fieldcontain')
+      = f.label :tolerance, "Tolerance to"
+      = f.text_field :tolerance     
+
+
+  = f.submit "#{@product.new_record? ? 'Create' : 'Update'} Product", :class => 'click_update'
+  
+:css
+  span.matrix-location{cursor: pointer}
+  span.located{color:firebrick}
+:javascript  
+  $PRODUCT_INVOICE_ID = "#{@product.new_record? ? '' : @product.id}"
+  $('span.matrix-location').on('click', function(e){
+    var t = $(e.target)
+    var l = t.data('location')
+    $('span.matrix-location').removeClass('located')
+    var s = "[data-location=" + l + "]"
+    $(s).addClass('located')
+    $('#product_location').val(l)
+  }) 

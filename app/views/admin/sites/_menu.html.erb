@@ -1,0 +1,8 @@
+<ul>
+ <% for layout in @layouts %>
+  <li><%= link_to layout.title, edit_cms_layout_path(layout) %></li>
+  <% end %>
+</ul>
+
+
+<%= link_to 'New Layout', new_cms_layout_path, :class => "new" %>

@@ -1,0 +1,18 @@
+<div id="objectMenu">
+  <ul class="menu" id="layouts" >
+ <% for layout in @layouts %>
+  <li id="layout_<%= layout.id %>" style="clear:both">
+    <% if @layouts.count > 1 %>
+    <span class="handle" style="float:left;margin:12px;cursor:move"><img src="/images/icon/tiny/permalink.gif"/></span>
+    <% end %>
+    <%= link_to layout.title, edit_cms_layout_path(layout) %>
+  </li>
+  <% end %>
+</ul>
+
+<%#= sortable_element("layouts", :url => sort_cms_layouts_path, :handle => "handle") %>
+
+
+<%= link_to 'New Layout', new_cms_layout_path, :class => "new" %>
+
+</div>

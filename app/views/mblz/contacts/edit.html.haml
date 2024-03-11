@@ -1,0 +1,3 @@
+- content_for :title_btn, link_to("Delete", mblz_contact_path(@contact), data: {ajax: false, method: :delete, confirm: "Really?", theme: 'r'})
+
+= render 'form'

@@ -1,0 +1,11 @@
+- list ['Totals',@invoice.updated_at.to_s(:long)] do
+  %li
+    %h3= number_to_currency @invoice.sub
+    %p.ui-li-aside Subtotal
+  - if @invoice.taxable?
+    %li
+      %h3= number_to_currency @invoice.tax
+      %p.ui-li-aside Tax
+  %li
+    %h3= number_to_currency @invoice.total
+    %p.ui-li-aside TOTAL

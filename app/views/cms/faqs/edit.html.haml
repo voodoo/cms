@@ -1,0 +1,11 @@
+- title 'Editing FAQ'
+- fieldset_form_for(['cms',@faq]) do |f|
+  = render :partial => 'form', :locals => {:f => f}
+  %p= f.submit "Update"
+  %p
+    - for version in @faq.versions
+      = link_to version.number, version_cms_faq_path(@faq, :version => version.number), :method => :put
+      
+= link_to 'Back', cms_faqs_path
+|
+= link_to "Delete", cms_faq_path(@faq), :method => 'delete', :confirm => 'Really?'

@@ -1,0 +1,32 @@
+%li
+  = f.label :email
+  = f.text_field :email
+
+%li
+  = f.label :phone
+  = f.text_field :phone, class: :phone
+
+%li
+  = f.label :login
+  = f.text_field :login
+
+- if current_user.admin?
+  %li
+    = f.label :role
+    = f.select :role, User.options_for_role_select
+  %li
+    
+    = f.check_box :active
+    = f.label :active
+%li
+  = f.label :pin, "PIN"
+  = f.text_field :pin, maxlength: 4
+
+%li
+  = f.label :password
+  = f.password_field :password
+%li
+  = f.label :password_confirmation
+  = f.password_field :password_confirmation
+
+  

@@ -1,0 +1,24 @@
+.container-fluid
+  .row
+    = render 'mblz/invoices/client/header'
+.container-fluid
+  %form{:action => "https://www.paypal.com/cgi-bin/webscr", :method => "post"}
+    .panel.panel-default
+      = render 'mblz/invoices/client/invoice'
+      - if @invoice.paid? or @invoice.invoiced?
+        .panel-footer.clearfix
+          %p.pull-right
+            - if @invoice.paid?
+              = image_tag "https://mblz.mblz.com/images/ui/paid.png", :title => "Thank you for your purchase!", class: 'no-print', id: 'imgPaid'
+            - else
+              = render 'mblz/invoices/client/paypal'
+          %h4 Thank you for doing business with us!
+
+
+.container-fluid.no-print= render 'mblz/invoices/client/images'
+
+.container-fluid.no-print= render 'mblz/invoices/client/actions'
+
+
+:javascript
+  $("body").tooltip({ selector: '[data-toggle=tooltip]' });

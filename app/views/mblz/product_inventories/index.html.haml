@@ -1,0 +1,14 @@
+- content_for :title_btn do 
+  = link_to("New", new_mblz_product_inventory_path)
+
+
+
+
+
+- list "Product Inventories" do
+  - @product_inventories.each do |pi|
+    %li
+      = link_to  mblz_product_inventory_path(pi) do
+        %h3= pi.note
+        %p= pi.created_at.to_s(:short)
+      .ui-li-count= pi.product_inventory_items.count

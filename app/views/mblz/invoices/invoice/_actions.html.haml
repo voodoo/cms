@@ -1,0 +1,24 @@
+- list 'Actions' do
+  %li
+    = link_to client_invoice_path(@invoice.token ,:nc => 1), :target => '_blank', :rel => 'external' do
+      %h3 View public invoice
+      %p View what the customer sees
+  %li
+    = link_to send_to_contact_mblz_invoice_path(@invoice), 'data-confirm' => 'Really?' do
+      %h3 
+        - if @invoice.sent_to_contact?
+          SENT
+        - else
+          Send
+      %p To contact
+      - if @invoice.sent_to_contact?
+        %p.ui-li-aside= @invoice.sent_to_contact.to_s(:long)
+
+  / %li(data-theme='b')
+  /   = link_to edit_mblz_invoice_path(@invoice) do
+  /     %h3 Edit
+  /     %p Invoice
+  / %li{data: {theme: 'g', icon: 'grid'}}
+  /   = link_to dupe_mblz_invoice_path(@invoice), method: :post do
+  /     %h3 Duplicate
+  /     %p.hint Make copy      

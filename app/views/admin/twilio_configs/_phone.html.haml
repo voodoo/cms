@@ -1,0 +1,15 @@
+- theme = phone.active? ? nil : 'e'
+%li(data-theme=theme)
+  = link_to edit_admin_twilio_config_phone_path(phone.phoneable, phone) do
+    %h3= phone.number.to_phone
+    %p= phone.name 
+    %p.ui-li-aside
+      - if phone.active?
+        Call : 
+        - if phone.before_five?
+          Before Five
+          %br/
+        - if phone.after_five?
+          After Five
+      - else
+        No calls        

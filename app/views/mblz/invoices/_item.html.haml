@@ -1,0 +1,32 @@
+- list "Item", class: 'invoice-item' do
+  / %li(style='display:none' class='new_item_name')
+  /   %label(for="invoice_item__name") New Invoice Item Name
+  /   = text_field_tag "invoice_item[][name]",  '', :placeholder => 'Name'
+  %li(data-role='fieldcontain')
+    %label(for='invoice_item__invoice_item_default_id') Name
+    = default_invoice_items item
+  / %li(data-role='fieldcontain')
+  /   %label(for='invoice_item__product_id') Product
+  /   - product_size  = current_site.products.collect{|pro| [[pro.name, pro.size, pro.price].join(', '), pro.id]}
+  /   - product_sizes = current_site.products.collect{|pro| return nil  if pro.product_sizes.count == 0 ; pro.product_sizes.map{|ps| [[pro.name, ps.size, ps.price].join(', '), pro.id]}.flatten}
+  /   = select_tag "invoice_item[][product_id]", 
+  /                options_for_select([['-Select default-','']] +  product_size + product_sizes, item.product_id)
+  %li(data-role='fieldcontain')
+    %div(class='ui-grid-b')
+      %div(class='ui-block-a')
+        %label(for='invoice_item__price') Price
+        = text_field_tag "invoice_item[][price]", item.price, :placeholder => 'Price'    
+      %div(class='ui-block-b')
+      %div(class='ui-block-c')
+        %label(for='invoice_item__qty') Quantity
+        = text_field_tag "invoice_item[][qty]",   item.qty || 1 , :placeholder => 'Quantity' , :type => :number
+
+  %li(data-role='fieldcontain')
+    %label(for='invoice_item__note') Note
+    = text_area_tag "invoice_item[][note]", item.note, :placeholder => 'Note', maxlength: 255
+
+
+
+
+
+

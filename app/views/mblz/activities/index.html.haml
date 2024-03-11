@@ -1,0 +1,15 @@
+= render 'mblz/activities/filter'
+- if @user
+  - content_for :title_btn, link_to("All", mblz_activities_path)
+- list "Activities #{@by_user}" do
+  - @activities.each do |activity|
+    %li
+      /- if ['Invoice','Contact', 'IncomingCall'].include? activity.trackable_type
+      - if activity.trackable
+        = render 'mblz/activities/trackable', activity: activity
+      - else
+        = render 'mblz/activities/trackable_details', activity: activity
+
+
+/= p @activities.size
+= paginate @activities

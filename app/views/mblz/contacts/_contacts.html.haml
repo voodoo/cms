@@ -1,0 +1,34 @@
+- for contact in @contacts
+  - current_invoice = contact.invoices.last
+  - priority = Contact::PRIORITY[contact.priority]
+  %li{"data-theme" => priority[:theme], 'data-icon' => current_invoice ? nil : 'plus' }
+    = link_to mblz_contact_path(contact) do
+      %h3
+        = contact.full_name
+        - unless contact.business_name.blank?
+          %small
+            (
+            = contact.business_name
+            )
+        - if contact.demo?
+          &#8284;
+      %p
+        = contact.zip
+      
+      - if contact.invoices.present?
+        %p{:class => "ui-li-aside"}
+          %b= number_to_currency contact.invoices.last.total
+          %br/
+          = colored_status(contact.invoices.last)
+          - if contact.invoices.last.estimate_confirmations.present?
+            - if contact.invoices.last.estimate_confirmations.last.yes_or_no?
+              &#9786;
+            - else
+              &#9840;
+
+    - if current_invoice
+      - icon  = current_invoice.received_by? ? nil : 'alert'
+      - theme = current_invoice.received_by? ? nil : 'e'
+      = link_to "Current Invoice", mblz_invoice_path(contact.invoices.last), 'data-icon' => icon, 'data-theme' => theme
+    - else
+      = link_to "New Invoice", new_mblz_invoice_path(:contact => contact.id), 'data-theme': 'g'

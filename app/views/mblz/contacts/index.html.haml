@@ -1,0 +1,22 @@
+- content_for :title_btn, link_to("New", new_mblz_contact_path)
+
+- if @contacts.present?
+  - list 'Contacts', 'data-filter' => 'true' do
+    = render 'contacts' 
+
+  - unless iphone?
+    %p(style="float:right;padding-top:16px")
+      = page_entries_info @contacts
+
+
+  = paginate(@contacts)
+
+  :css
+    form.ui-listview-filter{
+      background:inherit;
+      border:0;
+    }
+- else
+  %p None Found
+        
+     
