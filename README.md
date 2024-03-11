@@ -1,13 +1,3 @@
-===Content management
-
-* Phone Calls
-
-Contacts
-=== 
-
-
-Invoices
-
-- [] Not Done
-- [x] Done
-
+* Rails 4 CRM
+* Invoices, contacts
+* Manage Twilio numbers
