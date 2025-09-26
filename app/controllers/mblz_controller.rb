@@ -1,9 +1,9 @@
 class MblzController < ApplicationController
   layout :set_layout
   
-  before_filter :require_user
-  before_filter :require_site_user
-  before_filter :has_permission?
+  before_action :require_user
+  before_action :require_site_user
+  before_action :has_permission?
   helper_method :admin?
 
 

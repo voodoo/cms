@@ -1,6 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -8,43 +8,23 @@ Bundler.require(*Rails.groups)
 
 module Cms
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 7.0
 
-    config.autoload_paths += %W(
-      #{config.root}/app/models/concerns
-    )
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "UTC"
+    # config.eager_load_paths << Rails.root.join("extras")
 
-    # config.action_mailer.delivery_method = :smtp
-    # config.action_mailer.smtp_settings = {
-    #   #:tls => true,
-    #   :address => "smtp.gmail.com",
-    #   :port => "587",
-    #   :domain => "integrated-internet.com",
-    #   :authentication => :plain,
-    #   :user_name => Rails.application.credentials.dig(:emails, :ii, :email),
-    #   :password => Rails.application.credentials.dig(:emails, :ii, :pwd)
-    # }    
-    # config.middleware.use ExceptionNotification::Rack, email: {
-    #   email_prefix: "[Exception] ",
-    #   sender_address: %{"Exception Notifier" <support@integrated-internet.com>},
-    #   exception_recipients: %w{paul.vudmaska@gmail.com elva.tristan@gmail.com}      
-    # }
+    # Add additional load paths for your own custom dirs
+    config.eager_load_paths << Rails.root.join("app/models/cms")
 
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
-
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = 'Central Time (US & Canada)'
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
-
-    # ActiveRecord configuration for Rails 8
-    config.active_record.has_many_inversing = true
-
-
+    # Force all environments to use the same logger level
+    # (by default production uses :info, the others :debug)
+    # config.log_level = :debug
   end
 end
