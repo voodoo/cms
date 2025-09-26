@@ -42,8 +42,15 @@ module Cms
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # ActiveRecord configuration for Rails 8
+    config.active_record.has_many_inversing = true
+
+    # Asset pipeline configuration (Propshaft)
+    config.assets.css_compressor = nil
+    config.assets.js_compressor = nil
+
+    # Import maps for JavaScript
+    config.importmap.cache_sweepers << Rails.root.join("app/javascript")
 
 
   end

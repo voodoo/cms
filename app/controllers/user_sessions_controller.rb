@@ -1,7 +1,7 @@
 class UserSessionsController < MblzController
-  skip_before_filter :require_user
-  skip_before_filter :has_permission?
-  skip_before_filter :require_site_user
+  skip_before_action :require_user
+  skip_before_action :has_permission?
+  skip_before_action :require_site_user
 
   def index
     redirect_to :action => 'new'  

@@ -16,9 +16,7 @@ class User < ActiveRecord::Base
   has_many :invoices
 
   # take out chars from phone
-  before_save do |c|
-    c.phone      = c.phone.to_s.gsub(/\D/,'').last(10)
-  end
+  before_save :normalize_phone
 
   # acts_as_authentic do |c|
   #   c.my_config_option = my_value # for available options see documentation in: Authlogic::ActsAsAuthentic
@@ -88,6 +86,12 @@ class User < ActiveRecord::Base
   
   def manager?
     self.role == 3
+  end
+
+  private
+
+  def normalize_phone
+    self.phone = self.phone.to_s.gsub(/\D/,'').last(10)
   end
 
 end

@@ -1,23 +1,29 @@
 development:
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
   database: cms
   pool: 5
   username: root
-  password: 
+  password:
+  host: localhost
+  socket: /tmp/mysql.sock
 
 test:
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
   database: cms_test
   pool: 5
   username: root
-  password: 
+  password:
+  host: localhost
+  socket: /tmp/mysql.sock
 
 production:
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
   database: cms_production
   pool: 5
   username: root
-  password: 
+  password:
+  host: localhost
+  socket: /tmp/mysql.sock 

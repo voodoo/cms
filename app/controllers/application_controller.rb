@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # include LoadSite
   # include CurrentUser
   # include Browser
-  before_filter :load_site
+  before_action :load_site
   #before_filter :create_public_path
   helper_method :current_user_session, :current_user, 
                 :admin?, :iphone?, :current_site, :current_host, :mblz?

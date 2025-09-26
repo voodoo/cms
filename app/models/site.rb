@@ -52,61 +52,11 @@ class Site < ActiveRecord::Base
 
 
   # take out chars from mask
-  before_save do |model|
-    model.phone            = model.phone.to_s.gsub(/\D/,'')
-  end  
+  before_save :normalize_phone  
 
-  after_create do |site|
+  after_create :setup_site_defaults
 
-    # Copy a previous site
-    if copied_site = site.copied_from
-      layout = site.layouts.create!(
-          :text => copied_site.layouts.first.text, 
-          :title => "Default")
-      Page.copy_pages(copied_site.root_page, site, nil)
-      site.styles.create!(
-          :text =>   copied_site.styles.first.text, :title => "Default")
-    else
-      # Or accept default  stuff
-      layout = site.layouts.create!(
-          :text => render_fixture_file('layout', :html), 
-          :title => "Default")
-      site.pages.create!(:text =>   "Hello, #{site.subdomain}", 
-          :title => "Hello world", 
-          :textile => true, :layout_id => layout.id)
-      site.styles.create!(
-          :text =>   render_fixture_file('style', :css), :title => "Default")
-    end
-
-    # Add admin to all sites
-    site.users << User.find(1)
-
-    # incoming call handling
-    TwilioConfig.create(:site_id => site.id, :email => site.email,
-                  :leave_message => "Please leave a message",
-                  :greeting => "Thank you for calling",
-                  :wait_duration => 7)
-
-    # Default Contact form
-    site.create_default_form!
-    
-    contact_yml           = YAML.load(File.read(Rails.root.join('app/views/admin/sites/fixtures/contacts.yml')))
-    contact               = site.contacts.create(contact_yml)
-    invoice               = contact.invoices.create(:site_id => site.id, user_id: 1)
-    invoice_item_default  = site.invoice_item_defaults.create!(:name => "Services")
-    invoice_item_default  = site.invoice_item_defaults.create!(:name => "Product")
-    invoice.invoice_items.create(:invoice_item_default_id => invoice_item_default.id, :qty => 2, :price => '100.00')
-
-  end
-
-  before_destroy do
-    for user in self.users
-      if user.deletable?
-        user.destroy
-      end
-    end
-    self.demo.destroy if self.demo
-  end
+  before_destroy :cleanup_associated_users
 
   def contacts_for_phone_console
     contacts = self.contacts.with_priority.limit(5)  
@@ -263,7 +213,7 @@ class Site < ActiveRecord::Base
     self.id == 1
   end
   def self.search q
-    all(:conditions => "subdomain like '%#{q}%'")
+    where("subdomain like ?", "%#{q}%")
   end
 
   def has_permission?(permission)
@@ -277,6 +227,60 @@ class Site < ActiveRecord::Base
       namespaces.create!(:permission => perm)
     end
   end
+  private
+
+  def normalize_phone
+    self.phone = self.phone.to_s.gsub(/\D/,'')
+  end
+
+  def setup_site_defaults
+    # Copy a previous site
+    if copied_site = self.copied_from
+      layout = layouts.create!(
+          text: copied_site.layouts.first.text,
+          title: "Default")
+      Page.copy_pages(copied_site.root_page, self, nil)
+      styles.create!(
+          text: copied_site.styles.first.text, title: "Default")
+    else
+      # Or accept default stuff
+      layout = layouts.create!(
+          text: render_fixture_file('layout', :html),
+          title: "Default")
+      pages.create!(text: "Hello, #{subdomain}",
+          title: "Hello world",
+          textile: true, layout_id: layout.id)
+      styles.create!(
+          text: render_fixture_file('style', :css), title: "Default")
+    end
+
+    # Add admin to all sites
+    users << User.find(1)
+
+    # incoming call handling
+    TwilioConfig.create(site_id: id, email: email,
+                  leave_message: "Please leave a message",
+                  greeting: "Thank you for calling",
+                  wait_duration: 7)
+
+    # Default Contact form
+    create_default_form!
+
+    contact_yml = YAML.load(File.read(Rails.root.join('app/views/admin/sites/fixtures/contacts.yml')))
+    contact = contacts.create(contact_yml)
+    invoice = contact.invoices.create(site_id: id, user_id: 1)
+    invoice_item_default = invoice_item_defaults.create!(name: "Services")
+    invoice_item_default = invoice_item_defaults.create!(name: "Product")
+    invoice.invoice_items.create(invoice_item_default_id: invoice_item_default.id, qty: 2, price: '100.00')
+  end
+
+  def cleanup_associated_users
+    users.each do |user|
+      user.destroy if user.deletable?
+    end
+    demo.destroy if demo
+  end
+
   protected
 
   def render_fixture_file name, handler
