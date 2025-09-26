@@ -1,33 +1,36 @@
 # Be sure to restart your server when you modify this file.
 
+# NOTE: Asset pipeline configuration commented out for Rails 8 compatibility
+# Rails 8 uses import maps and Propshaft by default
+
 # Version of your assets, change this if you want to expire all your assets.
-Rails.application.config.assets.version = '1.0'
+# Rails.application.config.assets.version = '1.0'
 
 # Rails.application.config.assets.manifest = "#{Rails.root}/config/manifest.json"
 
 # invoice
-Rails.application.config.assets.precompile += %w( invoice/review.js invoice.css invoice/confirmation.js invoice/invoice.js invoice/validator.js  invoice/uploads.js invoice/update_status.js invoice/edit.js  )
+# Rails.application.config.assets.precompile += %w( invoice/review.js invoice.css invoice/confirmation.js invoice/invoice.js invoice/validator.js  invoice/uploads.js invoice/update_status.js invoice/edit.js  )
 
 # product invoice
-Rails.application.config.assets.precompile += %w( product_invoice/edit.js  product_invoice/attachment.js)
+# Rails.application.config.assets.precompile += %w( product_invoice/edit.js  product_invoice/attachment.js)
 
-Rails.application.config.assets.precompile += %w( invoice.css print.css  review/icons.js blockquote.css hr.css)
+# Rails.application.config.assets.precompile += %w( invoice.css print.css  review/icons.js blockquote.css hr.css)
 
 # contact
-Rails.application.config.assets.precompile += %w( contact/update_priority.js  contact/uniq.js)
+# Rails.application.config.assets.precompile += %w( contact/update_priority.js  contact/uniq.js)
 
 # admin
-Rails.application.config.assets.precompile += %w( admin/user_sites.js admin/toggle_twilio.js )
+# Rails.application.config.assets.precompile += %w( admin/user_sites.js admin/toggle_twilio.js )
 
 # etc
-Rails.application.config.assets.precompile += %w( mblz/way.js )
+# Rails.application.config.assets.precompile += %w( mblz/way.js )
 
 # vendor
 
-Rails.application.config.assets.precompile += %w( resizeUpload.js binaryAjax.js exif.js)
+# Rails.application.config.assets.precompile += %w( resizeUpload.js binaryAjax.js exif.js)
 
 
-Rails.application.config.assets.precompile += %w( jquery-mobile/ajax-loader.gif  jquery-mobile/icons-18-white.png jquery-mobile/icons-18-black.png  jquery-mobile/icons-36-white.png  jquery-mobile/icons-36-black.png )
+# Rails.application.config.assets.precompile += %w( jquery-mobile/ajax-loader.gif  jquery-mobile/icons-18-white.png jquery-mobile/icons-18-black.png  jquery-mobile/icons-36-white.png  jquery-mobile/icons-36-black.png )
 
 # Rails.application.config.assets.precompile += %w( ajax-loader.gif icons-18-white.png logo.png )
 

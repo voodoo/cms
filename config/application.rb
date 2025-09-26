@@ -20,8 +20,8 @@ module Cms
     #   :port => "587",
     #   :domain => "integrated-internet.com",
     #   :authentication => :plain,
-    #   :user_name => Rails.application.secrets["emails"]["ii"]["email"],
-    #   :password => Rails.application.secrets["emails"]["ii"]["pwd"]
+    #   :user_name => Rails.application.credentials.dig(:emails, :ii, :email),
+    #   :password => Rails.application.credentials.dig(:emails, :ii, :pwd)
     # }    
     # config.middleware.use ExceptionNotification::Rack, email: {
     #   email_prefix: "[Exception] ",
@@ -44,13 +44,6 @@ module Cms
 
     # ActiveRecord configuration for Rails 8
     config.active_record.has_many_inversing = true
-
-    # Asset pipeline configuration (Propshaft)
-    config.assets.css_compressor = nil
-    config.assets.js_compressor = nil
-
-    # Import maps for JavaScript
-    config.importmap.cache_sweepers << Rails.root.join("app/javascript")
 
 
   end
