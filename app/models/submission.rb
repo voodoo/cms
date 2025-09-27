@@ -2,12 +2,12 @@ class Submission < ActiveRecord::Base
   
   scope :recent, lambda {where("created_at > ?", 30.days.ago)}
 
-  scoped_search :on => [:response]
+  # scoped_search :on => [:response]
   #acts_as_simply_searchable
   belongs_to :form
   belongs_to :site
-  serialize :response, JSON
-  serialize :tracked_session, JSON
+  serialize :response
+  serialize :tracked_session
   
   def tracked_session_id= session_id
     self.tracked_session = {

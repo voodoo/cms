@@ -1,6 +1,6 @@
 class InvoiceStatus < ActiveRecord::Base
   belongs_to :invoice, :touch => true
-  belongs_to :user
+  belongs_to :user, optional: true
 
   # after_create do |status|
   #   status.invoice.contact.touch

@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
   
   scope :recent, lambda {where("created_at > ?", 30.days.ago)}
-  
-  scoped_search :on => [:title, :comment]
+
+  # scoped_search :on => [:title, :comment]
   
   belongs_to :commentable, :polymorphic => true
   belongs_to :user

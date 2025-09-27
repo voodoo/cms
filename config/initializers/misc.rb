@@ -1,5 +1,10 @@
 #Haml::Template.options[:format] = :html5
 
+# Register Haml template handler
+Rails.application.config.after_initialize do
+  ActionView::Template.register_template_handler :haml, Haml::Plugin
+end
+
 REALLY = "Are you sure?" #unless defined?(REALLY)
 BLANK  = '[n/a]'
 # loud puts

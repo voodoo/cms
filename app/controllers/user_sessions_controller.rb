@@ -14,7 +14,7 @@ class UserSessionsController < MblzController
   
   def create
 
-    @user_session = current_site.user_sessions.new(params[:user_session])
+    @user_session = UserSession.new(params[:user_session])
 
    
     if @user_session.save
@@ -46,7 +46,7 @@ class UserSessionsController < MblzController
   end
   
   def destroy
-    @user_session = current_site.user_sessions.find
+    @user_session = UserSession.find
     reset_session
     @user_session.destroy if @user_session
     flash[:notice] = "Successfully logged out"

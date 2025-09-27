@@ -31,15 +31,12 @@ class ApplicationController < ActionController::Base
 
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
-    @current_user_session = current_site.user_sessions.find
-    # UserSession.with_scope(:id => @current_site.subdomain) do
-    #   @current_user_session = UserSession.find
-    # end
+    @current_user_session = UserSession.find
   end
 
   def current_user
     return @current_user if defined?(@current_user)
-    @current_user = current_user_session && current_user_session.user
+    @current_user = current_user_session&.user
   end
 
   def require_user
@@ -62,8 +59,7 @@ class ApplicationController < ActionController::Base
 
     if @current_site.nil?
       if request.host =~ /localhost/ || request.host =~ /192\.168/ || request.host =~ /ngrok\.io$/ || Rails.env.test? # Used in tests :(>)
-        #@current_site = Site.first
-        @current_site = Site.find(62) #47 heartwood for localhost / 62 paradise
+        @current_site = Site.first || Site.new(subdomain: 'localhost').tap(&:save!)
       else
         logger.warn "Subdomain not found #{request.host}"
         raise ActionController::RoutingError.new('Not Found')

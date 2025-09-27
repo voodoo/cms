@@ -1,12 +1,12 @@
 class Invoice < ActiveRecord::Base
   before_create :set_token
-  acts_as_commentable
+  # acts_as_commentable
 
   has_one :review, :dependent => :destroy
 
 
-  belongs_to :user
-  belongs_to :received_by, foreign_key: :received_by, class_name: "User"
+  belongs_to :user, optional: true
+  belongs_to :received_by, foreign_key: :received_by, class_name: "User", optional: true
   belongs_to :site
   belongs_to :contact
 
@@ -49,12 +49,12 @@ class Invoice < ActiveRecord::Base
   
   after_create do |invoice|
     # Set default status to Estimate
-    invoice.update_attributes(status: 1)
+    invoice.update(status: 1)
     invoice.invoice_statuses.create!(user_id: self.user_id, status: 1)
     # Pin tax rate to invoice
-    invoice.update_attributes(tax_rate: invoice.site.tax_rate)
+    invoice.update(tax_rate: invoice.site.tax_rate)
     # Send the invoice to the owner of the site
-    send_new_estimate_to_owner(invoice)
+    #send_new_estimate_to_owner(invoice)
   end
   
 
@@ -175,7 +175,7 @@ class Invoice < ActiveRecord::Base
 
   def send_new_estimate_to_owner(invoice)
     # Don't send to owner if owner is creating
-    if  !invoice.user.owner?
+    if invoice.user.nil? || !invoice.user.owner?
       phone = Owner.phone(invoice.site)
       unless phone.blank?
         url = "https://#{invoice.site.host}/mblz/invoices/#{invoice.id}"

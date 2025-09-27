@@ -6,6 +6,14 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Explicitly require scoped_search to ensure it's loaded
+require 'scoped_search'
+begin
+  require 'authlogic'
+rescue LoadError
+  puts "Authlogic not available, using basic session management"
+end
+
 module Cms
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -21,7 +29,7 @@ module Cms
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Add additional load paths for your own custom dirs
-    config.eager_load_paths << Rails.root.join("app/models/cms")
+    # config.eager_load_paths << Rails.root.join("app/models/cms")
 
     # Force all environments to use the same logger level
     # (by default production uses :info, the others :debug)

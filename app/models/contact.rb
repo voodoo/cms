@@ -1,21 +1,22 @@
 class Contact < ActiveRecord::Base
-  require 'csv'
+  # require 'csv'
+  # extend Geocoder::Model::ActiveRecord
   scope :recent, lambda {where("created_at > ?", 30.days.ago)}
   scope :with_priority, lambda {where("priority <> 0").limit(10).order(updated_at: :desc)}
 
-  geocoded_by :address   # can also be an IP address
-  after_validation :geocode          # auto-fetch coordinates
+  # geocoded_by :address   # can also be an IP address
+  # after_validation :geocode          # auto-fetch coordinates
 
-  def geocode!
-    return if self.geocoded?
-    # force geocode gem to update
-    self.update_attributes(updated_at: Time.now)
-  end
+  # def geocode!
+  #   return if self.geocoded?
+  #   # force geocode gem to update
+  #   self.update_attributes(updated_at: Time.now)
+  # end
 
-  def self.geocode_all!(contacts)
-    contacts.each(&:geocode!)
-    contacts.select{|c| c.geocoded? }.uniq
-  end
+  # def self.geocode_all!(contacts)
+  #   contacts.each(&:geocode!)
+  #   contacts.select{|c| c.geocoded? }.uniq
+  # end
 
   has_and_belongs_to_many :tags
   
@@ -27,11 +28,11 @@ class Contact < ActiveRecord::Base
   ]
 
   has_many :activities
-  scoped_search :on => [:first_name, :last_name, :phone, :zip, :business_name, :street, :email]
+  # scoped_search :on => [:first_name, :last_name, :phone, :zip, :business_name, :street, :email]
 
   # belongs_to :contactable, :polymorphic => true
   # has_many :contacts, :as => :contactable
-  belongs_to :submission
+  belongs_to :submission, optional: true
   belongs_to :site
 
   has_many :incoming_calls
@@ -44,7 +45,7 @@ class Contact < ActiveRecord::Base
   validates_presence_of :phone, :email, :city, :street, :state, :first_name, :last_name
 
   has_many :comments,:dependent => :destroy
-  acts_as_commentable
+  # acts_as_commentable
 
 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create

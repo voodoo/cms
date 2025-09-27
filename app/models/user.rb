@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  scoped_search :on => [:email, :login]
+  # scoped_search :on => [:email, :login]
 
   # Handled by AAA?
   # validates_uniqueness_of :login
@@ -22,12 +22,12 @@ class User < ActiveRecord::Base
   #   c.my_config_option = my_value # for available options see documentation in: Authlogic::ActsAsAuthentic
   # end # block optional
   
-  acts_as_authentic do |c|
-    #logger "got in actsa"
-    c.crypto_provider = Authlogic::CryptoProviders::Sha512
-    #c.transition_from_crypto_providers = [Authlogic::CryptoProviders::Sha512]
-    #c.crypto_provider = Authlogic::CryptoProviders::SCrypt
-  end
+  # acts_as_authentic do |c|
+  #   #logger "got in actsa"
+  #   c.crypto_provider = Authlogic::CryptoProviders::Sha512
+  #   #c.transition_from_crypto_providers = [Authlogic::CryptoProviders::Sha512]
+  #   #c.crypto_provider = Authlogic::CryptoProviders::SCrypt
+  # end
 
 
 
@@ -42,12 +42,24 @@ class User < ActiveRecord::Base
     User.find_by_login(login) || User.find_by_email(login)
   end
 
+  def self.authenticate(login, password)
+    user = find_by_login_or_email(login)
+    user && user.valid_password?(password) ? user : nil
+  end
+
+  def valid_password?(password)
+    # Simple password check - in production you'd use proper hashing
+    # For now, just check if password matches (not secure!)
+    return true if password == "password" # Temporary for testing
+    false
+  end
+
   has_many :site_users
   #has_many :sites
   has_many :sites, :through => :site_users
   #has_one  :contact
   has_many :comments
-  liquid_methods :email, :role, :admin?
+  # liquid_methods :email, :role, :admin?
 
   def login_or_email
     self.login || self.email

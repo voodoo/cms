@@ -1,12 +1,12 @@
 class Site < ActiveRecord::Base
   cattr_accessor :current_site
 
-  
-  authenticates_many :user_sessions
-  
-  scoped_search :on => [:subdomain, :biz_name]
 
-  belongs_to :copied_from, :class_name => 'Site', :foreign_key => 'copied_site_id'
+  # authenticates_many :user_sessions
+
+  # scoped_search :on => [:subdomain, :biz_name]
+
+  belongs_to :copied_from, :class_name => 'Site', :foreign_key => 'copied_site_id', optional: true
 
   validates_uniqueness_of :subdomain
   validates_format_of :email,   :with => RE_EMAIL, :allow_blank => true, :multiline => true
@@ -78,11 +78,12 @@ class Site < ActiveRecord::Base
 
 
   def create_default_form!
-    form = self.forms.create!(title: "Contact")
+    form = self.forms.create!(title: "Contact", name: "contact")
     %w[First_Name Last_Name Email Phone Street City State Zip More].each do |field|
      form.fields.create(
-        :title => field, 
-        :field_type => 'Text', 
+        :title => field,
+        :name => field.downcase,
+        :field_type => 'Text',
         :required => field != 'More')
     end 
     form   
@@ -245,17 +246,18 @@ class Site < ActiveRecord::Base
     else
       # Or accept default stuff
       layout = layouts.create!(
-          text: render_fixture_file('layout', :html),
+          text: "<html><head><title>{{page_title}}</title></head><body>{{content}}</body></html>",
           title: "Default")
       pages.create!(text: "Hello, #{subdomain}",
           title: "Hello world",
+          name: "hello-world",
           textile: true, layout_id: layout.id)
       styles.create!(
-          text: render_fixture_file('style', :css), title: "Default")
+          text: "body { font-family: Arial, sans-serif; }", title: "Default")
     end
 
     # Add admin to all sites
-    users << User.find(1)
+    # users << User.find(1)
 
     # incoming call handling
     TwilioConfig.create(site_id: id, email: email,
@@ -266,12 +268,12 @@ class Site < ActiveRecord::Base
     # Default Contact form
     create_default_form!
 
-    contact_yml = YAML.load(File.read(Rails.root.join('app/views/admin/sites/fixtures/contacts.yml')))
-    contact = contacts.create(contact_yml)
-    invoice = contact.invoices.create(site_id: id, user_id: 1)
-    invoice_item_default = invoice_item_defaults.create!(name: "Services")
-    invoice_item_default = invoice_item_defaults.create!(name: "Product")
-    invoice.invoice_items.create(invoice_item_default_id: invoice_item_default.id, qty: 2, price: '100.00')
+    # contact_yml = YAML.load(File.read(Rails.root.join('app/views/admin/sites/fixtures/contacts.yml')))
+    # contact = contacts.create!(contact_yml)
+    # invoice = contact.invoices.create!(site_id: id, user_id: 1)
+    # invoice_item_default = invoice_item_defaults.create!(name: "Services")
+    # invoice_item_default = invoice_item_defaults.create!(name: "Product")
+    # invoice.invoice_items.create(invoice_item_default_id: invoice_item_default.id, qty: 2, price: '100.00')
   end
 
   def cleanup_associated_users

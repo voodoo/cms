@@ -7,12 +7,12 @@ class Page < CmsBoot
 
   belongs_to :site
   belongs_to :layout#, :class_name => "Layout"
-  acts_as_tree :order => :position, :scope => :parent_id
-  acts_as_list# :scope => [:site, :parent]
+  # acts_as_tree :order => :position, :scope => :parent_id
+  # acts_as_list# :scope => [:site, :parent]
  
   validates_uniqueness_of :name, :scope => [:parent_id, :site_id, :type]
   validates_presence_of :name, :title
-  before_validation :create_name_from_title
+  # before_validation :create_name_from_title
   def create_name_from_title
     self.name = self.title.to_slug
   end
@@ -64,7 +64,7 @@ class Page < CmsBoot
     parent_id.nil?  
   end
   
-  liquid_methods :name, :title, :text, :children, :image, :thumb, :price, :note, :path#, :find
+  # liquid_methods :name, :title, :text, :children, :image, :thumb, :price, :note, :path#, :find
   # def to_liquid
   #     {'path' => path}
   # end

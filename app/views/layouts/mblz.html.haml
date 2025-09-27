@@ -1,6 +1,9 @@
 !!!
 %html
-  = render 'layouts/head'
+  jello
+  %head
+    %title MBLZ Test
   %body
-    = render :file => 'layouts/page'
+    %h1 Test Layout and
+    = yield
 

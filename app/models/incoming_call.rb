@@ -1,5 +1,5 @@
 class IncomingCall < ActiveRecord::Base
-  scoped_search :on => [:calling, :zip]
+  # scoped_search :on => [:calling, :zip]
   #acts_as_simply_searchable
   belongs_to :site
   belongs_to :contact
