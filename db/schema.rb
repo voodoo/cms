@@ -615,6 +615,7 @@ ActiveRecord::Schema[8.0].define(version: 2019_04_01_161715) do
     t.boolean "twilio_weekend", limit: 1, default: false
     t.boolean "active", limit: 1, default: true
     t.string "pin", limit: 4
+    t.string "password_digest"
   end
 
   create_table "versions", force: :cascade do |t|

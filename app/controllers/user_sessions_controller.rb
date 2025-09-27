@@ -14,20 +14,20 @@ class UserSessionsController < MblzController
   
   def create
 
-    @user_session = UserSession.new(params[:user_session])
+    @user_session = UserSession.new(user_session_params)
 
    
     if @user_session.save
       
-        Activity.create!(
-            user_id: current_user.id,
-            action: "login", 
-            trackable_id: current_user.id,
-            trackable_type: 'User', 
-            site_id: current_site.id, 
-            contact_id: nil, 
-            note: "#{current_user.login} logged in"
-        )
+       # Activity.create!(
+            #   user_id: current_user.id,
+            #action: "login", 
+            #trackable_id: current_user.id,
+            #trackable_type: 'User', 
+            #site_id: current_site.id, 
+            #contact_id: nil, 
+            #note: "#{current_user.login} logged in"
+        #)
 
       cookies[:login] = {
         value:   params[:user_session][:login],
@@ -51,5 +51,11 @@ class UserSessionsController < MblzController
     @user_session.destroy if @user_session
     flash[:notice] = "Successfully logged out"
     redirect_to login_path
+  end
+
+  private
+
+  def user_session_params
+    params.require(:user_session).permit(:login, :password, :remember_me)
   end
 end

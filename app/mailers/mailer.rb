@@ -7,7 +7,7 @@ class Mailer < ActionMailer::Base
   def ping title, message, request
     @message = message
     @request = request
-    mail(subject: "Notice from CMS - #{title}")
+   # mail(subject: "Notice from CMS - #{title}")
   end
 
   def form name, message, request

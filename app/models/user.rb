@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
   # scoped_search :on => [:email, :login]
 
+  has_secure_password
+
   # Handled by AAA?
-  # validates_uniqueness_of :login
-  # validates_uniqueness_of :email
+  validates_uniqueness_of :login
+  validates_uniqueness_of :email
 
 
   ROLES = {Admin: 0, Owner: 1, Manager: 3, User: 5}
@@ -44,14 +46,7 @@ class User < ActiveRecord::Base
 
   def self.authenticate(login, password)
     user = find_by_login_or_email(login)
-    user && user.valid_password?(password) ? user : nil
-  end
-
-  def valid_password?(password)
-    # Simple password check - in production you'd use proper hashing
-    # For now, just check if password matches (not secure!)
-    return true if password == "password" # Temporary for testing
-    false
+    user&.authenticate(password)
   end
 
   has_many :site_users
